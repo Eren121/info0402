@@ -1,0 +1,42 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>Rapport</title>
+	<meta name="generator" content="LibreOffice 6.0.7.3 (Linux)"/>
+	<meta name="created" content="00:00:00"/>
+	<meta name="changed" content="2019-03-16T23:39:55.260370126"/>
+	<style type="text/css">
+		pre.cjk { font-family: "DejaVu Sans Mono", monospace }
+	</style>
+</head>
+<body dir="ltr">
+<h1>Sujet 4&nbsp;: Map</h1>
+<p>Pour gérer les arbres rouges et noir, j'ai utilisé la
+bibliothèque rb_tree ((<a href="https://github.com/mirek/rb_tree">https://github.com/mirek/rb_tree</a>).
+Comme celle-ci est écrite en C, j'ai inséré avant et après les
+include guards ces morceaux de code:</p>
+<pre class="western">#ifdef __cplusplus
+extern &quot;C&quot; {
+#endif
+
+/* … */
+
+#ifdef __cplusplus
+}
+#endif</pre><p>
+<br/>
+<br/>
+
+</p>
+<p>Une <code>std::map</code> est un conteneur associatif qui stocke
+des valeurs accessibles par une clé, qui doit être unique (sauf
+pour la <code>std::multimap)</code>. A chaque clé est associé une
+ou zéro valeurs.</p>
+<p><u>Structure d’une map</u></p>
+<p style="margin-bottom: 0cm"><img src="structure_map.png" name="Image1" align="left" width="454" height="284" border="0"/>
+<br/>
+
+</p>
+</body>
+</html>
