@@ -416,7 +416,7 @@ rb_tree_size (struct rb_tree *self) {
 
 struct rb_iter *
 rb_iter_alloc () {
-    return malloc(sizeof(struct rb_iter));
+		return malloc(sizeof(struct rb_iter));
 }
 
 struct rb_iter *

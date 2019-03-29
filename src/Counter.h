@@ -18,22 +18,25 @@ public:
 
 	Counter(const Counter&);
 
+	Counter& operator=(const Counter& other) {
+		std::cout << "Assignement " << other.currentID << "->" << currentID
+				  << "(" << balance << ")" << std::endl;
+		return *this;
+	}
+
 	static void printCount();
 	static void resetCount();
+	static bool check();
 
 	void printInfo() const {
 		std::cout << "Counter n°" << currentID << std::endl;
 	}
 
-	bool operator<(const Counter& other) const {
-		return this->currentID < other.currentID;
-	}
-
 private:
-	static int balance; // -1 à chaque destruction, +1 à chaque création
-	static int count;	// Compteur de création
-	int currentID;		// count lors de la création de l'objet
-	bool trace;			// Si on doit afficher les appels des constructers / destructeurs
+	static int balance;  // -1 à chaque destruction, +1 à chaque création
+	static int count;	 // Compteur de création
+	const int currentID; // count lors de la création de l'objet
+	bool trace;			 // Si on doit afficher les appels des constructers / destructeurs
 };
 
 #endif // COUNTER_H

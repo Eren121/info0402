@@ -1,42 +1,188 @@
 #include "catch.hpp"
-#include <map>
-#include <iostream>
 #include "Map.h"
-#include <type_traits>
+#include "Counter.h"
 
-TEMPLATE_TEST_CASE("Map<K, T>", "[map]", int) {
+TEST_CASE("Counter") {
 
-	typedef TestType		Key;
-	typedef TestType		T;
-	typedef Map<Key, T>		map;
-	
-	map m;
-
-	SECTION("Map vide") {
-
-		REQUIRE(m.empty());				// Après le constructeur par défaut, la map doit être vide
-		REQUIRE(m.begin() == m.end());	// Quand la map est vide, l'itérateur de fin doi être géal à l'itérateur de début
-		REQUIRE(m.size() == 0);			// Quand la map est vide, sa taille est zéro
-		REQUIRE(m.find(3) == m.end());  // Quand la map est vide, la recherche de n'importe quel valeur doit retourner l'itérateur de fin
+	{
+		Counter a,b,c,d,e;
 	}
 
-	SECTION("Insertion") {
+	Counter::check();
+}
 
-		m.insert(m.begin(), std::make_pair(2, 2));
+TEST_CASE("Fuites mémoires", "[map]") {
+
+	{ // Destructeur
+		Map<int, Counter> map;
+
+		for(int i = 0; i < 100; i++) {
+			map[i].printCount();
+		}
+	}
+
+	bool ok = Counter::check();
+	REQUIRE(ok);
+
+	{ // Clear
+		Map<int, Counter> map;
+
+		for(int i = -1; i < 5; i += 11) {
+			map.insert({i, Counter()});
+			map[i+3] = map[i];
+			map[i] = map[i-1];
+			map.erase(i / 2);
+		}
+
+		map.clear();
+
+		bool ok = Counter::check();
+		REQUIRE(ok);
+	}
+}
+
+
+TEMPLATE_TEST_CASE("All map methods", "[map]", int) {
+
+	typedef TestType Key;
+	typedef TestType T;
+	typedef Map<Key, T> map;
+	typedef typename map::iterator iterator;
+	typedef typename map::value_type value_type;
+	map m;
+
+
+	SECTION("begin") {
+
+		REQUIRE(m.begin() == m.end());	// Quand la map est vide, l'itérateur de fin doi être égal à l'itérateur de début
+
+		m.insert(std::make_pair(0, 10));
+		m.insert(std::make_pair(1, 10));
+		m.insert(std::make_pair(2, 20));
+
+		iterator it = m.begin();
+		REQUIRE(it != m.end());
+		REQUIRE(*it == std::pair<const int, int>(0, 10));
+		++it;
+		REQUIRE(it != m.end());
+		REQUIRE(*it == std::pair<const int, int>(1, 10));
+		++it;
+		REQUIRE(it != m.end());
+		REQUIRE(*it == std::pair<const int, int>(2, 20));
+		++it;
+		REQUIRE(it == m.end());
+
+	}
+
+	SECTION("insert") {
+
+		std::pair<iterator, bool> pair
+			 = m.insert(std::make_pair(0, 10));
+
+		REQUIRE((*pair.first == std::pair<const int, int>(0, 10) && pair.second == false));
+
+		pair = m.insert(std::make_pair(1, 10));
+
+		REQUIRE((*pair.first == std::pair<const int, int>(1, 10) && pair.second == false));
+
+		pair = m.insert(std::make_pair(2, 20));
+
+		REQUIRE((*pair.first == std::pair<const int, int>(2, 20) && pair.second == false));
+
+		auto pair2 = m.insert(std::make_pair(2, 20));
+		REQUIRE((pair2.first == pair.first && pair2.second == true));
+
+		auto pair3 = m.insert(std::make_pair(2, 30));
+		REQUIRE((pair3.first == pair.first && pair3.second == true));
+	}
+
+	SECTION("operator[]") {
+
+		m[-1] = 1;
+		m[100] = 2;
+		m[1000] = 3;
+
+		REQUIRE(m.size() == 3);
+
+		iterator it = m.begin();
+		REQUIRE(*it == std::pair<const int, int>(-1, 1));
+		++it;
+		REQUIRE(*it == std::pair<const int, int>(100, 2));
+		++it;
+		REQUIRE(*it == std::pair<const int, int>(1000, 3));
+
+		m[1000] = 10;
+		REQUIRE(m.size() == 3);
+		REQUIRE(it->second == 10);
+	}
+
+	SECTION("size") {
+
+		REQUIRE(m.size() == 0);			// Quand la map est vide, sa taille est zéro
+
+		m.insert(std::make_pair(0, 10));
+		REQUIRE(m.size() == 1);
+		m.insert(std::make_pair(2, 20));
+		REQUIRE(m.size() == 2);
+		m.insert(std::make_pair(4, 30));
+		REQUIRE(m.size() == 3);
+		m.insert(std::make_pair(0, 10));
+		REQUIRE(m.size() == 3);
+	}
+
+	SECTION("empty") {
+
+		REQUIRE(m.empty());				// Après le constructeur par défaut, la map doit être vide
+
+		m.insert(std::make_pair(0, 10));
+		m.insert(std::make_pair(2, 20));
+		m.insert(std::make_pair(4, 30));
+		REQUIRE(!m.empty());
+	}
+
+	SECTION("clear") {
+
+		m.clear(); // Il ne doit rien se passer après avoir vidé une map vide
+		REQUIRE(m.empty());
+
+		m.insert(std::make_pair(0, 10));
+		m.insert(std::make_pair(2, 20));
+		m.insert(std::make_pair(4, 30));
+		m.clear();
+		REQUIRE(m.empty());
+
+	}
+
+	SECTION("find") {
+
+		REQUIRE(m.find(3) == m.end());  // Quand la map est vide, la recherche de n'importe quel valeur doit retourner l'itérateur de fin
+
+		m[0] = 10;
+		m[100] = -3;
+
+		iterator it = m.find(0);
+		REQUIRE(it != m.end());
+		REQUIRE(*it == value_type(0, 10));
+
+		for(int i = 20; i < 105; i += 5) {
+			it = m.find(i);
+			if(i == 100) {
+				REQUIRE(it != m.end());
+				REQUIRE(*it == value_type(100, -3));
+			}
+			else {
+				REQUIRE(it == m.end());
+			}
+		}
 	}
 
 	SECTION("lower_bound") {
-
 
 		REQUIRE(m.lower_bound(2) == m.end());
 
 		m.insert(std::make_pair(0, 10));
 		m.insert(std::make_pair(2, 20));
 		m.insert(std::make_pair(4, 30));
-		REQUIRE(m.size() == 3);
-		REQUIRE(!m.empty());
-
-		std::cout << m.lower_bound(0)->first << std::endl;
 
 		REQUIRE(*m.lower_bound(0) == typename decltype(m)::value_type(0, 10));
 		REQUIRE(*m.lower_bound(1) == typename decltype(m)::value_type(2, 20));
@@ -70,5 +216,55 @@ TEMPLATE_TEST_CASE("Map<K, T>", "[map]", int) {
 		REQUIRE(m.count(1) == 0);
 		REQUIRE(m.count(2) == 1);
 	
+	}
+
+	SECTION("at") {
+
+		REQUIRE_THROWS_AS(m.at(0), std::out_of_range);
+	}
+
+	SECTION("Une map est toujours triée") {
+
+		{
+			m.insert(std::make_pair(0, 10));
+			m.insert(std::make_pair(2, 20));
+			m.insert(std::make_pair(4, 30));
+			auto it = m.begin();
+
+			REQUIRE(*it == std::pair<const int, int>(0, 10));
+			++it;
+			REQUIRE(*it == std::pair<const int, int>(2, 20));
+			++it;
+			REQUIRE(*it == std::pair<const int, int>(4, 30));
+		}
+
+		{
+			m.clear();
+			m.insert(std::make_pair(2, 20));
+			m.insert(std::make_pair(0, 10));
+			m.insert(std::make_pair(4, 30));
+			auto it = m.begin();
+
+			REQUIRE(*it == std::pair<const int, int>(0, 10));
+			++it;
+			REQUIRE(*it == std::pair<const int, int>(2, 20));
+			++it;
+			REQUIRE(*it == std::pair<const int, int>(4, 30));
+		}
+
+
+		{
+			m.clear();
+			m.insert(std::make_pair(2, 20));
+			m.insert(std::make_pair(0, 10));
+			m.insert(std::make_pair(4, 30));
+
+			m.erase(2);
+			auto it = m.begin();
+
+			REQUIRE(*it == std::pair<const int, int>(0, 10));
+			++it;
+			REQUIRE(*it == std::pair<const int, int>(4, 30));
+		}
 	}
 }

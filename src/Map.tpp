@@ -1,9 +1,22 @@
 #include "Map.h"
+
 template<typename Key,
 		 typename T>
 Map<Key, T>::Map() :
 	tree(rb_tree_create(comparator)) {
+}
 
+
+template<typename Key,
+		 typename T>
+auto Map<Key, T>::at(const Map::key_type &key)
+-> mapped_type& {
+	iterator it = lower_bound(key);
+	if(it == end() || key < it->first) {
+		throw std::out_of_range("Aucune valeur trouvée");
+	}
+
+	return it->second;
 }
 
 /*template<typename Key,
@@ -25,8 +38,7 @@ template<typename Key,
 auto
 Map<Key, T>::erase(const key_type& t)
 -> size_type {
-
-	int n = rb_tree_remove_with_cb(tree, &t, remover);
+	int n = rb_tree_remove_with_cb(tree, const_cast<key_type*>(&t), remover);
 
 	if(n == 1) {
 
@@ -41,8 +53,8 @@ Map<Key, T>::erase(const key_type& t)
 template<typename Key,
 		 typename T>
 Map<Key, T>::~Map() {
-
 	rb_tree_dealloc(tree, remover);
+	tree = nullptr;
 }
 
 template<typename Key,
@@ -50,7 +62,6 @@ template<typename Key,
 auto
 Map<Key, T>::begin()
 -> iterator {
-
 	return iterator(*this, iterator::begin);
 }
 
@@ -59,7 +70,6 @@ template<typename Key,
 auto
 Map<Key, T>::end()
 -> iterator {
-
 	return iterator(*this, iterator::end);
 }
 
@@ -82,126 +92,141 @@ template<typename Key,
 		 typename T>
 auto Map<Key, T>::find(const key_type &key)
 -> iterator {
-
-	///TODO dichotomie
-
-	for(auto it = begin(); it != end(); ++it) {
-		if(!(it->first < key) && !(key < it->first))
-			return it;
+	iterator it = lower_bound(key), e = end();
+	if(it == e || key < it->first) {
+		return e;
 	}
 
-	return end();
+	return it;
 }
 
 template<typename Key, typename T>
 auto Map<Key, T>::insert(const value_type &val)
 -> std::pair<iterator, bool> {
+	iterator it = lower_bound(val.first);
 
-	iterator it = find(val.first);
+	if(it != end() && !(val.first < it->first)) {
+		return std::make_pair(it, true);
 
-	if(it == end()) {
+	} else {
 
 		// On insère dans la map une copie de la std::pair
 		rb_node* node = rb_node_create(new value_type(val));
 
 		if(!rb_tree_insert_node(tree, node)) {
 
-			throw new std::exception();
+			throw new std::bad_alloc();
 		}
 
 		return std::make_pair(find(val.first), false);
 	}
-	else
-		return std::make_pair(it, true);
 }
 
 template<typename Key,
 		 typename T>
 auto Map<Key, T>::insert(iterator hint, const Map::value_type& value)
--> iterator
-{
-	if(hint == begin())
-		return end();
+-> iterator {
+	// 1 2 3 4 5
+	// ^ cas 1: hint est sur begin()
 
-	// Pour que l'insertion soit possible,
-	// Soit hint vaut end(),
-	// Soit hint pointe vers un élément de clé supérieure à la clé de value
+	// 1 2 3 4 5
+	//           ^ cas 2: hint est sur end()
 
-	/// TODO...
+	// 1 2 3 4 5
+	//     ^ cas 3: hint est entre begin() et end()
 
-	if(value.first < hint->first) {
+	iterator e = end();
+	iterator b = begin();
 
-		iterator it(hint);
-		--it;
+	if(hint == e) {
 
-		if(it->first < value.first) {
+		if(empty()) {
 
+		}
+		else {
+			--hint;
+			if(hint->first < value.first) {
+
+			}
+		}
+	}
+	else if(hint == b) {
+		if(value.first < hint->first) {
+
+		}
+	}
+	else {
+		iterator prev = hint;
+		--prev;
+
+		if(prev->first < value.first && value.first < hint->first) {
 
 		}
 	}
 
-	//return it;
+	// Insertion non optimisée
+	//...
 }
 
-template<typename Key,
-		 typename T>
-auto Map<Key, T>::at(const Map::key_type &key) -> mapped_type& {
+template<typename Key, typename T>
+void Map<Key, T>::clear() noexcept {
+	rb_tree_dealloc(tree, remover);
+	tree = nullptr;
 
-	///TODO dichotomie
-
-	for(auto it = begin(); it != end(); ++it) {
-		if(!(it->first < key) && !(key < it->first))
-			return it->second;
-	}
-
-	throw std::out_of_range("Aucune valeur trouvée");
+	tree = rb_tree_create(comparator);
 }
 
 template<typename Key,
 		 typename T>
 auto Map<Key, T>::lower_bound(const key_type& key)
 -> iterator {
-
 	///TODO dichotomie
+	iterator e = end();
 
-	for(auto it = begin(); it != end(); ++it) {
+	for(iterator it = begin(); it != e; ++it) {
 		if(!(it->first < key)) {
 			return it;
 		}
 	}
 
-	return end();
+	return e;
 }
 
 template<typename Key,
 		 typename T>
 auto Map<Key, T>::upper_bound(const key_type& key)
 -> iterator {
+	iterator it = lower_bound(key), e = end();
 
-	///TODO dichotomie
+	while(it != e && !(key < it->first))
+		++it;
 
-	for(auto it = begin(); it != end(); ++it) {
-		if(key < it->first) {
-			return it;
-		}
-	}
-
-	return end();
+	return it;
 }
 
 template<typename Key,
 		 typename T>
 auto Map<Key, T>::count(const key_type& key)
 -> size_type {
-
-	///TODO dichotomie
+	iterator it = lower_bound(key), e = end();
 	int c = 0;
 
-	for(auto it = begin(); it != end(); ++it) {
-		if(!(key < it->first) &&) {
-			return it;
-		}
+	while(it != e && !(key < it->first)) {
+		++c;
+		++it;
 	}
 
 	return c;
+}
+
+template<typename Key, typename T>
+auto Map<Key, T>::operator[](const key_type &key)
+-> mapped_type& {
+	iterator it = lower_bound(key);
+
+	if(it == end() || key < it->first) {
+		it = insert(value_type(key, T(10))).first;
+	}
+
+	return it->second;
 }

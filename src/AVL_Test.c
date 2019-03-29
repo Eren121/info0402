@@ -1,7 +1,7 @@
 #include "AVL_Tree.h"
 #include <time.h>
 #include <stdlib.h>
-
+/*
 int main()
 {
 	AVL_TREE* tree = CreateAVL();
@@ -21,4 +21,4 @@ int main()
 	AfficherAVL(tree);
 	DestroyAVL(tree);
 	return 0;
-}
+}*/

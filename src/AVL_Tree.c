@@ -317,6 +317,7 @@ void AfficherAVL(AVL_TREE* arbre)
 	if(arbre == NULL)
 	{
 		printf("Erreur (AfficherAVL): arbre non alloué");
+		return;
 	}
 
 	if(arbre->root != NULL)
