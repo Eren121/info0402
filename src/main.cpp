@@ -1,3 +1,4 @@
+#include <map>
 #include "catch.hpp"
 #include "Map.h"
 #include "Counter.h"
@@ -11,13 +12,15 @@ TEST_CASE("Counter") {
 	Counter::check();
 }
 
-TEST_CASE("Fuites mémoires", "[map]") {
+TEMPLATE_PRODUCT_TEST_CASE("Fuites mémoires", "[map]", (std::map, Map), ((int, Counter))) {
+
+	typedef TestType Container;
 
 	{ // Destructeur
-		Map<int, Counter> map;
+		Container map;
 
 		for(int i = 0; i < 100; i++) {
-			map[i].printCount();
+			map[i] = Counter();
 		}
 	}
 
@@ -25,9 +28,9 @@ TEST_CASE("Fuites mémoires", "[map]") {
 	REQUIRE(ok);
 
 	{ // Clear
-		Map<int, Counter> map;
+		Container map;
 
-		for(int i = -1; i < 5; i += 11) {
+		for(int i = -20; i < 100; i += 11) {
 			map.insert({i, Counter()});
 			map[i+3] = map[i];
 			map[i] = map[i-1];
@@ -41,15 +44,14 @@ TEST_CASE("Fuites mémoires", "[map]") {
 	}
 }
 
+TEMPLATE_PRODUCT_TEST_CASE("All map methods", "[map]", (std::map, Map), ((int, int))) {
 
-TEMPLATE_TEST_CASE("All map methods", "[map]", int) {
-
-	typedef TestType Key;
-	typedef TestType T;
-	typedef Map<Key, T> map;
-	typedef typename map::iterator iterator;
-	typedef typename map::value_type value_type;
-	map m;
+	typedef TestType Container;
+	typedef typename Container::iterator iterator;
+	typedef typename Container::value_type value_type;
+	typedef typename Container::key_type Key;
+	typedef typename Container::mapped_type T;
+	Container m;
 
 
 	SECTION("begin") {
@@ -76,24 +78,29 @@ TEMPLATE_TEST_CASE("All map methods", "[map]", int) {
 
 	SECTION("insert") {
 
-		std::pair<iterator, bool> pair
-			 = m.insert(std::make_pair(0, 10));
+		const std::pair<const Key, T>& value = std::make_pair(0, 10);
+		std::pair<iterator, bool> pair = m.insert(value);
 
-		REQUIRE((*pair.first == std::pair<const int, int>(0, 10) && pair.second == false));
+		REQUIRE(*pair.first == std::pair<const int, int>(0, 10));
+		REQUIRE(pair.second == true);
 
 		pair = m.insert(std::make_pair(1, 10));
 
-		REQUIRE((*pair.first == std::pair<const int, int>(1, 10) && pair.second == false));
+		REQUIRE(*pair.first == std::pair<const int, int>(1, 10));
+		REQUIRE(pair.second == true);
 
 		pair = m.insert(std::make_pair(2, 20));
 
-		REQUIRE((*pair.first == std::pair<const int, int>(2, 20) && pair.second == false));
+		REQUIRE(*pair.first == std::pair<const int, int>(2, 20));
+		REQUIRE(pair.second == true);
 
 		auto pair2 = m.insert(std::make_pair(2, 20));
-		REQUIRE((pair2.first == pair.first && pair2.second == true));
+		REQUIRE(pair2.first == pair.first);
+		REQUIRE(pair2.second == false);
 
 		auto pair3 = m.insert(std::make_pair(2, 30));
-		REQUIRE((pair3.first == pair.first && pair3.second == true));
+		REQUIRE(pair3.first == pair.first);
+		REQUIRE(pair3.second == false);
 	}
 
 	SECTION("operator[]") {

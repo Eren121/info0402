@@ -139,6 +139,7 @@ public:
 	iterator insert(iterator hint, const value_type& value);
 
 	std::pair<iterator, bool> insert(const value_type& val);
+	std::pair<iterator, bool> insert(value_type&& val, int);
 
 	//***emplace
 	//***emplace_hint
@@ -179,6 +180,8 @@ public:
 	///
 
 private:
+
+	iterator insert(value_type* value);
 
 	static int comparator(rb_tree*, rb_node* nodeA, rb_node* nodeB) {
 

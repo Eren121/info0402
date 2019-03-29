@@ -100,13 +100,39 @@ auto Map<Key, T>::find(const key_type &key)
 	return it;
 }
 
-template<typename Key, typename T>
+#include <iostream>
+
+template<typename Key,
+		 typename T>
+auto Map<Key, T>::insert(value_type &&val, int)
+-> std::pair<iterator, bool> {
+	iterator it = lower_bound(val.first);
+
+	if(it != end() && !(val.first < it->first)) {
+		return std::make_pair(it, false);
+
+	} else {
+
+		// On insère dans la map une copie de la std::pair
+		rb_node* node = rb_node_create(new value_type(std::move(val)));
+
+		if(!rb_tree_insert_node(tree, node)) {
+
+			throw new std::bad_alloc();
+		}
+
+		return std::make_pair(find(val.first), true);
+	}
+}
+
+template<typename Key,
+		 typename T>
 auto Map<Key, T>::insert(const value_type &val)
 -> std::pair<iterator, bool> {
 	iterator it = lower_bound(val.first);
 
 	if(it != end() && !(val.first < it->first)) {
-		return std::make_pair(it, true);
+		return std::make_pair(it, false);
 
 	} else {
 
@@ -118,7 +144,7 @@ auto Map<Key, T>::insert(const value_type &val)
 			throw new std::bad_alloc();
 		}
 
-		return std::make_pair(find(val.first), false);
+		return std::make_pair(find(val.first), true);
 	}
 }
 
@@ -204,6 +230,31 @@ auto Map<Key, T>::upper_bound(const key_type& key)
 	return it;
 }
 
+template<typename Key, typename T>
+typename Map<Key, T>::iterator
+Map<Key, T>::insert(value_type *value) {
+	iterator it = lower_bound(value->first);
+
+	if(value == nullptr)
+		throw new std::bad_alloc();
+
+	if(it != end() && !(value->first < it->first)) {
+		return it;
+
+	} else {
+
+		// On insère dans la map une copie de la std::pair
+		rb_node* node = rb_node_create(value);
+
+		if(!rb_tree_insert_node(tree, node)) {
+
+			throw new std::bad_alloc();
+		}
+
+		return find(value->first);
+	}
+}
+
 template<typename Key,
 		 typename T>
 auto Map<Key, T>::count(const key_type& key)
@@ -225,7 +276,7 @@ auto Map<Key, T>::operator[](const key_type &key)
 	iterator it = lower_bound(key);
 
 	if(it == end() || key < it->first) {
-		it = insert(value_type(key, T(10))).first;
+		return insert(new value_type(std::piecewise_construct, std::tuple<const key_type&>(key), std::tuple<>()))->second;
 	}
 
 	return it->second;
