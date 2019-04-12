@@ -1,5 +1,5 @@
 #include <map>
-#include "catch.hpp"
+#include "catch/catch.hpp"
 
 TEST_CASE("S'il y a plusieurs valeurs pour la clé, "
 		  "find doit retourner un itérateur vers le premier elément inséré",
