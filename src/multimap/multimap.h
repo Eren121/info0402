@@ -210,6 +210,7 @@ public:
 				(*cur)->last = tmp;
 			}
 		}
+
 	}
 	bool empty() const {
 		return !root;
