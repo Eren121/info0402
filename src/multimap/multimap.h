@@ -14,12 +14,11 @@ template<class Key,
 		 class Compare = std::less<Key>>
 class multimap_iterator {
 private:
-	typedef multimap<Key, Value, Compare> container;
-	typedef typename container::Node Node;
-	typedef typename container::SingleNode SingleNode;
-	typedef typename container::value_type Pair;
+	typedef multimap<Key, Value, Compare>	container;
+	typedef typename container::Node		Node;
+	typedef typename container::SingleNode	SingleNode;
+	typedef typename container::value_type	Pair;
 	friend class multimap<Key, Value, Compare>;
-	container& source;
 	Node* current;
 	SingleNode* single;
 public:

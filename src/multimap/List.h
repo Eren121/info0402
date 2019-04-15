@@ -22,8 +22,9 @@ public:
 	ListNode* prev() { return m_prev; }
 
 private:
-	ListNode(const T& t, ListNode* previousNode) :
-		m_data(t),
+	template<typename U>
+	ListNode(U&& t, ListNode* previousNode) :
+		m_data(std::forward<U>(t)),
 		m_prev(previousNode),
 		m_next(nullptr) {
 
@@ -138,5 +139,8 @@ bool equals(const List<T>& list, const std::initializer_list<T>& array) {
 
 	return node == nullptr;
 }
+
+template class List<int>;
+template class ListNode<int>;
 
 #endif // LIST_H

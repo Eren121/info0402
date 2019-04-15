@@ -1,21 +1,16 @@
-#define OWN_MAIN 0
+#include "multimap/BSTree.h"
+#include "Defines.h"
 
 #if OWN_MAIN
-	#define CATCH_CONFIG_RUNNER
-#else
-	#define CATCH_CONFIG_MAIN
-#endif
 
-#include <catch/catch.hpp>
+#include <iostream>
+#include <stdlib.h>
 
-#if OWN_MAIN
-	#include <iostream>
+using namespace std;
 
-	using namespace std;
+int main(int argc, char* argv[]) {
 
-	int main(int argc, char* argv[]) {
+	return 0;
+}
 
-		cout << "ok" << endl;
-		return 0;
-	}
 #endif

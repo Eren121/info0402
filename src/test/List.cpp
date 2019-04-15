@@ -28,4 +28,7 @@ TEST_CASE("List") {
 	list.push_back(30);
 	REQUIRE(list.front()->next()->next() == list.back());
 	REQUIRE(list.back()->prev()->prev() == list.front());
+
+	int i = 0;
+	list.push_back(i);
 }
