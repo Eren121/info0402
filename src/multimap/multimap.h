@@ -1,8 +1,18 @@
 #ifndef MULTIMAP_H
 #define MULTIMAP_H
 
+#include <iostream>
 #include <functional> // less
 #include <utility> // pair
+#include "List.h"
+#include "BSTree.h"
+
+template<typename U, typename V>
+std::ostream& operator<<(std::ostream& lhs, const std::pair<U, V>& pair) {
+
+	lhs << "{" << pair.first << "," << pair.second << "}";
+	return lhs;
+}
 
 template<class Key,
 		 class Value,
@@ -19,48 +29,187 @@ private:
 	typedef typename container::SingleNode	SingleNode;
 	typedef typename container::value_type	Pair;
 	friend class multimap<Key, Value, Compare>;
+
+	enum Position {
+		FRONT, BACK
+	};
+
+	enum ChildPosition {
+		LEFT, RIGHT
+	};
+
+	multimap_iterator child(ChildPosition pos) const {
+		multimap_iterator res;
+
+		switch(pos) {
+
+			case LEFT:
+
+				if(current->has_left())
+					res = multimap_iterator(*source, *current->left());
+				else
+					res = multimap_iterator(*source);
+				break;
+
+			case RIGHT:
+
+				if(current->has_right())
+					res = multimap_iterator(*source, *current->right());
+				else
+					res = multimap_iterator(*source);
+				break;
+		}
+
+		return res;
+	}
+
+	template<typename U>
+	multimap_iterator insert(U&& t, ChildPosition pos) {
+		multimap_iterator ret;
+
+		switch(pos) {
+
+			case LEFT:
+				current->insert_left(List<Pair>());
+				ret = multimap_iterator(*source, *current->left(), std::forward<U>(t));
+				break;
+
+			case RIGHT:
+				current->insert_right(List<Pair>());
+				ret = multimap_iterator(*source, *current->right(), std::forward<U>(t));
+				break;
+		}
+
+		return ret;
+	}
+
+	template<typename U>
+	multimap_iterator push_back(U&& t) {
+		current->data().push_back(std::forward<U>(t));
+		return multimap_iterator(*source, *current, BACK);
+	}
+
+	container* source;
 	Node* current;
 	SingleNode* single;
+
 public:
-	multimap_iterator(container& m) : multimap_iterator(m, nullptr, nullptr) {}
-	multimap_iterator(container& m, Node* node, SingleNode* s) : source(m), current(node), single(s) {}
+	// Construit un itérateur invalide dont la seule action valide est de l'assigner à un autre itérateur
+	multimap_iterator() :
+		source(nullptr),
+		current(nullptr),
+		single(nullptr)
+	{}
+	multimap_iterator(container& m) :
+		source(&m),
+		current(nullptr),
+		single(nullptr)
+	{}
+
+	multimap_iterator(container& m, Node& node, SingleNode& s) :
+		source(&m),
+		current(&node),
+		single(&s)
+	{}
+
+	multimap_iterator(container &m, Node& node, Position pos = FRONT) :
+		source(&m),
+		current(&node),
+		single(nullptr) {
+		switch(pos) {
+			case FRONT:
+				single = node.data().front();
+				break;
+			case BACK:
+				single = node.data().back();
+			break;
+		}
+	}
+
+	template<typename U>
+	multimap_iterator(container &m, Node& node, U&& t) :
+		source(&m),
+		current(&node),
+		single(nullptr) {
+		current->data().push_back(std::forward<U>(t));
+		single = current->data().front();
+	}
+
+	multimap_iterator(const multimap_iterator& o) :
+		source(o.source),
+		current(o.current),
+		single(o.single)
+	{}
+
+	const Key& key() const {
+		return single->data().first;
+	}
+
 	Pair& operator*() const {
 		if(!current || !single) {
 			throw std::logic_error("cannot dereference end() iterator");
 		}
-		return single->value;
+		return single->data();
 	}
+
+	Pair* operator->() const {
+		return &this->operator *();
+	}
+
 	multimap_iterator& operator++() {
 		if(!current || !single) {
-			throw std::logic_error("cannot dereference end() iterator");
+			throw std::logic_error("cannot decrement end() iterator");
 		}
-		if(single->next) {
-			single = single->next;
+		if(!single->is_last()) {
+			single = single->next();
 		}
 		else {
-			if(current->right) {
-				current = current->right;
-				while(current->left) {
-					current = current->left;
-				}
+			current = current->next();
+
+			if(current) {
+				single = current->data().front();
 			}
 			else {
-				while(current->parent && current->parent->right == current) {
-					current = current->parent;
-				}
-				current = current->parent;
-				if(current) {
-					single = current->first;
-				}
-				else {
-					single = nullptr;
-				}
+				single = nullptr;
 			}
 		}
 		return *this;
 	}
+
+	multimap_iterator& operator--() {
+		if(!current) { // --end()
+			current = source->tree.back();
+			single = current->data().back();
+		}
+		else {
+			if(single->is_first()) {
+				current = current->prev();
+				single  = current->data().back();
+			}
+			else {
+				single = single->prev();
+			}
+		}
+		return *this;
+	}
+
+	multimap_iterator& operator=(const multimap_iterator& o) {
+
+		if(this != &o) {
+			source = o.source;
+			current = o.current;
+			single = o.single;
+		}
+
+		return *this;
+	}
+
 	bool operator==(const multimap_iterator& o) {
-		return &o.source == &source && current == o.current && single == o.single;
+		return source == o.source && current == o.current && single == o.single;
+	}
+
+	bool operator!=(const multimap_iterator& o) {
+		return !(*this == o);
 	}
 };
 
@@ -68,152 +217,154 @@ template<class Key,
 		 class Value,
 		 class Compare>
 class multimap {
-private:
-	struct Node;
 public:
 	/// Ordre des déclarations (alias/prototypes)
 	/// Selon https://en.cppreference.com/w/cpp/container/multimap
 	/// Trié par surcharge, dans l'ordre aussi
 	/// Mis à part structure interne
-	typedef Key								key_type;
-	typedef Value							mapped_type;
-	typedef std::pair<const Key, Value>		value_type;
-	typedef std::size_t						size_type;
-	typedef std::ptrdiff_t					difference_type;
-	typedef Compare							key_compare;
-	typedef Value&							reference;
-	typedef const Value&					const_reference;
-	typedef Value*							pointer;
-	typedef const Value*					const_pointer;
-	typedef multimap_iterator<Key, Value, Compare> iterator;
-	typedef Node							node_type;
+	typedef Key										key_type;
+	typedef Value									mapped_type;
+	typedef std::pair<const Key, Value>				value_type;
+	typedef std::size_t								size_type;
+	typedef std::ptrdiff_t							difference_type;
+	typedef Compare									key_compare;
+	typedef Value&									reference;
+	typedef const Value&							const_reference;
+	typedef Value*									pointer;
+	typedef const Value*							const_pointer;
+	typedef multimap_iterator<Key, Value, Compare>	iterator;
+
 	friend class multimap_iterator<Key, Value, Compare>;
 
 private:
-	// Structure interne
-	struct SingleNode {
-		SingleNode *next, *prev;
-		value_type value;
-		SingleNode(const value_type& v) : next(nullptr), prev(nullptr), value(v) {}
-	};
-	struct Node {
-		Node *parent, *right, *left;
-		SingleNode *first, *last;
-		Node(const value_type& value) : parent(nullptr), right(nullptr), left(nullptr), first(new SingleNode(value)), last(first) {}
-		~Node() {
-			for(SingleNode* cur = first; cur != nullptr; cur = cur->next) {
-				delete cur;
-			}
-		}
-	};
+	typedef	BSTree<List<value_type>>				Tree;
+	typedef typename Tree::Node						Node;
+	typedef typename List<value_type>::Node			SingleNode;
+
 	Compare comp;
-	Node* root;
+	Tree tree;
+
 public:
-	multimap() : comp(), root(nullptr) {}
+	multimap() : comp(), tree() {}
 	iterator begin() {
-		return root ? iterator(*this, root, root->first) : end();
+		return tree.empty() ? end() : iterator(*this, *tree.front(), iterator::FRONT);
 	}
 	iterator end() {
 		return iterator(*this);
 	}
+
 	iterator lower_bound(const Key& key) {
-		Node* last_greather = nullptr;
-		Node* cur = root;
-		while(cur) {
-			if(comp(cur->first->value.first, key)) {
-				cur = cur->right;
-			}
-			else {
-				last_greather = cur;
-				cur = cur->left;
-			}
-		}
-		cur = last_greather;
-		return cur ? iterator(*this, cur, cur->first) : end();
-	}
-	iterator insert(iterator hint, const value_type& pair) {
-		iterator prev = hint;
-		iterator e = end();
-		if(hint == e) {
-			if(empty()) {
-				root = new Node(pair);
-			}
-			else {
-				--prev;
-				if(comp(prev->first, pair->first)) {
-					insert(pair);//bad hint
-				}
-				else {
-					if(hint.current->fg) {
-						prev.current->fd = new Node(pair);
-						prev.current->fd->parent = prev.current;
-					}
-					else {
-						hint.current->fg = new Node(pair);
-						hint.current->fg->parent = hint.current;
-					}
-				}
-			}
-		}
-		else  {
-			if(comp(hint->first, pair.first)) {
-				--prev;
-				if(prev == e) {
-					hint.current->fg = new Node(pair);
-					hint.current->fg->parent = hint.current;
-				}
-				else if(comp(pair.first, prev->first)) {
-					insert(pair);//bad hint
-				}
-				else if(comp(prev->first, pair.first)) {
-					Node* tmp = new Node(pair);
-					if(!prev.current->left) {
-						tmp->parent = prev.current;
-						prev.current->left = tmp;
-					}
-					else {
-						iterator prev2 = prev; --prev2;
-						tmp->parent = prev2.current;
-						prev2.current->right = tmp;
-					}
-				}
-				else {
-					SingleNode* tmp = new SingleNode(pair);
-					tmp->prev = prev.current->last;
-					tmp->prev->next = tmp;
-					prev.current->last = tmp;
-					if(!tmp->prev) {
-						prev.current->first = tmp;
-					}
-				}
-			}
-			else {
-				insert(pair);//bad hint
-			}
-		}
-	}
-	iterator insert(const value_type& pair) {
-		Node** cur = &root;
 
-		while(cur) {
-			if(comp(pair.first, (*cur)->first->value.first)) {
-				cur = &(*cur)->right;
-			}
-			else if(comp((*cur)->first->value.first, pair.first)) {
-				cur = &(*cur)->left;
+		iterator last_not_less = end();
+		iterator it = begin();
+
+		while(it != end()) {
+
+			if(comp(it->first, key)) {
+				it = it.child(iterator::RIGHT);
 			}
 			else {
-				SingleNode* tmp = new SingleNode(pair);
-				tmp->prev = (*cur)->last;
-				tmp->prev->next = tmp;
-				(*cur)->last = tmp;
+				last_not_less = it;
+				it = it.child(iterator::LEFT);
 			}
 		}
 
+		return last_not_less;
 	}
+
+	iterator insert(value_type&& pair) {
+		return insert<value_type&&>(std::move(pair));
+	}
+
+	template<typename U>
+	iterator insert(U&& pair) {
+
+		iterator it, e = end(), tmp = end(), res = end();
+
+		if(empty()) {
+
+			tree.create_root(List<value_type>());
+			res = iterator(*this, *tree.root(), std::forward<U>(pair));
+		}
+		else {
+
+			it = iterator(*this, *tree.root());
+
+			while(it != e) {
+
+				tmp = it;
+
+				if(comp(pair.first, it->first)) {
+
+					it = it.child(iterator::LEFT);
+					if(it == e) {
+						res = tmp.insert(std::forward<U>(pair), iterator::LEFT);
+						break;
+					}
+				}
+				else if(comp(it->first, pair.first)) {
+
+					it = it.child(iterator::RIGHT);
+					if(it == e) {
+						res = tmp.insert(std::forward<U>(pair), iterator::RIGHT);
+						break;
+					}
+				}
+				else {
+					res = tmp.push_back(std::forward<U>(pair));
+					break;
+				}
+			}
+		}
+
+		return res;
+	}
+
 	bool empty() const {
-		return !root;
+		return tree.empty();
+	}
+
+	size_type size() const {
+		return static_cast<size_type>(tree.size());
+	}
+
+	bool equals(const std::initializer_list<value_type>& il) {
+		iterator it = begin(), e = end();
+
+		for(value_type pair : il) {
+
+			if(it == e || *it != pair) {
+				break;
+			}
+
+			++it;
+		}
+
+		return it == e;
+	}
+
+	void dump() const {
+
+		iterator it = const_cast<multimap*>(this)->begin();
+		iterator e = const_cast<multimap*>(this)->end();
+
+		std::cout << "Infixe: ";
+
+		while(it != e) {
+			std::cout << *it;
+			++it;
+
+			if(it != e) {
+				std::cout << ", ";
+			}
+		}
+
+		std::cout << std::endl;
+		std::cout << "Arbre:" << std::endl;
+		std::cout << tree << std::endl;
 	}
 };
+
+template class multimap<int, int>;
 
 #endif // MULTIMAP_H

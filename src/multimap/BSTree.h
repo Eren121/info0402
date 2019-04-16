@@ -19,6 +19,13 @@ template<typename T>
 class BSTreeNode {
 public:
 
+	std::size_t size() const {
+		int res = 1;
+		if(m_left) res += m_left->size();
+		if(m_right) res += m_right->size();
+		return res;
+	}
+
 	bool is_root() const { return m_parent == nullptr; }
 	bool is_leaf() const { return m_left == nullptr && m_right == nullptr; }
 	bool has_left() const { return m_left != nullptr; }
@@ -201,18 +208,32 @@ public:
 		return *this;
 	}
 
+	std::size_t size() const {
+
+		if(m_root) return m_root->size();
+		else return 0;
+	}
+
 	bool empty() const { return m_root == nullptr; }
 	int height() const { return m_root != nullptr ? m_root->height() : 0; }
-	Node* operator*() { return m_root; }
-	const Node* operator*() const { return m_root; }
+	Node& operator*() { return *m_root; }
+	const Node& operator*() const { return *m_root; }
 	Node* operator->() { return m_root; }
 	const Node* operator->() const { return m_root; }
 
 	template<typename U>
-	Node** root(U&& value) {
+	Node** create_root(U&& value) {
 		m_root = new Node(std::forward<U>(value), nullptr);
 		return &m_root;
 	}
+
+	const Node* root() const {
+		return m_root;
+	}
+	Node* root() {
+		return m_root;
+	}
+
 
 	void erase(Node* node) {
 

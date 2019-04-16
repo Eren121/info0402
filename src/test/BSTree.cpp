@@ -5,7 +5,7 @@
 BSTree<int> buildBSTree() {
 
 	BSTree<int> bstree;
-	BSTreeNode<int>** node = bstree.root(20);
+	BSTreeNode<int>** node = bstree.create_root(20);
 	(*node)->insert_left(10);
 	(*node)->insert_right(30)->insert_right(40);
 
@@ -46,7 +46,7 @@ TEST_CASE("Suppression", "BSTree") {
 
 	BSTree<int> bstree = buildBSTree();
 
-	bstree.erase(*bstree);
+	bstree.erase(bstree.root());
 	REQUIRE(bstree.equals({10, 30, 40}));
 
 	bstree.erase(bstree->left());
@@ -55,6 +55,6 @@ TEST_CASE("Suppression", "BSTree") {
 	bstree.erase(bstree->right());
 	REQUIRE(bstree.equals({30}));
 
-	bstree.erase(*bstree);
+	bstree.erase(bstree.root());
 	REQUIRE(bstree.equals({}));
 }
