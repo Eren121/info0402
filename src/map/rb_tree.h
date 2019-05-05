@@ -42,10 +42,6 @@
 #define RB_ITER_MAX_HEIGHT 64 // Tallest allowable tree to iterate
 #endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 struct rb_node;
 struct rb_tree;
 
@@ -103,10 +99,5 @@ void           *rb_iter_first           (struct rb_iter *self, struct rb_tree *t
 void           *rb_iter_last            (struct rb_iter *self, struct rb_tree *tree);
 void           *rb_iter_next            (struct rb_iter *self);
 void           *rb_iter_prev            (struct rb_iter *self);
-
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

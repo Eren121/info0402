@@ -4,7 +4,7 @@
 #include <utility> // std::pair
 #include <stdexcept> // std::out_of_range
 #include <limits> // std::numeric_limits
-#include "rb_tree.h"
+#include "map/rb_tree.h"
 
 template<typename Key,
 		 typename T> class Map; // forward declaration

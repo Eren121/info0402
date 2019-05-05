@@ -5,7 +5,7 @@
 BSTree<int> buildBSTree() {
 
 	BSTree<int> bstree;
-	BSTreeNode<int>** node = bstree.create_root(20);
+	auto** node = bstree.create_root(20);
 	(*node)->insert_left(10);
 	(*node)->insert_right(30)->insert_right(40);
 

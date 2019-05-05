@@ -10,12 +10,17 @@
 // Lightweight wrapper for binary search tree
 
 template<typename T>
+class BinaryNode;
+
+/// Arbre contenant des noeuds génériques
+template<typename T, typename Node = BinaryNode<T>>
 class BSTree;
 
-template<typename T>
-std::ostream& operator<<(std::ostream& lhs, const BSTree<T>& bstree);
+template<typename T, typename Node>
+std::ostream& operator<<(std::ostream& lhs, const BSTree<T, Node>& bstree);
 
-template<typename T>
+/// Noeud binaire basique
+template<typename T, typename Node>
 class BSTreeNode {
 public:
 
@@ -26,38 +31,61 @@ public:
 		return res;
 	}
 
+	/// Retourne vrai si le noeud est la racine, faux sinon
 	bool is_root() const { return m_parent == nullptr; }
+
+	/// Retourne vrai si le noeud est une feuille, faux sinon
 	bool is_leaf() const { return m_left == nullptr && m_right == nullptr; }
+
+	/// Retourne vrai si le noeud a un fils gauche
 	bool has_left() const { return m_left != nullptr; }
+
+	/// Retourne vrai si le noeud a un fils droit
 	bool has_right() const { return m_right != nullptr; }
 
+	/// Récupère la donnée (constant)
 	const T& data() const { return *m_data; }
+
+	/// Récupère la donnée (non-constant)
 	T& data() { return *m_data; }
 
-	const BSTreeNode* parent() const {
+	/// Récupère le parent du noeud courant (constant)
+	const Node* parent() const {
+		ASSERT(m_parent != nullptr);
 		return m_parent;
 	}
 
-	BSTreeNode* parent() {
+	/// Récupère le parent du noeud courant (non-constant)
+	Node* parent() {
+		ASSERT(m_parent != nullptr);
 		return m_parent;
 	}
 
-	const BSTreeNode* left() const {
+	/// Récupère le fils gauche (constant)
+	const Node* left() const {
+		ASSERT(m_left != nullptr);
 		return m_left;
 	}
 
-	BSTreeNode* left() {
+	/// Récupère le fils gauche (non-constant)
+	Node* left() {
+		ASSERT(m_left != nullptr);
 		return m_left;
 	}
 
-	const BSTreeNode* right() const {
+	/// Récupère le fils droit (constant)
+	const Node* right() const {
+		ASSERT(m_right != nullptr);
 		return m_right;
 	}
 
-	BSTreeNode* right() {
+	/// Récupère le fils droit (non-constant)
+	Node* right() {
+		ASSERT(m_right != nullptr);
 		return m_right;
 	}
 
+	/// Hauteur du noeud
 	int height() const {
 		int hl = 0;
 		int hr = 0;
@@ -73,21 +101,26 @@ public:
 		else return hr;
 	}
 
-	BSTreeNode* max() {
-		BSTreeNode* tmp = this;
+	/// Récupère le noeud fils le plus grand = le plus à droite
+	/// Retourne lui-même s'il n'a pas de fils
+	Node* max() {
+		Node* tmp = static_cast<Node*>(this);
 		while(tmp->m_right != nullptr) tmp = tmp->m_right;
 		return tmp;
 	}
 
-	BSTreeNode* min() {
-		BSTreeNode* tmp = this;
+	/// Récupère le noeud fils le plus petit = le plus à gauche
+	/// Retourne lui-même s'il n'a pas de fils
+	Node* min() {
+		Node* tmp = static_cast<Node*>(this);
 		while(tmp->m_left != nullptr) tmp = tmp->m_left;
 		return tmp;
 	}
 
-	BSTreeNode* next() {
+	/// Récupère le noeud suivant (ou NULL si c'est le dernier noeud)
+	Node* next() {
 
-		BSTreeNode *tmp = this;
+		Node *tmp = static_cast<Node*>(this);
 		if(m_right != nullptr) {
 			return m_right->min();
 		}
@@ -101,10 +134,15 @@ public:
 		return tmp;
 	}
 
-	BSTreeNode* prev() {
+	const Node* next() const {
+		return const_cast<BSTreeNode*>(this)->next();
+	}
 
-		BSTreeNode *tmp = this;
-		if(m_right != nullptr) {
+	/// Récupère le noeud précédent (ou NULL si c'est le premier noeud)
+	Node* prev() {
+
+		Node *tmp = this;
+		if(m_left != nullptr) {
 			return m_left->max();
 		}
 		while(tmp != nullptr) {
@@ -117,21 +155,29 @@ public:
 		return tmp;
 	}
 
+	const Node* prev() const {
+		return const_cast<BSTreeNode*>(this)->prev();
+	}
+
+	/// Insère un noeud à gauche
 	template<typename U>
-	BSTreeNode* insert_left(U&& t) {
-		m_left = new BSTreeNode(std::forward<U>(t), this);
+	Node* insert_left(U&& t) {
+		ASSERT(m_left == nullptr);
+		m_left = new Node(std::forward<U>(t), static_cast<Node*>(this));
 		return m_left;
 	}
 
+	/// Insère un noeud à droite
 	template<typename U>
-	BSTreeNode* insert_right(U&& t) {
-		m_right = new BSTreeNode(std::forward<U>(t), this);
+	Node* insert_right(U&& t) {
+		ASSERT(m_right == nullptr);
+		m_right = new Node(std::forward<U>(t), static_cast<Node*>(this));
 		return m_right;
 	}
 
-private:
+protected:
 	template<typename U>
-	BSTreeNode(U&& t, BSTreeNode* parentNode) :
+	BSTreeNode(U&& t, Node* parentNode) :
 		m_data(new T(std::forward<U>(t))),
 		m_parent(parentNode),
 		m_left(nullptr),
@@ -143,9 +189,14 @@ private:
 		delete m_right;
 	}
 
-	BSTreeNode* detach() {
+	/// Enlève la valeur de ce noeud de l'arbre
+	/// La structure de l'arbre reste trié
+	/// Des données sont échangées si nécessaire.
+	/// Uniquement les données (les pointeurs vers les données) sont échangées et pas la structure de l'arbre (les noeuds)
+	/// \return le noeud qui a été supprimé de l'arbre (pas forcément le noeud courant)
+	Node* detach() {
 
-		BSTreeNode* tmp = nullptr;
+		Node* tmp = nullptr;
 
 		if(m_left && m_right) {
 			tmp = next();
@@ -168,18 +219,19 @@ private:
 				else m_parent->m_right = nullptr;
 			}
 
-			return this;
+			return static_cast<Node*>(this);
 		}
 	}
 
 	T* m_data;
-	BSTreeNode* m_parent;
-	BSTreeNode* m_left;
-	BSTreeNode* m_right;
+	Node* m_parent;
+	Node* m_left;
+	Node* m_right;
 
-	friend class BSTree<T>;
-	friend std::ostream& operator<< <T>(std::ostream& lhs, const BSTree<T>& bstree);
+	friend class BSTree<T, Node>;
+	friend std::ostream& operator<< <T, Node>(std::ostream& lhs, const BSTree<T, Node>& bstree);
 
+	/// Echange les données
 	friend void swap(BSTreeNode& a, BSTreeNode& b) {
 		T* tmp = a.m_data;
 		a.m_data = b.m_data;
@@ -188,9 +240,15 @@ private:
 };
 
 template<typename T>
+class BinaryNode : public BSTreeNode<T, BinaryNode<T>> {
+
+	using BSTreeNode<T, BinaryNode<T>>::BSTreeNode;
+};
+
+template<typename T, typename N>
 class BSTree {
 public:
-	typedef BSTreeNode<T> Node;
+	using Node = N;
 
 	BSTree() : m_root(nullptr) {}
 	BSTree(const BSTree&) = delete;
@@ -262,9 +320,9 @@ public:
 	}
 
 	// Infixe
-	bool equals(const std::initializer_list<T>& initl) {
+	bool equals(const std::initializer_list<T>& initl) const {
 
-		Node* tmp = front();
+		const Node* tmp = front();
 
 		for(const T& val : initl) {
 
@@ -278,24 +336,28 @@ public:
 		return !tmp;
 	}
 
+	void clear() {
+		delete m_root;
+		m_root = nullptr;
+	}
+
 private:
 	Node* m_root;
 
-	friend std::ostream& operator<< <T>(std::ostream& lhs, const BSTree<T>& bstree);
+	friend std::ostream& operator<< <T, Node>(std::ostream& lhs, const BSTree<T, Node>& bstree);
 };
 
 #define LENGTH 128 // Largeur d'une ligne
 #define N_ELEMENT 16 // Nombre de caractères à afficher par élément
 
-template<typename T>
-std::ostream& operator<<(std::ostream& lhs, const BSTree<T>& bstree) {
-	typedef BSTreeNode<T> Node;
+template<typename T, typename Node>
+std::ostream& operator<<(std::ostream& lhs, const BSTree<T, Node>& bstree) {
 
 	lhs << "\n\n\033[4mArbre :\033[0m\n\n";
 
-	int length = 128;
+	constexpr int length = 128;
 	char str[100];
-	char out[100];
+	char out[length];
 	int strl;
 
 	Node* eol = reinterpret_cast<Node*>(::operator new(sizeof(Node))); // Noeud spécial pour signifier la fin d'une ligne
@@ -319,93 +381,99 @@ std::ostream& operator<<(std::ostream& lhs, const BSTree<T>& bstree) {
 	{
 		file.push_back(bstree.m_root);
 		h = bstree.m_root->height();
-	}
+		file.push_back(eol);
 
-	file.push_back(eol);
-
-	while(!file.empty())
-	{
-		node = file.front()->data();
-		file.erase(file.front());
-
-		if(node != eol)
+		while(!file.empty())
 		{
-			if(node != NULL)
+			node = file.front()->data();
+			file.erase(file.front());
+
+			if(node != eol)
 			{
-				if(node->m_left != NULL || niv < h)
+				if(node != NULL)
 				{
-					file.push_back(node->m_left);
+					if(node->m_left != NULL || niv < h)
+					{
+						file.push_back(node->m_left);
+					}
+					if(node->m_right != NULL || niv < h)
+					{
+						file.push_back(node->m_right);
+					}
+
+
+					std::ostringstream stream;
+					stream << *node->m_data;
+
+					sprintf(str, BOLD("%s"), stream.str().c_str());
 				}
-				if(node->m_right != NULL || niv < h)
+				else
 				{
-					file.push_back(node->m_right);
+					if(niv < h)
+					{
+						file.push_back(nullptr);
+						file.push_back(nullptr);
+					}
+
+					str[0] = '*';
+					str[1] = '\0';
 				}
 
+				strl = strlenAnsi(str);
 
-				std::ostringstream stream;
-				stream << node->data();
+				if(niv == 0) {
 
-				sprintf(str, BOLD("%s"), stream.str().c_str());
+					sprintf(out, BG(41, "%*s"), (larg+1) / 2 - ((strl+1) / 2), " ");
+					lhs << out;
+					sprintf(out, BG(41, "%s"), str);
+					lhs << out;
+					sprintf(out, BG(41, "%*s"), larg / 2 - (strl / 2), "");
+					lhs << out;
+				}
+				else if(niv % 2 == 0) {
+
+					sprintf(out, BG(100, "%*s"), (larg+1) / 2 - ((strl+1) / 2), " ");
+					lhs << out;
+					sprintf(out, BG(100, "%s"), str);
+					lhs << out;
+					sprintf(out, BG(100, "%*s"), larg / 2 - (strl / 2), "");
+					lhs << out;
+				}
+				else {
+
+					sprintf(out, "%*s", (larg+1) / 2 - ((strl+1) / 2), " ");
+					lhs << out;
+					sprintf(out, "%s", str);
+					lhs << out;
+					sprintf(out, "%*s", larg / 2 - (strl / 2), "");
+					lhs << out;
+				}
 			}
 			else
 			{
-				if(niv < h)
+				// Fin de ligne
+
+				// Toute la ligne suivant a été empilée, on rajoute un retour à la ligne
+				// Si la file est vide, c'est qu'on a atteint la fin de l'arbre. Sinon, on empile un nouveau retour à la ligne.
+
+				if(!file.empty())
 				{
-					file.push_back(nullptr);
-					file.push_back(nullptr);
+					file.push_back(eol);
+					niv++;
+					n *= 2;
+					larg = length / n;
 				}
 
-				str[0] = '*';
-				str[1] = '\0';
-			}
-
-			strl = strlenAnsi(str);
-
-			if(niv == 0) {
-
-				sprintf(out, BG(41, "%*s"), (larg+1) / 2 - ((strl+1) / 2), " ");
-				lhs << out;
-				sprintf(out, BG(41, "%s"), str);
-				lhs << out;
-				sprintf(out, BG(41, "%*s"), larg / 2 - (strl / 2), "");
-				lhs << out;
-			}
-			else if(niv % 2 == 0) {
-
-				sprintf(out, BG(100, "%*s"), (larg+1) / 2 - ((strl+1) / 2), " ");
-				lhs << out;
-				sprintf(out, BG(100, "%s"), str);
-				lhs << out;
-				sprintf(out, BG(100, "%*s"), larg / 2 - (strl / 2), "");
-				lhs << out;
-			}
-			else {
-
-				sprintf(out, "%*s", (larg+1) / 2 - ((strl+1) / 2), " ");
-				lhs << out;
-				sprintf(out, "%s", str);
-				lhs << out;
-				sprintf(out, "%*s", larg / 2 - (strl / 2), "");
-				lhs << out;
+				printf("\n");
 			}
 		}
-		else
-		{
-			// Fin de ligne
+	}
+	else {
 
-			// Toute la ligne suivant a été empilée, on rajoute un retour à la ligne
-			// Si la file est vide, c'est qu'on a atteint la fin de l'arbre. Sinon, on empile un nouveau retour à la ligne.
-
-			if(!file.empty())
-			{
-				file.push_back(eol);
-				niv++;
-				n *= 2;
-				larg = length / n;
-			}
-
-			printf("\n");
-		}
+		sprintf(str, "(vide)");
+		strl = strlenAnsi(str);
+		sprintf(out, BG(41, "%*s%*s"), (larg+1) / 2 - ((strl+1) / 2), str, (larg+1) / 2 - (strl+1) / 2, " ");
+		lhs << out;
 	}
 
 	::operator delete(eol);
@@ -413,6 +481,5 @@ std::ostream& operator<<(std::ostream& lhs, const BSTree<T>& bstree) {
 }
 
 template class BSTree<int>;
-template class BSTreeNode<int>;
 
 #endif // BSTREE_H

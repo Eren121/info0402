@@ -5,16 +5,18 @@
 	<title>Rapport</title>
 	<meta name="generator" content="LibreOffice 6.0.7.3 (Linux)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2019-04-15T16:51:11.639788870"/>
+	<meta name="changed" content="2019-04-16T18:45:11.225261390"/>
+	<meta name="created" content="00:00:00">
+	<meta name="created" content="00:00:00">
 	<meta name="created" content="00:00:00">
 	<style type="text/css">
 		pre.cjk { font-family: "DejaVu Sans Mono", monospace }
-		h3.western { font-family: "Albany", sans-serif; font-size: 14pt }
+		h3.western { font-family: "Albany", sans-serif }
 		h3.cjk { font-family: "Noto Sans CJK SC Regular"; font-size: 13pt }
 		h3.ctl { font-family: "Lohit Devanagari"; font-size: 13pt }
 		h4.western { font-family: "Albany", sans-serif; font-size: 13pt; font-style: italic }
-		h4.cjk { font-family: "Noto Sans CJK SC Regular"; font-size: 12pt; font-style: italic }
-		h4.ctl { font-family: "Lohit Devanagari"; font-size: 12pt; font-style: italic }
+		h4.cjk { font-family: "Noto Sans CJK SC Regular"; font-style: italic }
+		h4.ctl { font-family: "Lohit Devanagari"; font-style: italic }
 		h5.western { font-family: "Albany", sans-serif; font-size: 11pt }
 		h5.cjk { font-family: "Noto Sans CJK SC Regular"; font-size: 11pt }
 		h5.ctl { font-family: "Lohit Devanagari"; font-size: 11pt }
@@ -22,40 +24,36 @@
 	</style>
 </head>
 <body lang="fr-FR" dir="ltr">
-<h1>Sujet 4&nbsp;: Map</h1>
-<p>Pour gérer les arbres rouges et noir, j'ai utilisé la
-bibliothèque rb_tree ((<a href="https://github.com/mirek/rb_tree">https://github.com/mirek/rb_tree</a>).
-Comme celle-ci est écrite en C, j'ai inséré avant et après les
-include guards ces morceaux de code:</p>
-<pre class="western">#ifdef __cplusplus
-extern &quot;C&quot; {
-#endif
+<h1>Sujet 4&nbsp;: Multimap</h1>
+<h3 class="western">Implémentation du conteneur</h3>
+<p><br/>
+<br/>
 
-/* … */
-
-#ifdef __cplusplus
-}
-#endif</pre><h3 class="western">
-Implémentation du conteneur</h3>
+</p>
+<p><b>Map</b></p>
 <p>Une <code class="western">std::map</code> est un conteneur
 associatif qui stocke des valeurs accessibles par une clé, qui doit
-être unique (sauf pour la <code class="western">std::multimap)</code>.
-A chaque clé est associe une, zéro ou plusieurs (seulement pour une
-<code class="western">std::multimap</code>) valeurs.</p>
+être unique. À chaque clé est associé une valeur unique.</p>
 <p><u>Structure d’une map</u></p>
-<p style="margin-bottom: 0cm"><img src="structure_map.png" name="Image1" align="left" width="454" height="284">
+<p style="margin-bottom: 0cm"><br/>
+
+</p>
+<p style="margin-bottom: 0cm"><img src="Rapport_html_4bbc85aad0e7ce.gif" name="Image1" align="left" width="244" height="117">
   <br clear="left"/>
 </img>
 <br/>
 
 </p>
-<p style="margin-bottom: 0cm">Pour que le conteneur soit générique,
-les templates sont utilisés&nbsp;: les paramètres de la multimap
-sont le type de la clé, et le type de la valeur.</p>
 <p style="margin-bottom: 0cm"><br/>
 
 </p>
-<pre class="western">multimap&lt;Key, Value&gt; m;</pre><p style="margin-bottom: 0cm">
+<p style="margin-bottom: 0cm">Structure d’une multimap</p>
+<p style="margin-bottom: 0cm"><br/>
+
+</p>
+<p style="margin-bottom: 0cm"><img src="Rapport_html_e6d6a2e50e724df2.gif" name="Image2" align="left" width="244" height="151">
+  <br clear="left"/>
+</img>
 <br/>
 
 </p>
@@ -79,12 +77,12 @@ sont le type de la clé, et le type de la valeur.</p>
 
 </p>
 <p style="margin-top: 0.11cm; margin-bottom: 0.11cm; page-break-after: avoid">
-<font face="Albany, sans-serif"><font size="3" style="font-size: 11pt"><b>Constructeur
+<font face="Albany, sans-serif"><font size="2" style="font-size: 11pt"><b>Constructeur
 par intervalle d’itérateurs&nbsp;:</b></font></font></p>
 <p style="margin-bottom: 0cm"><br/>
 
 </p>
-<pre class="western">multimap(InputIterator first, InputIterator last);</pre><p style="margin-bottom: 0cm">
+<pre class="western" style="margin-bottom: 0.5cm">multimap(InputIterator first, InputIterator last);</pre><p style="margin-bottom: 0cm">
 <br/>
 
 </p>
@@ -100,12 +98,12 @@ une seule direction en lecture uniquement (un <b>InputIterator</b>).</p>
 
 </p>
 <p style="margin-top: 0.11cm; margin-bottom: 0.11cm; page-break-after: avoid">
-<font face="Albany, sans-serif"><font size="3" style="font-size: 11pt"><b>Constructeur
+<font face="Albany, sans-serif"><font size="2" style="font-size: 11pt"><b>Constructeur
 par liste d’initialisation</b></font></font></p>
 <p style="margin-bottom: 0cm"><br/>
 
 </p>
-<pre class="western">multimap(initializer_list&lt;value_type&gt; il);</pre><p style="margin-bottom: 0cm">
+<pre class="western" style="margin-bottom: 0.5cm">multimap(initializer_list&lt;value_type&gt; il);</pre><p style="margin-bottom: 0cm">
 <br/>
 
 </p>
@@ -117,12 +115,12 @@ d’initialisation&nbsp;:</p>
 <p style="margin-bottom: 0cm"><br/>
 
 </p>
-<pre class="western">multimap&lt;int, int&gt; mymap = {{0, 0}, {0, 1}, {1, 1}};</pre><p style="margin-bottom: 0cm">
+<pre class="western" style="margin-bottom: 0.5cm">multimap&lt;int, int&gt; mymap = {{0, 0}, {0, 1}, {1, 1}};</pre><p style="margin-bottom: 0cm">
 <br/>
 
 </p>
 <p style="margin-top: 0.11cm; margin-bottom: 0.11cm; page-break-after: avoid">
-<font face="Albany, sans-serif"><font size="3" style="font-size: 11pt"><b>Constructeur
+<font face="Albany, sans-serif"><font size="2" style="font-size: 11pt"><b>Constructeur
 par copie</b></font></font></p>
 <p style="margin-bottom: 0cm"><br/>
 
@@ -138,7 +136,7 @@ chaque élément à inserer.</p>
 
 </p>
 <p style="margin-top: 0.11cm; margin-bottom: 0.11cm; page-break-after: avoid">
-<font face="Albany, sans-serif"><font size="3" style="font-size: 11pt"><b>Constructeur
+<font face="Albany, sans-serif"><font size="2" style="font-size: 11pt"><b>Constructeur
 par déplacement</b></font></font></p>
 <p style="margin-bottom: 0cm"><br/>
 
@@ -148,23 +146,18 @@ par déplacement</b></font></font></p>
 
 </p>
 <h5 class="western">Assignation</h5>
-<p style="font-variant: normal; letter-spacing: normal; font-style: normal; font-weight: normal">
-<br/>
+<p><br/>
 <br/>
 
 </p>
 <p style="margin-top: 0.11cm; margin-bottom: 0.11cm; page-break-after: avoid">
-<font face="Albany, sans-serif"><font size="3" style="font-size: 11pt"><b>Assignation
+<font face="Albany, sans-serif"><font size="2" style="font-size: 11pt"><b>Assignation
 par copie</b></font></font></p>
-<pre class="western">
-multimap&amp; operator=(multimap&amp;&amp;);
-</pre><p style="margin-top: 0.11cm; margin-bottom: 0.11cm; page-break-after: avoid">
-<font face="Albany, sans-serif"><font size="3" style="font-size: 11pt"><b>Assignation
+<pre class="western" style="margin-bottom: 0.5cm">multimap&amp; operator=(multimap&amp;&amp;);</pre><p style="margin-top: 0.11cm; margin-bottom: 0.11cm; page-break-after: avoid">
+<font face="Albany, sans-serif"><font size="2" style="font-size: 11pt"><b>Assignation
 par déplacement</b></font></font></p>
-<pre class="western">
-multimap&amp; operator=(const multimap&amp;);</pre><h4 class="western">
-</h4>
-<h4 class="western">Modificateurs</h4>
+<pre class="western" style="margin-bottom: 0.5cm">multimap&amp; operator=(const multimap&amp;);</pre><h4 class="western">
+Modificateurs</h4>
 <p><br/>
 <br/>
 

@@ -1,27 +1,59 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include <ostream>
-#include <utility>
+#include "Defines.h"
+#include <ostream> // std::ostream
+#include <utility> // std::pair
+#include <list> // std::list
 
-///  Lightweight wrapper for list
-
+// Prédéclaration
 template<typename T> class List;
 
+
+/// Classe légère implémentant une liste doublement chaînée
+/// Ne contient pas les fonctionalités de la STL et les itérateurs
 template<class T>
 class ListNode {
 public:
+
+	/// Retourne true si c'est le dernier élément de la liste, false sinon
 	bool is_last() const { return m_next == nullptr; }
+
+	/// Retourne true si c'est le premier élément de la liste, false sinon
 	bool is_first() const { return m_prev == nullptr; }
 
+	/// Récupère la donnée (constant)
 	const T& data() const { return m_data; }
+
+	/// Récupère la donnée (non-constant)
 	T& data() { return m_data; }
-	const ListNode* next() const { return m_next; }
-	ListNode* next() { return m_next; }
-	const ListNode* prev() const { return m_prev; }
-	ListNode* prev() { return m_prev; }
+
+	/// Récupère le prochain élément (constant)
+	/// Ou NULL si c'est le dernier élément
+	const ListNode* next() const {
+		return m_next;
+	}
+
+	/// Récupère le prochain élément (non-constant)
+	/// Ou NULL si c'est le dernier élément
+	ListNode* next() {
+		return m_next;
+	}
+
+	/// Récupère l'élément précédent (constant)
+	/// Ou NULL si c'est le dernier élément
+	const ListNode* prev() const {
+		return m_prev;
+	}
+
+	/// Récupère l'élément précédent (non-constant)
+	/// Ou NULL si c'est le dernier élément
+	ListNode* prev() {
+		return m_prev;
+	}
 
 private:
+	/// Ajoute un élément à la liste, et initialise le noeud sur cet élément
 	template<typename U>
 	ListNode(U&& t, ListNode* previousNode) :
 		m_data(std::forward<U>(t)),
@@ -68,11 +100,25 @@ public:
 		}
 	}
 
-	bool empty() const { return m_first == nullptr; }
-	Node* front() { return m_first; }
-	const Node* front() const { return m_first; }
-	Node* back() { return m_last; }
-	const Node* back() const { return m_last; }
+	bool empty() const {
+		return m_first == nullptr;
+	}
+
+	Node* front() {
+		return m_first;
+	}
+
+	const Node* front() const {
+		return m_first;
+	}
+
+	Node* back() {
+		return m_last;
+	}
+
+	const Node* back() const {
+		return m_last;
+	}
 
 	template<typename U>
 	void push_back(U&& value) {
@@ -82,7 +128,10 @@ public:
 		m_last = tmp;
 	}
 
+
 	void erase(Node* node) {
+
+		ASSERT(node != nullptr);
 
 		if(node->is_first()) {
 			m_first = node->next();
@@ -95,51 +144,62 @@ public:
 		delete node;
 	}
 
+	std::size_t size() const {
+		std::size_t res = 0;
+		Node* tmp = m_first;
+		for(; tmp; tmp = tmp->next(), res++);
+		return res;
+	}
+
+	bool operator!=(const std::list<T>& list) const {
+		return !(*this == list);
+	}
+
+	bool operator==(const std::list<T>& list) const {
+
+		const ListNode<T>* node = front();
+
+		for(const T& obj : list) {
+
+			if(node == nullptr) {
+				return false;
+			}
+
+			if(node->data() != obj) {
+				return false;
+			}
+
+			node = node->next();
+		}
+
+		return node == nullptr;
+	}
+
+	friend std::ostream& operator<<(std::ostream& lhs, const List& list) {
+
+		const ListNode<T>* node = list.front();
+
+		using namespace pair_operators;
+
+		while(node != nullptr) {
+
+			lhs << node->data();
+
+			if(!node->is_last()) {
+				lhs << ",";
+			}
+
+			node = node->next();
+		}
+
+		return lhs;
+	}
 private:
 	Node* m_first;
 	Node* m_last;
 };
 
-template<typename T>
-std::ostream& operator<<(std::ostream& lhs, const List<T>& list) {
-
-	const ListNode<T>* node = list.front();
-
-	while(node != nullptr) {
-
-		lhs << node->data();
-
-		if(!node->is_last()) {
-			lhs << ",";
-		}
-
-		node = node->next();
-	}
-
-	return lhs;
-}
-
-template<typename T>
-bool equals(const List<T>& list, const std::initializer_list<T>& array) {
-
-	const ListNode<T>* node = list.front();
-
-	for(const T& obj : array) {
-
-		if(node == nullptr) {
-			return false;
-		}
-
-		if(node->data() != obj) {
-			return false;
-		}
-
-		node = node->next();
-	}
-
-	return node == nullptr;
-}
-
+/// Force l'instanciation des templates
 template class List<int>;
 template class ListNode<int>;
 

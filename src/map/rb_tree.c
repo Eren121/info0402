@@ -30,7 +30,7 @@
 // For more information, please refer to <http://unlicense.org/>
 //
 
-#include "rb_tree.h"
+#include "map/rb_tree.h"
 
 // rb_node
 
@@ -93,6 +93,7 @@ rb_node_rotate2 (struct rb_node *self, int dir) {
 
 int
 rb_tree_node_cmp_ptr_cb (struct rb_tree *self, struct rb_node *a, struct rb_node *b) {
+	(void)self;
     return (a->value > b->value) - (a->value < b->value);
 }
 
@@ -232,11 +233,11 @@ rb_tree_insert (struct rb_tree *self, void *value) {
 // Returns 1 on success, 0 otherwise.
 int
 rb_tree_insert_node (struct rb_tree *self, struct rb_node *node) {
-    int result = 0;
+	//int result = 0;
     if (self && node) {
         if (self->root == NULL) {
             self->root = node;
-            result = 1;
+			//result = 1;
         } else {
             struct rb_node head = { 0 }; // False tree root
             struct rb_node *g, *t;       // Grandparent & parent
@@ -416,7 +417,7 @@ rb_tree_size (struct rb_tree *self) {
 
 struct rb_iter *
 rb_iter_alloc () {
-		return malloc(sizeof(struct rb_iter));
+    return malloc(sizeof(struct rb_iter));
 }
 
 struct rb_iter *

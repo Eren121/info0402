@@ -1,1 +1,0 @@
-../../../info0401/Dossier/Headers/AnsiColor.h
