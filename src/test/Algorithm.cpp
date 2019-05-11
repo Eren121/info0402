@@ -1,5 +1,6 @@
 #include "multimap/Multimap.h"
 #include "catch.hpp"
+#include <ctime>
 
 std::multimap<int, int> initRandom(std::size_t size = 1000, unsigned int seed = static_cast<unsigned int>(time(nullptr)), int maxValue = 10000) {
 	std::multimap<int, int> m;

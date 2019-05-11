@@ -22,17 +22,26 @@ template<bool IsConst, class T> using
 	add_const_if_t =
 		typename add_const_if<IsConst, T>::type;
 
+template<class Key,
+          class Value,
+          class Compare,
+          bool IsConst>
+class MultimapIterator;
+
 /// Itérateur
 template<class Key,
-		 class Value,
-		 class Compare,
-		 bool IsConst>
+         class Value,
+         class Compare,
+         bool IsConst>
 class MultimapIterator {
 
-	typedef add_const_if_t<IsConst, Multimap<Key, Value, Compare>>		Container;
-	typedef add_const_if_t<IsConst, typename Container::Node>			Node;
-	typedef add_const_if_t<IsConst, typename Container::SingleNode>		SingleNode;
-	typedef add_const_if_t<IsConst, typename Container::value_type>		Pair;
+private:
+
+        typedef MultimapIterator<Key, Value, Compare, !IsConst>         IteratorIsntIsConst;
+        typedef add_const_if_t<IsConst, Multimap<Key, Value, Compare>>	Container;
+        typedef add_const_if_t<IsConst, typename Container::Node>	Node;
+        typedef add_const_if_t<IsConst, typename Container::SingleNode>	SingleNode;
+        typedef add_const_if_t<IsConst, typename Container::value_type>	Pair;
 
 	/// Position de l'itérateur sur chaque noeud (début ou fin)
 	enum Position { FRONT, BACK };
@@ -54,11 +63,26 @@ public:
 	/// Construit un itérateur invalide dont la seule action valide est de l'assigner à un autre itérateur
 	MultimapIterator();
 	/// Itérateur de fin
-	MultimapIterator(Container& m);
+    explicit MultimapIterator(Container& m);
 	MultimapIterator(Container& m, Node& node, SingleNode& s);
 	MultimapIterator(Container &m, Node& node, Position pos = FRONT);
 	/// Constructeur par copie
 	MultimapIterator(const MultimapIterator& o);
+
+
+    /// Permet la construction de const à partir de non-const
+    /// Le constructeur par copie est préféré si IsConst = IsConstIt
+    template<bool IsConstIt>
+    MultimapIterator(const MultimapIterator<Key, Value, Compare, IsConstIt>& o) :
+        m_source(o.m_source),
+        m_current(o.m_current),
+        m_single(o.m_single) {
+
+        static_assert(IsConst && !IsConstIt, "cannto construct iterator from const_iterator"); // optionnel, car la construction assigne des const à non-const
+    }
+
+    struct empty_t {};
+    friend typename std::conditional<!IsConst, MultimapIterator<Key, Value, Compare, true>, empty_t>::type;
 
 	/// Accesseurs ---------------------
 
@@ -82,17 +106,25 @@ public:
 	/// Assignation par copie
 	MultimapIterator& operator=(const MultimapIterator& o);
 
-	/// Opérateurs --------------------
+        /// Opérateurs --------------------
 
 	/// Egalité
 	/// Deux itérateurs sont égaux s'ils pointent vers le même élément de la même multimap
-	/// Dans le cas de l'itérateur de fin, il faut que se soit l'itérateur de fin des même conteneur
-	bool operator==(const MultimapIterator& o);
+        /// Dans le cas de l'itérateur de fin, il faut que se soit l'itérateur de fin des même conteneur
+        template<bool IsConstIt>
+        bool operator==(const MultimapIterator<Key, Value, Compare, IsConstIt>& rhs) const {
+            return m_source == rhs.m_source &&
+                   m_current == rhs.m_current &&
+                   m_single == rhs.m_single;
+        }
 
-	/// Différence
-	bool operator!=(const MultimapIterator& o);
+        template<bool IsConstIt>
+        bool operator!=(const MultimapIterator<Key, Value, Compare, IsConstIt>& rhs) const {
+            return !(*this == rhs);
+        }
 
-	friend class Multimap<Key, Value, Compare>;
+        friend class Multimap<Key, Value, Compare>;
+        friend IteratorIsntIsConst;
 
 private:
 
@@ -104,7 +136,6 @@ private:
 	Node* m_current; /// Le noeud de l'arbre
 	SingleNode* m_single; /// La position dans la Liste du noeud actuel
 };
-
 
 /// MultimapIterator implementation ----------------------
 
@@ -310,11 +341,12 @@ MultimapIterator<Key, Value, Compare, IsConst>::operator=(const MultimapIterator
 	return *this;
 }
 
+/*
 template<class Key,
 		 class Value,
 		 class Compare,
 		 bool IsConst>
-bool MultimapIterator<Key, Value, Compare, IsConst>::operator==(const MultimapIterator& o) {
+bool MultimapIterator<Key, Value, Compare, IsConst>::operator==(const MultimapIterator& o) const {
 	return m_source == o.m_source && m_current == o.m_current && m_single == o.m_single;
 }
 
@@ -322,9 +354,10 @@ template<class Key,
 		 class Value,
 		 class Compare,
 		 bool IsConst>
-bool MultimapIterator<Key, Value, Compare, IsConst>::operator!=(const MultimapIterator& o) {
+bool MultimapIterator<Key, Value, Compare, IsConst>::operator!=(const MultimapIterator& o) const {
 	return !(*this == o);
 }
+*/
 
 #endif // MULTIMAPITERATOR_H
 

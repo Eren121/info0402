@@ -37,8 +37,7 @@ public:
 	typedef MultimapIterator<Key, T, Compare, false>
 		iterator;
 	typedef MultimapIterator<Key, T, Compare, true>
-		const_iterator;
-	//const_iterator
+                const_iterator;
 	//reverse_iterator
 	//const_reverse_iterator
 
@@ -163,28 +162,26 @@ public:
 	}
 
 	iterator begin() {
-		return m_tree.empty() ?
-					end() :
-					iterator(*this, *m_tree.front(), iterator::FRONT);
+                return m_tree.empty() ? end() :
+                    iterator(*this, *m_tree.front(), iterator::FRONT);
 	}
+
+        const_iterator begin() const {
+            return cbegin();
+        }
+
+        const_iterator cbegin() const {
+            return m_tree.empty() ? cend() :
+                const_iterator(*this, *m_tree.front(), const_iterator::FRONT);
+        }
 
 	iterator end() {
 		return iterator(*this);
-	}
-
-	const_iterator begin() const {
-		return cbegin();
-	}
+        }
 
 	const_iterator end() const {
 		return cend();
-	}
-
-	const_iterator cbegin() const {
-		return m_tree.empty() ?
-					cend() :
-					const_iterator(*this, *m_tree.front(), const_iterator::FRONT);
-	}
+        }
 
 	const_iterator cend() const {
 		return const_iterator(*this);
@@ -453,8 +450,8 @@ private:
 		return m_tree.empty() ? end() : iterator(*this, *m_tree.root());
 	}
 
-	friend MultimapIterator<Key, T, Compare, false>;
-	friend MultimapIterator<Key, T, Compare, true>;
+    friend MultimapIterator<Key, T, Compare, false>;
+    friend MultimapIterator<Key, T, Compare, true>;
 };
 
 /// Multimap implementation -------------------------------

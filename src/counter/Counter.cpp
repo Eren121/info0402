@@ -1,6 +1,6 @@
 #include "Counter.h"
 #include <iostream>
-#include <catch/catch.hpp>
+#include "catch.hpp"
 
 #define TRACE_ENABLED 0
 

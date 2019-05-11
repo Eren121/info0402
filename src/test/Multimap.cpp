@@ -8,14 +8,14 @@ TEST_CASE("lower_bound doit retourner la première clé qui n'est pas plus petit
 
 	Multimap<int, int> map;
 	int key;
-	std::pair<int, int> required;
+    std::pair<int, int> required;
 	iterator it;
 
-	SECTION("Si la multimap est vide, lower_bound doit toujours retourner un itérateur de fin") {
+    SECTION("Si la multimap est vide, lower_bound doit toujours retourner un itérateur de fin") {
 
 		key = 0;
 		it = map.lower_bound(key);
-		REQUIRE(it == map.end());
+        REQUIRE(it == map.end());
 	}
 
 	SECTION("Si la multimap n'est pas vide: ") {
@@ -31,7 +31,7 @@ TEST_CASE("lower_bound doit retourner la première clé qui n'est pas plus petit
 
 			key = 2;
 			it = map.lower_bound(key);
-			REQUIRE(it == map.end());
+            REQUIRE(it == map.end());
 		}
 
 		SECTION("Il y a au moins un élément supérieur ou égal") {
@@ -47,8 +47,8 @@ TEST_CASE("lower_bound doit retourner la première clé qui n'est pas plus petit
 			}
 
 			it = map.lower_bound(key);
-			REQUIRE(it != map.end());
-			REQUIRE(*it == pair(required));
+            REQUIRE(it != map.end());
+            REQUIRE(*it == pair(required));
 		}
 	}
 }
@@ -56,9 +56,9 @@ TEST_CASE("lower_bound doit retourner la première clé qui n'est pas plus petit
 TEST_CASE("après une construction par défaut, une multimap est vide", "multimap") {
 
 	Multimap<int, int> map;
-	REQUIRE(map.empty());
-	REQUIRE(map.begin() == map.end());
-	REQUIRE(map.size() == 0);
+    REQUIRE(map.empty());
+    REQUIRE(map.begin() == map.end());
+    REQUIRE(map.size() == 0);
 }
 
 TEST_CASE("l'ordre des valeur dont les clés sont identique est l'ordre d'insertion", "multimap") {
@@ -72,7 +72,7 @@ TEST_CASE("l'ordre des valeur dont les clés sont identique est l'ordre d'insert
 	// Insertion à droite
 	map.insert({1, 0});
 
-	// Insertion double racine:
+    // Insertion double racine:
 	map.insert({0, 1});
 	// Insertion double à gauche (valeur inférieure):
 	map.insert({-1, -1});
@@ -80,5 +80,5 @@ TEST_CASE("l'ordre des valeur dont les clés sont identique est l'ordre d'insert
 	map.insert({1, -1});
 
 	std::cout << map;
-	REQUIRE(map.equals({{-1, 0}, {-1, -1}, {0, 0}, {0, 1}, {1, 0}, {1, -1}}));
+    REQUIRE(map.equals({{-1, 0}, {-1, -1}, {0, 0}, {0, 1}, {1, 0}, {1, -1}}));
 }
