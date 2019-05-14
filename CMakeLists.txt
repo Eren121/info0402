@@ -5,10 +5,6 @@ set(INCLUDEPATH src/ src/utils/)
 
 set(HEADERS
     src/counter/Counter.h
-    src/map/Map.h
-    src/map/Map.tpp
-    src/map/MapIterator.tpp
-    src/map/rb_tree.h
     src/multimap/AVLTree.h
     src/multimap/BSTree.h
     src/multimap/List.h
@@ -25,9 +21,7 @@ set(SOURCES
     src/test/List.cpp
     src/test/Multimap.cpp
     src/catch.cpp
-    src/main.cpp
-    src/map/rb_tree.c
-    src/.old-main.c)
+    src/main.cpp)
 
 include_directories(${INCLUDEPATH})
 add_executable(QtProject ${SOURCES})
