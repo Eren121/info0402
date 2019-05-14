@@ -34,11 +34,13 @@ public:
  * @brief utilisation de ASSERT: ASSERT(x != 0), par exemple.
  * Si x != 0 => le programme s'arrête
  */
-
-#   define ASSERT_LOCATION(file, line) " Line " #line ", File " file
-#   define ASSERT(x) do { if(!(x)) throw AssertionError(#x ASSERT_LOCATION(__FILE__, __LINE__)); } while(0)
+#	define STR(x) #x
+#	define ASSERT_LOCATION(file, line) " Line " STR(line) ", File " STR(file)
+#	define ASSERT(x) do { if(!(x)) throw DebugException(#x ASSERT_LOCATION(__FILE__, __LINE__)); } while(0)
+#	define ASSERT_THROW(message) throw DebugException(message ASSERT_LOCATION(__FILE__, __LINE__))
 #else
-#   define ASSERT(x)
+#	define ASSERT(x)
+#	define ASSERT_THROW(x)
 #endif
 
 /**

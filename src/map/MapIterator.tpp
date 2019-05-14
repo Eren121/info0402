@@ -1,9 +1,5 @@
 #include "Map.h"
 
-///////////////////
-/// Begin, End ///
-//////////////////
-
 template<typename Key,
 		 typename T>
 constexpr
@@ -13,10 +9,6 @@ template<typename Key,
 		 typename T>
 constexpr
 typename MapIterator<Key, T>::end_t MapIterator<Key, T>::end;
-
-/////////////////////
-/// Constructeurs ///
-/////////////////////
 
 template<typename Key,
 		 typename T>
