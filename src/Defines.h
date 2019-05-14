@@ -12,7 +12,7 @@
 /**
  * @brief Mettre à 1 pour utiliser un main() personalisé
  */
-#define USE_CUSTOM_MAIN 0 || 1
+#define USE_CUSTOM_MAIN 0
 
 /**
  * @brief Mettre à 1 pour effectuer tous les tests d'assertions (appel invalide, pointeur nul)
@@ -36,8 +36,8 @@ public:
  */
 #	define STR(x) #x
 #	define ASSERT_LOCATION(file, line) " Line " STR(line) ", File " STR(file)
-#	define ASSERT(x) do { if(!(x)) throw DebugException(#x ASSERT_LOCATION(__FILE__, __LINE__)); } while(0)
-#	define ASSERT_THROW(message) throw DebugException(message ASSERT_LOCATION(__FILE__, __LINE__))
+#	define ASSERT(x) do { if(!(x)) throw AssertionError(#x ASSERT_LOCATION(__FILE__, __LINE__)); } while(0)
+#	define ASSERT_THROW(message) throw AssertionError(message ASSERT_LOCATION(__FILE__, __LINE__))
 #else
 #	define ASSERT(x)
 #	define ASSERT_THROW(x)

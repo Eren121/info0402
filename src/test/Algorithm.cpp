@@ -1,6 +1,7 @@
 #include "multimap/Multimap.h"
 #include "catch.hpp"
 #include <ctime>
+#include <iterator>
 
 std::multimap<int, int> initRandom(std::size_t size = 10000, int maxKey = 1000) {
 
@@ -90,7 +91,7 @@ TEST_CASE("Algorithme std::for_each", "[multimap][algorithm]") {
 
 	// Initialiser la graine au début
 	// Sinon les appel à rand() sont donc différent pour les deux maps
-	const unsigned int seed = time(0);
+        const unsigned int seed = static_cast<decltype(seed)>(time(nullptr));
 
 	std::multimap<int, int> map = initRandom();
 	Multimap<int, int> mymap(map);

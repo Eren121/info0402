@@ -10,6 +10,7 @@ set(HEADERS
     src/multimap/List.h
     src/multimap/Multimap.h
     src/multimap/MultimapIterator.h
+    src/multimap/Traits.h
     src/utils/AnsiColor.h
     src/Defines.h
     src/catch.hpp)
@@ -19,9 +20,13 @@ set(SOURCES
     src/test/Algorithm.cpp
     src/test/BSTree.cpp
     src/test/List.cpp
-    src/test/Multimap.cpp
+    src/test/TestLookup.cpp
+    src/test/TestValueCompare.cpp
+    src/test/TestConstructor.cpp
+    src/test/TestIterator.cpp
+    src/test/TestModifier.cpp
     src/catch.cpp
     src/main.cpp)
 
 include_directories(${INCLUDEPATH})
-add_executable(QtProject ${SOURCES})
+add_executable(QtProject ${SOURCES} ${HEADERS})

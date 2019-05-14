@@ -1,573 +1,594 @@
 #ifndef MULTIMAP_H
 #define MULTIMAP_H
 
-#include <iostream>	  // ostream
-#include <functional> // less
-#include <utility>	  // pair
-#include <map>	      // multimap
-#include <limits>	  // max()
-
 #include "List.h"
 #include "BSTree.h"
 #include "MultimapIterator.h"
-
-/**
- * Prédéclaration de Multimap avec les paramètres templates par défaut
- */
-template<
-	class Key,
-	class T,
-	class Compare = std::less<Key>
-	> class Multimap;
-
+#include <iostream>   // std::ostream
+#include <functional> // std::less
+#include <utility>    // std::pair
+#include <map>	      // std::multimap
+#include <limits>     // std::numeric_limits::max()
 
 template<
-	class Key,
-	class T,
-	class Compare
-	> class Multimap {
+    class Key,
+    class T,
+    class Compare = std::less<Key>
+    > class Multimap;
+
+template<
+    class Key,
+    class T,
+    class Compare
+> class Multimap {
+public:
+    /// Ordre des déclarations (alias/prototypes)
+    /// Selon https://en.cppreference.com/w/cpp/container/multimap
+    /// Trié par surcharge, dans l'ordre aussi
+    /// Mis à part structure interne
+
+    /// Types membres
+    /// ------------
+    /// key_type, mapped_type, value_type
+    /// size_type, difference_type
+    /// key_compare, allocator_type
+    /// reference, const_reference,
+    /// pointer, const_pointer
+    /// iterator, const_iterator
+    /// reverse_iterator
+    /// const_reverse_iterator
+    /// node_type
+
+    typedef Key key_type;
+    typedef T mapped_type;
+    typedef std::pair<const Key, T> value_type;
+    typedef std::size_t size_type;
+    typedef std::ptrdiff_t difference_type;
+    typedef Compare key_compare;
+    typedef std::allocator<value_type> allocator_type;
+    typedef T& reference;
+    typedef const T& const_reference;
+    typedef T* pointer;
+    typedef const T* const_pointer;
+    typedef MultimapIterator<Key, T, Compare, false>
+            iterator;
+    typedef MultimapIterator<Key, T, Compare, true>
+            const_iterator;
+
+private:
+
+    /**
+     * @brief Type standard correspondant
+     */
+    typedef std::multimap<Key, T, Compare> stl_type;
+
+    typedef BSTree<List<value_type>> Tree;
+    typedef typename Tree::Node Node;
+    typedef typename List<value_type>::Node SingleNode;
 
 public:
 
-	/// Ordre des déclarations (alias/prototypes)
-	/// Selon https://en.cppreference.com/w/cpp/container/multimap
-	/// Trié par surcharge, dans l'ordre aussi
-	/// Mis à part structure interne
-
-	/// Types membres
-	/// ------------
-	/// key_type, mapped_type, value_type
-	/// size_type, difference_type
-	/// key_compare, allocator_type
-	/// reference, const_reference,
-	/// pointer, const_pointer
-	/// iterator, const_iterator
-	/// reverse_iterator
-	/// const_reverse_iterator
-	/// node_type
-
-	typedef Key key_type;
-	typedef T mapped_type;
-	typedef std::pair<const Key, T> value_type;
-	typedef std::size_t size_type;
-	typedef std::ptrdiff_t difference_type;
-	typedef Compare key_compare;
-	typedef std::allocator<value_type> allocator_type;
-	typedef T& reference;
-	typedef const T& const_reference;
-	typedef T* pointer;
-	typedef const T* const_pointer;
-	typedef MultimapIterator<Key, T, Compare, false>
-		iterator;
-	typedef MultimapIterator<Key, T, Compare, true>
-                const_iterator;
-	//reverse_iterator
-	//const_reverse_iterator
-
-	/// Classes membres
-	/// ---------------
-	/// value_compare
-
-	class value_compare { // Compare les paires
-	public:
-		typedef bool result_type;
-		typedef value_type first_argument_type ;
-		typedef value_type second_argument_type ;
-
-		bool operator()(const value_type& lhs,
-						const value_type& rhs) const
-		{ return comp(lhs.first, rhs.first); }
-
-	protected:
-		value_compare(Compare c) :
-			comp(c)
-		{}
-		Compare comp;
-
-		friend class Multimap;
-	};
-
-	/// Constructeurs
-
-	Multimap() :
-		Multimap(Compare()) {}
-
-	explicit Multimap(const Compare& comp) :
-		m_comp(comp),
-		m_tree() {
-	}
-
-	template<typename InputIt>
-	Multimap(InputIt first, InputIt last,
-			 const Compare& comp = Compare()) :
-				Multimap(comp) {
-		insert(first, last);
-	}
-
-	Multimap(const Multimap& other) :
-		Multimap(other.cbegin(), other.cend(),
-				 other.key_comp()) {}
-
-	Multimap(Multimap&& other) :
-		m_comp(std::move(other.m_comp)),
-		m_tree() {
-
-		insert(other.cbegin(), other.cend());
-	}
-
-	Multimap(std::initializer_list<value_type> init,
-			 const Compare& comp = Compare()) :
-				Multimap(init.begin(), init.end(),
-						 comp) {}
-
-	/// Constructeur par copie de std::multimap
-	explicit Multimap(const std::multimap<Key, T>& other) :
-		Multimap(other.cbegin(), other.cend(),
-				 other.key_comp()) {}
-
-	explicit Multimap(std::multimap<Key, T>&& other) :
-		Multimap(std::move(other.key_comp())) {
-
-		for(value_type& val : other)
-			insert(std::move(val));
+    /// Classes membres
+    /// ---------------
+    /// value_compare
 
-		other.clear();
-	}
+    /**
+     * @brief Classe qui compare les paires
+     */
+    class value_compare {
+    public:
+        typedef bool result_type;
+        typedef value_type first_argument_type ;
+        typedef value_type second_argument_type ;
 
-	/// Destructeur
+        bool operator()(const value_type& lhs,
+                        const value_type& rhs) const
+        { return comp(lhs.first, rhs.first); }
 
-	~Multimap() = default;
+    protected:
+        value_compare(Compare c) :
+            comp(c)
+        {}
+        Compare comp;
 
-	/// operator =
+        friend class Multimap;
+    };
 
-	Multimap& operator=(const Multimap& other) {
+    /// Constructeurs
 
-		if(this != &other) {
+    Multimap() :
+            Multimap(Compare()) {}
 
-			m_comp = other.m_comp;
-			clear();
-			insert(other.cbegin(), other.cend());
-		}
+    explicit Multimap(const Compare& comp) :
+            m_comp(comp),
+            m_tree() {
+    }
 
-		return *this;
-	}
+    template<typename InputIt>
+    Multimap(InputIt first, InputIt last,
+                     const Compare& comp = Compare()) :
+                            Multimap(comp) {
+            insert(first, last);
+    }
 
-	Multimap& operator=(Multimap&& other) {
+    Multimap(const Multimap& other) :
+            Multimap(other.cbegin(), other.cend(),
+                             other.key_comp()) {}
 
-		if(this != &other) {
+    Multimap(Multimap&& other) :
+            m_comp(std::move(other.m_comp)),
+            m_tree() {
 
-			m_comp = std::move(other.m_comp);
-			m_tree = std::move(other.m_tree);
-		}
+            insert(other.cbegin(), other.cend());
+    }
 
-		return *this;
-	}
+    Multimap(std::initializer_list<value_type> init,
+                     const Compare& comp = Compare()) :
+                            Multimap(init.begin(), init.end(),
+                                             comp) {}
 
-	Multimap& operator=(std::initializer_list<value_type> list) {
+    /// Constructeur par copie de std::multimap
+    explicit Multimap(const std::multimap<Key, T>& other) :
+            Multimap(other.cbegin(), other.cend(),
+                             other.key_comp()) {}
 
-		clear();
-		insert(list.begin(), list.end());
-		return *this;
-	}
+    explicit Multimap(std::multimap<Key, T>&& other) :
+            Multimap(std::move(other.key_comp())) {
 
-	/// Assignation par copie de std::map
-	Multimap& operator=(const std::map<Key, T, Compare>& other) {
+            for(value_type& val : other)
+                    insert(std::move(val));
 
-		m_comp = other.key_comp();
-		clear();
-		insert(other.cbegin(), other.cend());
-		return *this;
-	}
+            other.clear();
+    }
 
-	Multimap& operator=(std::map<Key, T, Compare>&& other) {
+    /// Destructeur
 
-		m_comp = std::move(other.key_comp());
-		clear();
+    ~Multimap() = default;
 
-		for(value_type& val : other)
-			insert(std::move(val));
+    /// operator =
 
-		return *this;
-	}
+    Multimap& operator=(const Multimap& other) {
 
-	allocator_type get_allocator() const {
-		return allocator_type();
-	}
+            if(this != &other) {
 
-	//// Itérateurs
-	///  ----------
-	/// begin, cbegin, end, cend,
-	/// rbegin, crbegin, rend, crend
+                    m_comp = other.m_comp;
+                    clear();
+                    insert(other.cbegin(), other.cend());
+            }
 
-	iterator begin() {
-                return m_tree.empty() ? end() :
-                    iterator(*this, *m_tree.front(), iterator::FRONT);
-	}
+            return *this;
+    }
 
-	const_iterator begin() const {
-		return cbegin();
-	}
+    Multimap& operator=(Multimap&& other) {
 
-	const_iterator cbegin() const {
-		return m_tree.empty() ? cend() :
-			const_iterator(*this, *m_tree.front(), const_iterator::FRONT);
-	}
+            if(this != &other) {
 
-	iterator end() {
-		return iterator(*this);
-	}
+                    m_comp = std::move(other.m_comp);
+                    m_tree = std::move(other.m_tree);
+            }
 
-	const_iterator end() const {
-		return cend();
-	}
+            return *this;
+    }
 
-	const_iterator cend() const {
-		return const_iterator(*this);
-	}
+    Multimap& operator=(std::initializer_list<value_type> list) {
 
-	/// Capacité
-	/// --------
-	/// empty, size, max_size
+            clear();
+            insert(list.begin(), list.end());
+            return *this;
+    }
 
-	bool empty() const {
-		return m_tree.empty();
-	}
+    /// Assignation par copie de std::map
+    Multimap& operator=(const std::map<Key, T, Compare>& other) {
 
-	size_type size() const {
-		return static_cast<size_type>(m_tree.size());
-	}
+            m_comp = other.key_comp();
+            clear();
+            insert(other.cbegin(), other.cend());
+            return *this;
+    }
 
-	size_type max_size() const {
-		return std::numeric_limits<size_type>::max();
-	}
+    Multimap& operator=(std::map<Key, T, Compare>&& other) {
 
-	/// Modificateurs
-	/// -------------
-	/// clear, insert, emplace, emplace_hint, erase, swap, extract, merge
+            m_comp = std::move(other.key_comp());
+            clear();
 
-	void clear() {
-		m_tree.clear();
-	}
+            for(value_type& val : other)
+                    insert(std::move(val));
 
-	iterator insert(iterator position, const value_type& val) {
+            return *this;
+    }
 
-		///TODO
-		return insert(val);
-	}
+    allocator_type get_allocator() const {
+            return allocator_type();
+    }
 
-	// Pour permettre l'appel en liste d'initialisation
-	iterator insert(value_type&& pair) {
-		return insert<value_type&&>(std::move(pair));
-	}
+    //// Itérateurs
+    ///  ----------
+    /// begin, cbegin, end, cend,
+    /// rbegin, crbegin, rend, crend
 
-	template<typename InputIt>
-	void insert(InputIt first, InputIt last) {
+    iterator begin() {
+            return m_tree.empty() ? end() :
+                iterator(*this, *m_tree.front(), iterator::FRONT);
+    }
 
-		for(; first != last; ++first)
-			insert(*first);
-	}
+    const_iterator begin() const {
+            return cbegin();
+    }
 
-	template<typename U>
-	iterator insert(U&& pair) {
+    const_iterator cbegin() const {
+            return m_tree.empty() ? cend() :
+                    const_iterator(*this, *m_tree.front(), const_iterator::FRONT);
+    }
 
-		iterator it, e = end(), tmp = end(), res = end();
+    iterator end() {
+            return iterator(*this);
+    }
 
-		if(empty()) {
+    const_iterator end() const {
+            return cend();
+    }
 
-			m_tree.create_root(List<value_type>());
-			m_tree.root()->data().push_back(std::forward<U>(pair));
-			res = iterator(*this, *m_tree.root());
-		}
-		else {
+    const_iterator cend() const {
+            return const_iterator(*this);
+    }
 
-			it = iterator(*this, *m_tree.root());
+    /// Capacité
+    /// --------
+    /// empty, size, max_size
 
-			while(it != e) {
+    bool empty() const {
+            return m_tree.empty();
+    }
 
-				tmp = it;
+    size_type size() const {
 
-				if(m_comp(pair.first, it->first)) {
+        // Retourner pas seulement la taille de l'arbre
+        // Mais la taille cumulée de tous les éléments de l'arbre
+        size_type total = 0;
 
-					it = it.child(iterator::ChildPosition::LEFT);
+        if(m_tree.empty()) {
 
-					if(it == e) {
+            return 0;
+        }
 
-						tmp.m_current->insert_left(List<value_type>());
-						tmp.m_current->left()->data().push_back(std::forward<U>(pair));
-						res = tmp.child(iterator::ChildPosition::LEFT);
-						break;
-					}
-				}
-				else if(m_comp(it->first, pair.first)) {
+        for(const Node* node = m_tree.front(); node != nullptr; node = node->next()) {
 
-					it = it.child(iterator::ChildPosition::RIGHT);
+            total += node->data().size();
+        }
 
-					if(it == e) {
+        return total;
+    }
 
-						tmp.m_current->insert_right(List<value_type>());
-						tmp.m_current->right()->data().push_back(std::forward<U>(pair));
-						res = tmp.child(iterator::ChildPosition::RIGHT);
-						break;
-					}
-				}
-				else {
-					List<value_type>& list = tmp.m_current->data();
-					list.push_back(std::forward<U>(pair));
-					res = iterator(*this, *tmp.m_current, iterator::BACK);
-					break;
-				}
-			}
-		}
+    size_type max_size() const {
+        return std::numeric_limits<size_type>::max() / sizeof(Node);
+    }
 
-		return res;
-	}
+    /// Modificateurs
+    /// -------------
+    /// clear, insert, emplace, emplace_hint, erase, swap, extract, merge
 
+    void clear() {
+        m_tree.clear();
+    }
 
-	size_type erase(const key_type& key) {
-		size_type ret = 0;
-		iterator it = lower_bound(key), e = end();
+    iterator insert(iterator position, const value_type& val) {
 
-		if(it != e && !m_comp(it->first, key) && !m_comp(key, it->first)) {
-			ret = it.m_current->data().size();
-			m_tree.erase(it.m_current);
-		}
+        ///TODO
+        return insert(val);
+    }
 
-		return ret;
-	}
+    // Pour permettre l'appel en liste d'initialisation
+    iterator insert(value_type&& pair) {
+        return insert<value_type&&>(std::move(pair));
+    }
 
-	void erase(iterator first, iterator last) {
+    template<typename InputIt>
+    void insert(InputIt first, InputIt last) {
 
-		iterator e = end();
+        for(; first != last; ++first)
+            insert(*first);
+    }
 
-		while(first != last) {
+    template<typename U>
+    iterator insert(U&& pair) {
 
-			if(first == e) {
+        iterator it, e = end(), tmp = end(), res = end();
 
-				std::cout << "Erreur: first vaut end()" << std::endl;
-				return;
-			}
+        if(empty()) {
 
-			erase(first++); // Attention à ne pas garder l'itérateur tel quel car il est invalidé
-		}
-	}
+            m_tree.create_root(List<value_type>());
+            m_tree.root()->data().push_back(std::forward<U>(pair));
+            res = iterator(*this, *m_tree.root());
+        }
+        else {
 
-	iterator erase(iterator position) {
-		iterator next = position;
-		++next;
+            it = iterator(*this, *m_tree.root());
 
-		position.m_current->data().erase(position.m_single);
+            while(it != e) {
 
-		if(position.m_current->data().empty()) {
+                tmp = it;
 
-			m_tree.erase(position.m_current);
-		}
+                if(m_comp(pair.first, it->first)) {
 
-		return next;
-	}
+                    it = it.child(iterator::ChildPosition::LEFT);
 
-	/// Algorithme swap spécialisé pour les multimap
-	void swap(Multimap& other) {
+                    if(it == e) {
 
-		Multimap&& tmp = std::move(*this);
-		*this = std::move(other);
-		other = std::move(tmp);
-	}
+                        tmp.m_current->insert_left(List<value_type>());
+                        tmp.m_current->left()->data().push_back(std::forward<U>(pair));
+                        res = tmp.child(iterator::ChildPosition::LEFT);
+                        break;
+                    }
+                }
+                else if(m_comp(it->first, pair.first)) {
 
-	/// Lookup
-	/// ------
-	/// count, find, contains,
-	/// equal_range, lower_bound, upper_bound
+                    it = it.child(iterator::ChildPosition::RIGHT);
 
+                    if(it == e) {
 
-	size_type count(const key_type& key) {
-		/// TODO: const (a besoin d'un lower_bound const et donc des const_iterators)
-		iterator lb = lower_bound(key);
+                        tmp.m_current->insert_right(List<value_type>());
+                        tmp.m_current->right()->data().push_back(std::forward<U>(pair));
+                        res = tmp.child(iterator::ChildPosition::RIGHT);
+                        break;
+                    }
+                }
+                else {
 
-		if(lb == end() || m_comp(key, lb->first)) {
-			// Si la clé trouvé est supérieur, il n'y a pas d'éléments de cette clé
-			return 0;
-		}
-		else {
-			return lb.m_current->size();
-		}
-	}
+                    List<value_type>& list = tmp.m_current->data();
+                    list.push_back(std::forward<U>(pair));
+                    res = iterator(*this, *tmp.m_current, iterator::BACK);
+                    break;
+                }
+            }
+        }
 
-	iterator find(const key_type& key) {
-		iterator lb = lower_bound(key);
-		if(lb != end() && !m_comp(key, lb->first)) {
-			return lb;
-		}
-		else {
-			return end();
-		}
-	}
+        return res;
+    }
 
-	bool contains(const Key& key) const {
-		//TODO not const
-		return const_cast<Multimap*>(this)->find(key) != end();
-	}
 
-	std::pair<iterator, iterator> equal_range(const Key& key) {
-		return {lower_bound(key), upper_bound(key)};
-	}
+    size_type erase(const key_type& key) {
 
-	iterator lower_bound(const key_type& key) {
+        size_type ret = 0; // Nombre d'éléments supprimés
+        iterator it = lower_bound(key),
+                 e = end();
 
-		iterator last_not_less = end();
-		iterator it = root();
+        if(it != e && !m_comp(key, it->first)) {
 
-		while(it != end()) {
+            ret = it.m_current->data().size();
+            m_tree.erase(it.m_current);
+        }
 
-			if(m_comp(it->first, key)) {
-				it = it.child(iterator::ChildPosition::RIGHT);
-			}
-			else {
-				last_not_less = it;
-				it = it.child(iterator::ChildPosition::LEFT);
-			}
-		}
+        return ret;
+    }
 
-		return last_not_less;
-	}
+    void erase(iterator first, iterator last) {
 
-	iterator upper_bound(const key_type& key) {
+        iterator e = end();
 
-		iterator res = lower_bound(key);
+        while(first != last) {
 
-		if(res == end() || m_comp(key, res->second)) {
-			// Si la clé trouvé est supérieur, on la retourne
-			return res;
-		}
-		else {
-			// Sinon, on retourne l'élément suivant (ou null si il n'y a pas d'élément suivant)
+            if(first == e) {
 
-			Node* next = res.m_current->next();
+                std::cout << "Erreur: first vaut end()" << std::endl;
+                return;
+            }
 
-			if(next != nullptr) {
-				return iterator(*this, *next);
-			}
-			else {
-				return end();
-			}
-		}
-	}
+            erase(first++); // Attention à ne pas garder l'itérateur tel quel car il est invalidé
+        }
+    }
 
-	/// Observateurs
-	/// ------------
-	/// key_comp, value_comp
+    iterator erase(iterator position) {
+        iterator next = position;
+        ++next;
 
-	key_compare key_comp() const {
-		return m_comp;
-	}
+        position.m_current->data().erase(position.m_single);
 
-	value_compare value_comp() const {
-		return value_compare(key_comp());
-	}
+        if(position.m_current->data().empty()) {
 
-	/// Fonctions non membres
-	/// ---------------------
-	/// operator==, operator!=,
-	/// operator<, operator<=,
-	/// operator>, operator>=
-	/// std::swap, erase_if
+            m_tree.erase(position.m_current);
+        }
 
-	friend bool operator==(const std::multimap<Key, T>& lhs,
-						   const Multimap<Key, T, Compare>& rhs) {
+        return next;
+    }
 
-		return (rhs == lhs);
-	}
+    /// Algorithme swap spécialisé pour les multimap
+    void swap(Multimap& other) {
 
-	friend bool operator==(const Multimap<Key, T>& lhs,
-						   const std::multimap<Key, T>& rhs) {
+        Multimap&& tmp = std::move(*this);
+        *this = std::move(other);
+        other = std::move(tmp);
+    }
 
-		typename std::map<Key, T>::const_iterator it;
-		const_iterator myit = lhs.cbegin(),
-				 myend = lhs.cend();
+    /// Lookup
+    /// ------
+    /// count, find, contains,
+    /// equal_range, lower_bound, upper_bound
 
-		for(it = rhs.begin(); it != rhs.end(); ++it, ++myit) {
 
-			if(myit == myend || *it != *myit) {
-				return false;
-			}
-		}
+    size_type count(const key_type& key) {
+        /// TODO: const (a besoin d'un lower_bound const et donc des const_iterators)
+        iterator lb = lower_bound(key);
 
-		return myit == myend;
-	}
+        if(lb == end() || m_comp(key, lb->first)) {
+            // Si la clé trouvé est supérieur, il n'y a pas d'éléments de cette clé
+            return 0;
+        }
+        else {
+            return lb.m_current->size();
+        }
+    }
 
-	friend bool operator!=(const std::multimap<Key, T>& lhs,
-						   const Multimap<Key, T, Compare>& rhs) {
+    iterator find(const key_type& key) {
+        iterator lb = lower_bound(key);
+        if(lb != end() && !m_comp(key, lb->first)) {
+            return lb;
+        }
+        else {
+            return end();
+        }
+    }
 
-		return !(rhs == lhs);
-	}
+    bool contains(const Key& key) const {
+        //TODO not const
+        return const_cast<Multimap*>(this)->find(key) != end();
+    }
 
-	friend bool operator!=(const Multimap<Key, T>& lhs,
-						   const std::multimap<Key, T>& rhs) {
+    std::pair<iterator, iterator> equal_range(const Key& key) {
+        return {lower_bound(key), upper_bound(key)};
+    }
 
-		return !(rhs == lhs);
-	}
+    iterator lower_bound(const key_type& key) {
 
+            iterator last_not_less = end();
+            iterator it = root();
 
-	friend MultimapIterator<Key, T, Compare, false>;
-	friend MultimapIterator<Key, T, Compare, true>;
+            while(it != end()) {
 
-	/// Fonctions non membres de convénience
-	/// ------------------------------------
+                    if(m_comp(it->first, key)) {
+                            it = it.child(iterator::ChildPosition::RIGHT);
+                    }
+                    else {
+                            last_not_less = it;
+                            it = it.child(iterator::ChildPosition::LEFT);
+                    }
+            }
 
-	friend std::ostream& operator<<(std::ostream& lhs, const Multimap& rhs) {
+            return last_not_less;
+    }
 
-		const_iterator it = rhs.cbegin();
-		const_iterator e = rhs.cend();
+    iterator upper_bound(const key_type& key) {
 
-		using namespace pair_operators;
+        iterator res = lower_bound(key);
 
-		while(it != e) {
-			lhs << *it;
-			++it;
+        if(res == end() || m_comp(key, res->second)) {
+            // Si la clé trouvé est supérieur, on la retourne
+            return res;
+        }
+        else {
+            // Sinon, on retourne l'élément suivant (ou null si il n'y a pas d'élément suivant)
 
-			if(it != e) {
-				lhs << ", ";
-			}
-		}
+            Node* next = res.m_current->next();
 
-		/*
-		lhs << std::endl;
-		lhs << "Arbre:" << std::endl;
-		lhs << rhs.m_tree << std::endl;
-		*/
+            if(next != nullptr) {
+                return iterator(*this, *next);
+            }
+            else {
+                return end();
+            }
+        }
+    }
 
-		return lhs;
-	}
+    /// Observateurs
+    /// ------------
+    /// key_comp, value_comp
 
-	bool equals(const std::initializer_list<value_type>& il) {
+    key_compare key_comp() const {
+        return m_comp;
+    }
 
-		iterator it = begin(), e = end();
+    value_compare value_comp() const {
+        return value_compare(key_comp());
+    }
 
-		for(value_type pair : il) {
+    /// Fonctions non membres
+    /// ---------------------
+    /// operator==, operator!=,
+    /// operator<, operator<=,
+    /// operator>, operator>=
+    /// std::swap, erase_if
+    ///
 
-			if(it == e || *it != pair) {
-				return false;
-			}
+    friend bool operator==(const Multimap& lhs, const Multimap& rhs) {
+        return lhs.equals(rhs.begin(), rhs.end());
+    }
 
-			++it;
-		}
+    friend bool operator==(const Multimap& lhs, const stl_type& rhs) {
+        return lhs.equals(rhs.begin(), rhs.end());
+    }
 
-		return it == e;
-	}
+    friend bool operator==(const stl_type& lhs, const Multimap& rhs) {
+        return rhs.equals(lhs.begin(), lhs.end());
+    }
 
-	/// Implémentation
-	/// --------------
+    friend bool operator!=(const Multimap& lhs, const Multimap& rhs) {
+        return !lhs.equals(rhs.begin(), rhs.end());
+    }
+
+    friend bool operator!=(const Multimap& lhs, const stl_type& rhs) {
+        return !lhs.equals(rhs.begin(), rhs.end());
+    }
+
+    friend bool operator!=(const stl_type& lhs, const Multimap& rhs) {
+        return !rhs.equals(lhs.begin(), lhs.end());
+    }
+
+    /// Fonctions non membres utiles
+    /// ----------------------------
+
+    friend std::ostream& operator<<(std::ostream& lhs, const Multimap& rhs) {
+
+        const_iterator it = rhs.cbegin();
+        const_iterator e = rhs.cend();
+
+        using namespace pair_operators;
+
+        while(it != e) {
+
+            lhs << *it;
+            ++it;
+
+            if(it != e) {
+                    lhs << ", ";
+            }
+        }
+
+        return lhs;
+    }
+
+    bool equals(const std::initializer_list<value_type>& il) const {
+        return equals(il.begin(), il.end());
+    }
+
+    /**
+     * @brief Comparaison à un intervalle d'itérateurs
+     * Retourne vrai si les contenus sont strictement indentiques
+     */
+    template<typename InputIt>
+    bool equals(InputIt first, InputIt last) const {
+
+        const_iterator it = begin(),
+                       e = end();
+
+        while(first != last) {
+
+            if(it == e || *it != *first) {
+                return false;
+            }
+
+            ++it;
+            ++first;
+        }
+
+        return it == e;
+    }
+
+    /// Fonctions amies
+    /// ---------------
+
+
+    friend MultimapIterator<Key, T, Compare, false>;
+    friend MultimapIterator<Key, T, Compare, true>;
+
+    /// Implémentation
+    /// --------------
 
 private:
-	typedef	BSTree<List<value_type>>				Tree;
-	typedef typename Tree::Node						Node;
-	typedef typename List<value_type>::Node			SingleNode;
+    Compare m_comp;
+    Tree m_tree;
 
-	Compare m_comp;
-	Tree m_tree;
-
-	iterator root() {
-		return m_tree.empty() ? end() : iterator(*this, *m_tree.root());
-	}
+    iterator root() {
+        return m_tree.empty() ? end() : iterator(*this, *m_tree.root());
+    }
 };
 
 /// Fonctions globales
@@ -579,21 +600,21 @@ private:
 template<typename Key, typename T, typename Compare>
 std::ostream& operator<<(std::ostream& lhs, const std::multimap<Key, T, Compare>& rhs) {
 
-	auto it = rhs.cbegin();
-	auto e = rhs.cend();
+        auto it = rhs.cbegin();
+        auto e = rhs.cend();
 
-	using namespace pair_operators;
+        using namespace pair_operators;
 
-	while(it != e) {
-		lhs << *it;
-		++it;
+        while(it != e) {
+                lhs << *it;
+                ++it;
 
-		if(it != e) {
-			lhs << ", ";
-		}
-	}
+                if(it != e) {
+                        lhs << ", ";
+                }
+        }
 
-	return lhs;
+        return lhs;
 }
 
 /// Instanciation explicit des templates
