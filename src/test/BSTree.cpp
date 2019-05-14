@@ -5,9 +5,9 @@
 BSTree<int> buildBSTree() {
 
 	BSTree<int> bstree;
-	auto** node = bstree.create_root(20);
-	(*node)->insert_left(10);
-	(*node)->insert_right(30)->insert_right(40);
+	auto* node = *bstree.create_root(20);
+	node->insert_left(10);
+	node->insert_right(30)->insert_right(40);
 
 	//		20
 	//  10	   30
@@ -16,7 +16,7 @@ BSTree<int> buildBSTree() {
 	return bstree;
 }
 
-TEST_CASE("Hauteur", "BSTree") {
+TEST_CASE("Hauteur d'un BSTree", "[bstree]") {
 
 	BSTree<int> bstree;
 	int requiredHeight = -1;
@@ -33,28 +33,60 @@ TEST_CASE("Hauteur", "BSTree") {
 	REQUIRE(bstree.height() == requiredHeight);
 }
 
-TEST_CASE("Insertion", "BSTree") {
+TEST_CASE("Insertion dans un BSTree", "[bstree]") {
 
 	BSTree<int> bstree = buildBSTree();
 	REQUIRE(bstree.equals({10, 20, 30, 40}));
 }
 
-TEST_CASE("Suppression", "BSTree") {
+TEST_CASE("Suppression dans un BSTree", "[bstree]") {
 
-	using std::cout;
-	using std::endl;
+	BSTree<int> bstree;
+	bstree.create_root(20);
 
-	BSTree<int> bstree = buildBSTree();
+	SECTION("Pas de fils") {
 
-	bstree.erase(bstree.root());
-	REQUIRE(bstree.equals({10, 30, 40}));
+		bstree.erase(bstree.root());
+		REQUIRE(bstree == std::initializer_list<int>{});
+	}
 
-	bstree.erase(bstree->left());
-	REQUIRE(bstree.equals({30, 40}));
+	SECTION("Fils gauche uniquement") {
 
-	bstree.erase(bstree->right());
-	REQUIRE(bstree.equals({30}));
+		bstree.root()->insert_left(10);
+		bstree.erase(bstree.root());
+		REQUIRE(bstree == std::initializer_list<int>{10});
+	}
 
-	bstree.erase(bstree.root());
-	REQUIRE(bstree.equals({}));
+	SECTION("Fils droit uniquement") {
+
+		bstree.root()->insert_right(30);
+		bstree.erase(bstree.root());
+		REQUIRE(bstree == std::initializer_list<int>{30});
+	}
+
+	SECTION("Deux fils") {
+
+		bstree.root()->insert_left(10);
+		bstree.root()->insert_right(30);
+
+		SECTION("File droit sans fils") {
+
+			bstree.erase(bstree.root());
+			REQUIRE(bstree == std::initializer_list<int>{10, 30});
+		}
+
+		SECTION("Fils droit avec fils droit") {
+
+			bstree.root()->right()->insert_right(40);
+			bstree.erase(bstree.root());
+			REQUIRE(bstree == std::initializer_list<int>{10, 30, 40});
+		}
+
+		SECTION("Fils droit avec fils gauche") {
+
+			bstree.root()->right()->insert_left(25);
+			bstree.erase(bstree.root());
+			REQUIRE(bstree == std::initializer_list<int>{10, 25, 30});
+		}
+	}
 }

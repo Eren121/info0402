@@ -5,15 +5,26 @@
 #include <functional> // less
 #include <utility>	  // pair
 #include <map>	      // multimap
+#include <limits>	  // max()
 
 #include "List.h"
 #include "BSTree.h"
 #include "MultimapIterator.h"
 
+/**
+ * Prédéclaration de Multimap avec les paramètres templates par défaut
+ */
 template<
 	class Key,
 	class T,
 	class Compare = std::less<Key>
+	> class Multimap;
+
+
+template<
+	class Key,
+	class T,
+	class Compare
 	> class Multimap {
 
 public:
@@ -22,6 +33,18 @@ public:
 	/// Selon https://en.cppreference.com/w/cpp/container/multimap
 	/// Trié par surcharge, dans l'ordre aussi
 	/// Mis à part structure interne
+
+	/// Types membres
+	/// ------------
+	/// key_type, mapped_type, value_type
+	/// size_type, difference_type
+	/// key_compare, allocator_type
+	/// reference, const_reference,
+	/// pointer, const_pointer
+	/// iterator, const_iterator
+	/// reverse_iterator
+	/// const_reverse_iterator
+	/// node_type
 
 	typedef Key key_type;
 	typedef T mapped_type;
@@ -41,6 +64,10 @@ public:
 	//reverse_iterator
 	//const_reverse_iterator
 
+	/// Classes membres
+	/// ---------------
+	/// value_compare
+
 	class value_compare { // Compare les paires
 	public:
 		typedef bool result_type;
@@ -59,6 +86,8 @@ public:
 
 		friend class Multimap;
 	};
+
+	/// Constructeurs
 
 	Multimap() :
 		Multimap(Compare()) {}
@@ -105,7 +134,11 @@ public:
 		other.clear();
 	}
 
+	/// Destructeur
+
 	~Multimap() = default;
+
+	/// operator =
 
 	Multimap& operator=(const Multimap& other) {
 
@@ -161,100 +194,68 @@ public:
 		return allocator_type();
 	}
 
+	//// Itérateurs
+	///  ----------
+	/// begin, cbegin, end, cend,
+	/// rbegin, crbegin, rend, crend
+
 	iterator begin() {
                 return m_tree.empty() ? end() :
                     iterator(*this, *m_tree.front(), iterator::FRONT);
 	}
 
-        const_iterator begin() const {
-            return cbegin();
-        }
+	const_iterator begin() const {
+		return cbegin();
+	}
 
-        const_iterator cbegin() const {
-            return m_tree.empty() ? cend() :
-                const_iterator(*this, *m_tree.front(), const_iterator::FRONT);
-        }
+	const_iterator cbegin() const {
+		return m_tree.empty() ? cend() :
+			const_iterator(*this, *m_tree.front(), const_iterator::FRONT);
+	}
 
 	iterator end() {
 		return iterator(*this);
-        }
+	}
 
 	const_iterator end() const {
 		return cend();
-        }
+	}
 
 	const_iterator cend() const {
 		return const_iterator(*this);
 	}
 
-	iterator find(const key_type& key) {
-		iterator lb = lower_bound(key);
-		if(!m_comp(key, lb->first)) {
-			return lb;
-		}
-		else {
-			return end();
-		}
+	/// Capacité
+	/// --------
+	/// empty, size, max_size
+
+	bool empty() const {
+		return m_tree.empty();
 	}
 
-	size_type count(const key_type& key) {
-		/// TODO: const (a besoin d'un lower_bound const et donc des const_iterators)
-		iterator lb = lower_bound(key);
-
-		if(lb == end() || m_comp(key, lb->first)) {
-			// Si la clé trouvé est supérieur, il n'y a pas d'éléments de cette clé
-			return 0;
-		}
-		else {
-			return lb.m_current->size();
-		}
+	size_type size() const {
+		return static_cast<size_type>(m_tree.size());
 	}
 
-	iterator lower_bound(const key_type& key) {
-
-		iterator last_not_less = end();
-		iterator it = root();
-
-		while(it != end()) {
-
-			if(m_comp(it->first, key)) {
-				it = it.child(iterator::ChildPosition::RIGHT);
-			}
-			else {
-				last_not_less = it;
-				it = it.child(iterator::ChildPosition::LEFT);
-			}
-		}
-
-		return last_not_less;
+	size_type max_size() const {
+		return std::numeric_limits<size_type>::max();
 	}
 
-	iterator upper_bound(const key_type& key) {
+	/// Modificateurs
+	/// -------------
+	/// clear, insert, emplace, emplace_hint, erase, swap, extract, merge
 
-		iterator res = lower_bound(key);
-
-		if(res == end() || m_comp(key, res->second)) {
-			// Si la clé trouvé est supérieur, on la retourne
-			return res;
-		}
-		else {
-			// Sinon, on retourne l'élément suivant (ou null si il n'y a pas d'élément suivant)
-
-			Node* next = res.m_current->next();
-
-			if(next != nullptr) {
-				return iterator(*this, *next);
-			}
-			else {
-				return end();
-			}
-		}
+	void clear() {
+		m_tree.clear();
 	}
 
-	std::pair<iterator, iterator> equal_range(const Key& key) {
-		return {lower_bound(key), upper_bound(key)};
+	iterator insert(iterator position, const value_type& val) {
+
+		///TODO
+		return insert(val);
 	}
 
+	// Pour permettre l'appel en liste d'initialisation
 	iterator insert(value_type&& pair) {
 		return insert<value_type&&>(std::move(pair));
 	}
@@ -321,6 +322,7 @@ public:
 		return res;
 	}
 
+
 	size_type erase(const key_type& key) {
 		size_type ret = 0;
 		iterator it = lower_bound(key), e = end();
@@ -331,6 +333,22 @@ public:
 		}
 
 		return ret;
+	}
+
+	void erase(iterator first, iterator last) {
+
+		iterator e = end();
+
+		while(first != last) {
+
+			if(first == e) {
+
+				std::cout << "Erreur: first vaut end()" << std::endl;
+				return;
+			}
+
+			erase(first++); // Attention à ne pas garder l'itérateur tel quel car il est invalidé
+		}
 	}
 
 	iterator erase(iterator position) {
@@ -347,13 +365,96 @@ public:
 		return next;
 	}
 
-	bool empty() const {
-		return m_tree.empty();
+	/// Algorithme swap spécialisé pour les multimap
+	void swap(Multimap& other) {
+
+		Multimap&& tmp = std::move(*this);
+		*this = std::move(other);
+		other = std::move(tmp);
 	}
 
-	size_type size() const {
-		return static_cast<size_type>(m_tree.size());
+	/// Lookup
+	/// ------
+	/// count, find, contains,
+	/// equal_range, lower_bound, upper_bound
+
+
+	size_type count(const key_type& key) {
+		/// TODO: const (a besoin d'un lower_bound const et donc des const_iterators)
+		iterator lb = lower_bound(key);
+
+		if(lb == end() || m_comp(key, lb->first)) {
+			// Si la clé trouvé est supérieur, il n'y a pas d'éléments de cette clé
+			return 0;
+		}
+		else {
+			return lb.m_current->size();
+		}
 	}
+
+	iterator find(const key_type& key) {
+		iterator lb = lower_bound(key);
+		if(lb != end() && !m_comp(key, lb->first)) {
+			return lb;
+		}
+		else {
+			return end();
+		}
+	}
+
+	bool contains(const Key& key) const {
+		//TODO not const
+		return const_cast<Multimap*>(this)->find(key) != end();
+	}
+
+	std::pair<iterator, iterator> equal_range(const Key& key) {
+		return {lower_bound(key), upper_bound(key)};
+	}
+
+	iterator lower_bound(const key_type& key) {
+
+		iterator last_not_less = end();
+		iterator it = root();
+
+		while(it != end()) {
+
+			if(m_comp(it->first, key)) {
+				it = it.child(iterator::ChildPosition::RIGHT);
+			}
+			else {
+				last_not_less = it;
+				it = it.child(iterator::ChildPosition::LEFT);
+			}
+		}
+
+		return last_not_less;
+	}
+
+	iterator upper_bound(const key_type& key) {
+
+		iterator res = lower_bound(key);
+
+		if(res == end() || m_comp(key, res->second)) {
+			// Si la clé trouvé est supérieur, on la retourne
+			return res;
+		}
+		else {
+			// Sinon, on retourne l'élément suivant (ou null si il n'y a pas d'élément suivant)
+
+			Node* next = res.m_current->next();
+
+			if(next != nullptr) {
+				return iterator(*this, *next);
+			}
+			else {
+				return end();
+			}
+		}
+	}
+
+	/// Observateurs
+	/// ------------
+	/// key_comp, value_comp
 
 	key_compare key_comp() const {
 		return m_comp;
@@ -363,28 +464,16 @@ public:
 		return value_compare(key_comp());
 	}
 
-	bool equals(const std::initializer_list<value_type>& il) {
-		iterator it = begin(), e = end();
+	/// Fonctions non membres
+	/// ---------------------
+	/// operator==, operator!=,
+	/// operator<, operator<=,
+	/// operator>, operator>=
+	/// std::swap, erase_if
 
-		for(value_type pair : il) {
-
-			if(it == e || *it != pair) {
-				return false;
-			}
-
-			++it;
-		}
-
-		return it == e;
-	}
-
-	void clear() {
-		m_tree.clear();
-	}
-
-	// TODO const
 	friend bool operator==(const std::multimap<Key, T>& lhs,
 						   const Multimap<Key, T, Compare>& rhs) {
+
 		return (rhs == lhs);
 	}
 
@@ -405,14 +494,31 @@ public:
 		return myit == myend;
 	}
 
+	friend bool operator!=(const std::multimap<Key, T>& lhs,
+						   const Multimap<Key, T, Compare>& rhs) {
+
+		return !(rhs == lhs);
+	}
+
+	friend bool operator!=(const Multimap<Key, T>& lhs,
+						   const std::multimap<Key, T>& rhs) {
+
+		return !(rhs == lhs);
+	}
+
+
+	friend MultimapIterator<Key, T, Compare, false>;
+	friend MultimapIterator<Key, T, Compare, true>;
+
+	/// Fonctions non membres de convénience
+	/// ------------------------------------
+
 	friend std::ostream& operator<<(std::ostream& lhs, const Multimap& rhs) {
 
 		const_iterator it = rhs.cbegin();
 		const_iterator e = rhs.cend();
 
 		using namespace pair_operators;
-
-		lhs << "Infixe: ";
 
 		while(it != e) {
 			lhs << *it;
@@ -423,20 +529,33 @@ public:
 			}
 		}
 
+		/*
 		lhs << std::endl;
 		lhs << "Arbre:" << std::endl;
 		lhs << rhs.m_tree << std::endl;
+		*/
 
 		return lhs;
 	}
 
-	/// Algorithme swap spécialisé pour les multimap
-	friend void swap(const Multimap& lhs, const Multimap &rhs) {
-		const Multimap tmp = std::move(lhs);
-		lhs = std::move(rhs);
-		rhs = std::move(tmp);
+	bool equals(const std::initializer_list<value_type>& il) {
+
+		iterator it = begin(), e = end();
+
+		for(value_type pair : il) {
+
+			if(it == e || *it != pair) {
+				return false;
+			}
+
+			++it;
+		}
+
+		return it == e;
 	}
 
+	/// Implémentation
+	/// --------------
 
 private:
 	typedef	BSTree<List<value_type>>				Tree;
@@ -449,12 +568,37 @@ private:
 	iterator root() {
 		return m_tree.empty() ? end() : iterator(*this, *m_tree.root());
 	}
-
-    friend MultimapIterator<Key, T, Compare, false>;
-    friend MultimapIterator<Key, T, Compare, true>;
 };
 
-/// Multimap implementation -------------------------------
+/// Fonctions globales
+/// ------------------
+
+/**
+ * Affichage d'une std::multimap
+ */
+template<typename Key, typename T, typename Compare>
+std::ostream& operator<<(std::ostream& lhs, const std::multimap<Key, T, Compare>& rhs) {
+
+	auto it = rhs.cbegin();
+	auto e = rhs.cend();
+
+	using namespace pair_operators;
+
+	while(it != e) {
+		lhs << *it;
+		++it;
+
+		if(it != e) {
+			lhs << ", ";
+		}
+	}
+
+	return lhs;
+}
+
+/// Instanciation explicit des templates
+/// ------------------------------------
 
 template class Multimap<int, int>;
+
 #endif // MULTIMAP_H

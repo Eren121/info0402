@@ -2,83 +2,138 @@
 #include "catch.hpp"
 #include <ctime>
 
-std::multimap<int, int> initRandom(std::size_t size = 1000, unsigned int seed = static_cast<unsigned int>(time(nullptr)), int maxValue = 10000) {
+std::multimap<int, int> initRandom(std::size_t size = 10000, int maxKey = 1000) {
+
 	std::multimap<int, int> m;
-	srand(seed);
+
 	for(std::size_t i = 0; i < size; i++) {
-		int key = rand() % maxValue;
-		int val = rand() % maxValue;
+
+		int key = rand() % maxKey;
+		int val = rand() % maxKey;
 		m.insert({key, val});
 	}
+
 	return m;
 }
 
-TEST_CASE("Algorithme std::for_each") {
+namespace tests {
 
-	const unsigned int seed = 12345;
+	template<typename T>
+	void for_each(T& mmap, unsigned int seed) {
+
+		// Graîne pour avoir la même séquence à chaque appel
+
+		srand(seed);
+
+		// Remplir de façon aléatoire la map
+
+		std::for_each(mmap.begin(), mmap.end(), [](typename T::value_type& val) {
+			val.second = rand() % 1000000;
+		});
+
+		// Inverser les valeurs
+
+		std::for_each(mmap.begin(), mmap.end(), [](typename T::value_type& val) {
+			val.second = -val.second;
+		});
+
+		// Doubler chaque valeur
+
+		std::for_each(mmap.begin(), mmap.end(), [](typename T::value_type& val) {
+			val.second = val.second + val.second;
+		});
+
+		// Soustraire à chaque valeur sa clé
+
+		std::for_each(mmap.begin(), mmap.end(), [](typename T::value_type& val) {
+			val.second -= val.first;
+		});
+	}
+
+	// Compte le nomre d'éléments dont la clé et la valeur valent zéro
+
+	template<typename T>
+	typename T::difference_type count(const T& mmap) {
+
+		return std::count(mmap.begin(), mmap.end(), std::pair<const int, int>(0, 0));
+	}
+
+	// Compte le nombre d'éléments dont la clé est paire
+
+	template<typename T>
+	typename T::difference_type count_if(const T& mmap) {
+
+		return std::count_if(mmap.begin(), mmap.end(), [](const typename T::value_type& val) {
+			return val.first % 2 == 0;
+		});
+	}
+
+	template<typename T>
+	T unique_copy(T& mmap) {
+
+		T output;
+		mmap.insert({0, 0}); // unique
+		mmap.insert({0, 0});
+		mmap.insert({1, 1}); // unique
+		mmap.insert({1, 2}); // unique
+		mmap.insert({1, 2});
+		mmap.insert({3, 3}); // unique
+
+		std::unique_copy(mmap.begin(), mmap.end(), std::insert_iterator<T>(output, output.begin()));
+		return output;
+	}
+}
+
+
+
+TEST_CASE("Algorithme std::for_each", "[multimap][algorithm]") {
+
+	// Initialiser la graine au début
+	// Sinon les appel à rand() sont donc différent pour les deux maps
+	const unsigned int seed = time(0);
+
 	std::multimap<int, int> map = initRandom();
 	Multimap<int, int> mymap(map);
-	std::function<void(std::pair<const int, int>&)> transform;
 
-	SECTION("Remplacer les valeurs aléatoirement") {
-		transform = [](std::pair<const int, int>& i) { i.second = rand(); };
-	}
+	tests::for_each(mymap, seed);
+	tests::for_each(map, seed);
 
-	SECTION("Inverser les valeurs") {
-		transform = [](std::pair<const int, int>& i) { i.second = -i.second; };
-	}
-
-	srand(seed);
-	std::for_each(map.begin(), map.end(), transform);
-	srand(seed);
-	std::for_each(mymap.begin(), mymap.end(), transform);
 	REQUIRE(mymap == map);
 }
 
-TEST_CASE("Algorithme std::count, std::count_if") {
+TEST_CASE("Algorithmes std::count", "[multimap][algorithm]") {
 
-	unsigned int seed = 12345;
-	std::multimap<int, int> map = initRandom(1000, seed, 10);
+	std::multimap<int, int> map = initRandom(100, 5);
 	Multimap<int, int> mymap(map);
-	std::function<bool(std::pair<const int, int> const&)> predicate;
 
-	SECTION("std::count") {
-
-		for(int i = 0; i < 10; i++) {
-			for(int j = 0; j < 10; j++) {
-				std::pair<const int, int> val = {i, j};
-				REQUIRE(std::count(map.begin(), map.end(), val) ==
-						std::count(mymap.begin(), mymap.end(), val));
-			}
-		}
-	}
-
-	SECTION("std::count_if") {
-
-		SECTION("Compter le nombre de clé inférieures à la valeur") {
-			predicate = [](const std::pair<const int, int>&p) { return p.first < p.second; };
-		}
-
-		SECTION("Compter le nombre d'éléments tel que cle + valeur < 10") {
-			predicate = [](const std::pair<const int, int>&p) { return p.first + p.second < 10; };
-		}
-
-		REQUIRE(std::count_if(map.begin(), map.end(), predicate) ==
-				std::count_if(mymap.begin(), mymap.end(), predicate));
-	}
+	REQUIRE(tests::count(map) == tests::count(mymap));
 }
 
-TEST_CASE("Algorithme std::match") {
+TEST_CASE("Algorithme std::count_if", "[multimap][algorithm]") {
 
-	unsigned int seed = 12345;
-	std::multimap<int, int> map = initRandom(1000, seed, 10);
+	std::multimap<int, int> map = initRandom();
+	Multimap<int, int> mymap(map);
+
+	REQUIRE(tests::count_if(map) == tests::count_if(mymap));
+}
+
+TEST_CASE("Algorithme std::equal", "[multimap][algorithm]") {
+
+	std::multimap<int, int> map = initRandom();
 	Multimap<int, int> mymap(map);
 
 	REQUIRE(std::equal(mymap.begin(), mymap.end(), map.begin()));
+
 	map.erase(map.begin());
+
 	REQUIRE(!std::equal(mymap.begin(), mymap.end(), map.begin()));
 }
 
-TEST_CASE("Algorithme std::remove, std::remove_if") {
+TEST_CASE("Algorithme std::unique_copy via std::insert_iterator", "[multimap][algorithm]") {
 
+	std::multimap<int, int> map;
+	Multimap<int, int> mymap(map);
+
+	// Compare les deux conteneurs obtenus
+	REQUIRE(tests::unique_copy(map) == tests::unique_copy(mymap));
 }

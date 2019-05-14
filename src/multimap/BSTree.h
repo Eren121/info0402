@@ -7,6 +7,9 @@
 #include <sstream>
 #include <utility>
 
+/// Prédéclarations
+/// --------------
+
 // Lightweight wrapper for binary search tree
 
 template<typename T>
@@ -20,16 +23,18 @@ template<typename T, typename Node>
 std::ostream& operator<<(std::ostream& lhs, const BSTree<T, Node>& bstree);
 
 /// Noeud binaire basique
+/// ---------------------
+
 template<typename T, typename Node>
 class BSTreeNode {
 public:
 
     std::size_t size() const {
-        int res = 1;
+		std::size_t res = 1;
         if(m_left) res += m_left->size();
         if(m_right) res += m_right->size();
         return res;
-    }
+	}
 
     /// Retourne vrai si le noeud est la racine, faux sinon
     bool is_root() const { return m_parent == nullptr; }
@@ -44,10 +49,18 @@ public:
     bool has_right() const { return m_right != nullptr; }
 
     /// Récupère la donnée (constant)
-    const T& data() const { return *m_data; }
+	const T& data() const {
+
+		ASSERT(m_data);
+		return *m_data;
+	}
 
     /// Récupère la donnée (non-constant)
-    T& data() { return *m_data; }
+	T& data() {
+
+		ASSERT(m_data);
+		return *m_data;
+	}
 
     /// Récupère le parent du noeud courant (constant)
     const Node* parent() const {
@@ -86,9 +99,9 @@ public:
     }
 
     /// Hauteur du noeud
-    int height() const {
-        int hl = 0;
-        int hr = 0;
+	std::size_t height() const {
+		std::size_t hl = 0;
+		std::size_t hr = 0;
 
         if(m_left != nullptr) {
             hl = 1 + m_left->height();
@@ -141,7 +154,7 @@ public:
     /// Récupère le noeud précédent (ou NULL si c'est le premier noeud)
     Node* prev() {
 
-        Node *tmp = this;
+		Node *tmp = static_cast<Node*>(this);
         if(m_left != nullptr) {
             return m_left->max();
         }
@@ -177,51 +190,19 @@ public:
 
 protected:
     template<typename U>
-    BSTreeNode(U&& t, Node* parentNode) :
+	BSTreeNode(U&& t, Node* parentNode = nullptr) :
         m_data(new T(std::forward<U>(t))),
         m_parent(parentNode),
         m_left(nullptr),
         m_right(nullptr) {}
 
-    ~BSTreeNode() {
+	virtual ~BSTreeNode() {
         delete m_data;
-        delete m_left;
-        delete m_right;
-    }
-
-    /// Enlève la valeur de ce noeud de l'arbre
-    /// La structure de l'arbre reste trié
-    /// Des données sont échangées si nécessaire.
-    /// Uniquement les données (les pointeurs vers les données) sont échangées et pas la structure de l'arbre (les noeuds)
-    /// \return le noeud qui a été supprimé de l'arbre (pas forcément le noeud courant)
-    Node* detach() {
-
-        Node* tmp = nullptr;
-
-        if(m_left && m_right) {
-            tmp = next();
-            swap(*this, *tmp);
-            return tmp->detach();
-        }
-        else if(m_left) {
-            swap(*this, *m_left);
-            return m_left->detach();
-        }
-        else if(m_right) {
-            swap(*this, *m_right);
-            return m_right->detach();
-        }
-        else {
-
-            if(m_parent) {
-
-                if(m_parent->m_left == this) m_parent->m_left = nullptr;
-                else m_parent->m_right = nullptr;
-            }
-
-            return static_cast<Node*>(this);
-        }
-    }
+		m_data = nullptr;
+		m_parent = nullptr;
+		m_left = nullptr;
+		m_right = nullptr;
+	}
 
     T* m_data;
     Node* m_parent;
@@ -231,12 +212,35 @@ protected:
     friend class BSTree<T, Node>;
     friend std::ostream& operator<< <T, Node>(std::ostream& lhs, const BSTree<T, Node>& bstree);
 
-    /// Echange les données
-    friend void swap(BSTreeNode& a, BSTreeNode& b) {
-        T* tmp = a.m_data;
-        a.m_data = b.m_data;
-        b.m_data = tmp;
-    }
+	void deepEraseChildren() {
+
+		if(m_left) {
+
+			m_left->deepEraseChildren();
+			delete m_left;
+			m_left = nullptr;
+		}
+
+		if(m_right) {
+
+			m_right->deepEraseChildren();
+			delete m_right;
+			m_right = nullptr;
+		}
+	}
+
+	void replaceChild(Node* oldChild, Node* newChild) {
+
+		if(m_left == oldChild) {
+			m_left = newChild;
+		}
+		else if(m_right == oldChild) {
+			m_right = newChild;
+		}
+		else {
+			ASSERT_THROW("oldChild ne correspond à aucun des fils du noeud");
+		}
+	}
 };
 
 template<typename T>
@@ -245,84 +249,390 @@ class BinaryNode : public BSTreeNode<T, BinaryNode<T>> {
     using BSTreeNode<T, BinaryNode<T>>::BSTreeNode;
 };
 
+/**
+ * Arbre binaire
+ * @tparam T type stocké
+ * @tparam N type du noeud
+ */
 template<typename T, typename N>
 class BSTree {
 public:
-    using Node = N;
+	/**
+	 * Type du noeud
+	 */
+	using Node = N;
 
-    BSTree() : m_root(nullptr) {}
+	/**
+	 * Constructeur par défaut
+	 * Créer un arbre vide
+	 */
+	BSTree() :
+		m_root(nullptr)
+	{}
+
+	/**
+	 * Constructeur par copie
+	 */
     BSTree(const BSTree&) = delete;
-    BSTree(BSTree&& o) : m_root(o.m_root) { o.m_root = nullptr; }
 
+	/**
+	 * Constructeur par déplacement
+	 */
+	BSTree(BSTree&& o) :
+		m_root(o.m_root) {
+
+		o.m_root = nullptr;
+	}
+
+	/**
+	 * Destructeur
+	 */
     ~BSTree() {
-        delete m_root;
+
+		if(m_root) {
+
+			m_root->deepEraseChildren();
+			delete m_root;
+			m_root = nullptr;
+		}
     }
 
+	/**
+	 * Assignation par copie
+	 */
     BSTree& operator=(const BSTree&) = delete;
+
+	/**
+	 * Assignation par déplacement
+	 */
     BSTree& operator=(BSTree&& o) {
+
         Node* tmp = m_root;
+
         m_root = o.m_root;
         o.m_root = tmp;
-        return *this;
+
+		return *this;
     }
 
+	/**
+	 * Récupère la taille de l'arbre (récursif)
+	 *
+	 * @return le nombre de noeuds de l'arbre
+	 */
     std::size_t size() const {
 
-        if(m_root) return m_root->size();
-        else return 0;
+		if(m_root) {
+
+			return m_root->size();
+		}
+		else {
+
+			return 0;
+		}
     }
 
-    bool empty() const { return m_root == nullptr; }
-    int height() const { return m_root != nullptr ? m_root->height() : 0; }
-    Node& operator*() { return *m_root; }
-    const Node& operator*() const { return *m_root; }
-    Node* operator->() { return m_root; }
-    const Node* operator->() const { return m_root; }
+	/**
+	 * Tester si l'arbre est vide (c'est-à-dire s'il contient 0 noeuds).
+	 *
+	 * @return true si l'arbre est vide, false sinon
+	 */
+	bool empty() const {
 
+		return m_root == nullptr;
+	}
+
+	/**
+	 * Récupère la hauteur de l'arbre (récursif)
+	 *
+	 * @return la hauteur de l'arbre. 0 si l'arbre est vide
+	 */
+	std::size_t height() const {
+
+		if(m_root) {
+
+			return m_root->height();
+		}
+		else {
+
+			return 0;
+		}
+	}
+
+	/**
+	 * Récupération des données (non constant)
+	 */
+	Node& operator*() {
+
+		ASSERT(m_root);
+		return *m_root;
+	}
+
+	/**
+	 * Récupération des données (constant)
+	 */
+	const Node& operator*() const {
+
+		ASSERT(m_root);
+		return *m_root;
+	}
+
+	/**
+	 * Récupération des données pointées (non constant)
+	 */
+	Node* operator->() {
+
+		ASSERT(m_root);
+		return m_root;
+	}
+
+	/**
+	 * Récupération des données pointées (constant)
+	 */
+	const Node* operator->() const {
+
+		ASSERT(m_root);
+		return m_root;
+	}
+
+	/**
+	 * Créer une racine par référence universelle (copie ou déplacement). L'arbre doit être vide.
+	 * @param value La valeur de la racine
+	 */
     template<typename U>
     Node** create_root(U&& value) {
-        m_root = new Node(std::forward<U>(value), nullptr);
+
+		ASSERT(!m_root);
+
+		m_root = new Node(std::forward<U>(value));
         return &m_root;
     }
 
+	/**
+	 * Récupère la racine de l'arbre (constant)
+	 * L'arbre ne doit pas être vide
+	 */
     const Node* root() const {
+
+		ASSERT(m_root);
         return m_root;
     }
+
+	/**
+	 * Récupère la racine de l'arbre (non constant)
+	 * L'arbre ne doit pas être vide
+	 */
     Node* root() {
-        return m_root;
+
+		ASSERT(m_root);
+		return m_root;
     }
 
+private:
 
+	/**
+	 * Retire un noeud qui possède 0 ou 1 enfant de l'arbre, sans le supprimer
+	 * Le noeud en lui-même n'est pas modifié mais seulement les éléments voisins.
+	 *
+	 * L'arbre ne doit pas être vide
+	 */
+	void detach(Node* node) {
+
+		ASSERT(m_root);
+
+		Node* tmp = nullptr;
+
+		// Vérifier que le noeud ne possède bien qu'1 ou 0 fils
+
+		ASSERT(!node->m_left || !node->m_right);
+
+		// S'il n'a qu'un seul fils,
+		// on le remplace par son fils
+		// Et on le supprime
+
+		if(node->m_left || node->m_right) {
+
+			tmp = node->m_left;
+			if(!tmp) tmp = node->m_right;
+
+			tmp->m_parent = node->m_parent;
+
+			// S'il a un parent, actualiser le fils du parent
+
+			if(tmp->m_parent) {
+
+				tmp->m_parent->replaceChild(node, tmp);
+			}
+
+			// Sinon, si c'est la racine, actualiser la racine
+
+			else {
+
+				m_root = tmp;
+			}
+		}
+
+		// Sinon, s'il n'a ni fils gauche ni fils droit,
+		// C'est une feuille
+		// Par conséquent on peut le supprimer directement
+
+		else {
+
+			// S'il a un parent, actualiser le fils du parent
+
+			if(node->m_parent) {
+
+				node->m_parent->replaceChild(node, nullptr);
+			}
+
+			// Si c'est la racine, actualiser la racine
+			// L'arbre est vide
+
+			else {
+
+				m_root = nullptr;
+			}
+		}
+	}
+
+public:
+
+	/**
+	 * Supprime un noeud de l'arbre
+	 * L'arbre ne doit pas être vide
+	 *
+	 * @param node le noeud à supprimer
+	 */
     void erase(Node* node) {
 
-        Node* to_delete = node->detach();
+		ASSERT(node && m_root);
+		Node* tmp = nullptr;
 
-        if(to_delete == m_root)
-            m_root = nullptr;
+		// S'il a un fils gauche et un fils droit,
+		// On l'échange avec son plus proche successeur (il n'a plus qu'au maximum un seul fils)
+		// Et on le supprime
 
-        delete to_delete;
-    }
+		if(node->m_left && node->m_right) {
 
+			tmp = node->next();
+			detach(tmp);
+
+			/// Insérer le noeud
+
+			// Fils gauche
+
+			tmp->m_left = node->m_left;
+			if(tmp->m_left) {
+
+				ASSERT(tmp->m_left->m_parent == node);
+				tmp->m_left->m_parent = tmp;
+			}
+
+			// Fils droit
+
+			tmp->m_right = node->m_right;
+			if(tmp->m_right) {
+
+				ASSERT(tmp->m_right->m_parent == node);
+				tmp->m_right->m_parent = tmp;
+			}
+
+			// Parent
+
+			tmp->m_parent = node->m_parent;
+			if(tmp->m_parent) {
+
+				tmp->m_parent->replaceChild(node, tmp);
+			}
+
+			// Si c'est la racine que l'on supprime, actualiser au prochain élément
+
+			if(node == m_root) {
+
+				m_root = tmp;
+			}
+		}
+		else {
+
+			detach(node);
+		}
+
+		delete node;
+	}
+
+	/**
+	 * Récupérer l'élément le plus petit de l'arbre (non constant)
+	 * L'arbre ne doit pas être vide
+	 */
     Node* front() {
-        return m_root ? m_root->min() : nullptr;
-    }
 
+		ASSERT(m_root);
+		return m_root->min();
+	}
+
+	/**
+	 * Récupérer l'élément le plus petit de l'arbre (constant)
+	 * L'arbre ne doit pas être vide
+	 */
     const Node* front() const {
-        return m_root ? m_root->min() : nullptr;
-    }
 
-    Node* back() {
-        return m_root ? m_root->max() : nullptr;
-    }
+		ASSERT(m_root);
+		return m_root->min();
+	}
 
+	/**
+	 * Récupérer l'élément le plus grand de l'arbre (non constant)
+	 * L'arbre ne doit pas être vide
+	 */
+	Node* back() {
+
+		ASSERT(m_root);
+		return m_root->max();
+	}
+
+	/**
+	 * Récupérer l'élément le plus petit de l'arbre (constant)
+	 * L'arbre ne doit pas être vide
+	 */
     const Node* back() const {
-        return m_root ? m_root->max() : nullptr;
-    }
 
-    // Infixe
-    bool equals(const std::initializer_list<T>& initl) const {
+		ASSERT(m_root);
+		return m_root->max();
+	}
 
-        const Node* tmp = front();
+	/**
+	 * Comparaison avec une liste d'initialisation.
+	 * Fournit une méthode equals() car on ne peut pas comparer directement une liste d'initialisation littérale avec l'opérateur ==.
+	 *
+	 * @param initl la liste d'initialisation à comparer
+	 *
+	 * @return true si la liste d'initialisation correspond à l'arbre dans l'ordre infixe, false sinon.
+	 **/
+	bool equals(const std::initializer_list<T>& initl) const {
+		return *this == initl;
+	}
+
+	/**
+	 * Comparaison avec une liste d'initialisation
+	 *
+	 * @param initl la liste d'initialisation à comparer
+	 *
+	 * @return false si la liste d'initialisation correspond à l'arbre dans l'ordre infixe, true sinon.
+	 **/
+	bool operator!=(const std::initializer_list<T>& initl) const {
+		return !(*this != initl);
+	}
+
+	/**
+	 * Comparaison avec une liste d'initialisation.
+	 *
+	 * @param initl la liste d'initialisation à comparer
+	 *
+	 * @return true si la liste d'initialisation correspond à l'arbre dans l'ordre infixe, false sinon.
+	 **/
+	bool operator==(const std::initializer_list<T>& initl) const {
+
+		const Node* tmp = (!empty() ? front() : nullptr);
 
         for(const T& val : initl) {
 
@@ -336,14 +646,29 @@ public:
         return !tmp;
     }
 
+	/**
+	 * Vider entièrement l'arbre.
+	 * Si l'arbre était déjà vide, ne fait rien.
+	 */
     void clear() {
-        delete m_root;
-        m_root = nullptr;
+
+		if(m_root) {
+
+			m_root->deepEraseChildren();
+			delete m_root;
+			m_root = nullptr;
+		}
     }
 
 private:
+	/**
+	 * Pointeur vers l'élément racine
+	 */
     Node* m_root;
 
+	/**
+	 * Affichage de l'arbre dans un flux (en infixé, ou sous forme d'arbre)
+	 */
     friend std::ostream& operator<< <T, Node>(std::ostream& lhs, const BSTree<T, Node>& bstree);
 };
 
@@ -377,7 +702,7 @@ std::ostream& operator<<(std::ostream& lhs, const BSTree<T, Node>& bstree) {
     // Profondeur de l'arbre
     int h = 0;
 
-    if(bstree.m_root != NULL)
+	if(!bstree.empty())
     {
         file.push_back(bstree.m_root);
         h = bstree.m_root->height();

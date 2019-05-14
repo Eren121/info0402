@@ -3,46 +3,49 @@
 
 #include <stdio.h>
 
-/**
- *      Longueur d'une chaîne de caractères sans les codes de formatage ANSI (qui ne prennent pas de place à l'affichage)
- */
-static int strlenAnsi(char* s) {
+namespace {
 
-    int i = 0;
+	/**
+	 * Longueur d'une chaîne de caractères sans les codes de formatage ANSI (qui ne prennent pas de place à l'affichage)
+	 */
+	int strlenAnsi(char* s) {
 
-    while(*s != '\0') {
+		int i = 0;
 
-        if(*s == '\033') {
+		while(*s != '\0') {
 
-            while(*s != 'm') {
+			if(*s == '\033') {
 
-                if(*s == '\0') {
+				while(*s != 'm') {
 
-                    printf("Erreur strlenAnsi() : code ANSI mal formaté\n");
-                    return i;
-                }
+					if(*s == '\0') {
 
-                s++;
-            }
-        }
-        else {
+						printf("Erreur strlenAnsi() : code ANSI mal formaté\n");
+						return i;
+					}
 
-            i++;
-        }
+					s++;
+				}
+			}
+			else {
 
-        s++;
-    }
+				i++;
+			}
 
-    return i;
+			s++;
+		}
+
+		return i;
+	}
 }
 
 #define DISABLE_COLORS 0
 
 /* Code de couleur ansi */
 #if DISABLE_COLORS
-#define ANSI(code)
+#	define ANSI(code)
 #else
-#define ANSI(code)      "\033[" #code "m"
+#	define ANSI(code)	"\033[" #code "m"
 #endif
 
 /* Couleur d'avant-plan */
@@ -58,6 +61,6 @@ static int strlenAnsi(char* s) {
 #define BOLD(x)         ANSI(1) x ANSI(22)
 
 /* Underligned */
-#define UL(x) ANSI(4) x ANSI(24)
+#define UL(x)			ANSI(4) x ANSI(24)
 
 #endif /* ANSI_COLORS_H */

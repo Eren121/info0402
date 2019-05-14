@@ -39,7 +39,7 @@ private:
 
         typedef MultimapIterator<Key, Value, Compare, !IsConst>         IteratorIsntIsConst;
         typedef add_const_if_t<IsConst, Multimap<Key, Value, Compare>>	Container;
-        typedef add_const_if_t<IsConst, typename Container::Node>	Node;
+		typedef add_const_if_t<IsConst, typename Container::Node>		Node;
         typedef add_const_if_t<IsConst, typename Container::SingleNode>	SingleNode;
         typedef add_const_if_t<IsConst, typename Container::value_type>	Pair;
 
@@ -78,8 +78,8 @@ public:
         m_current(o.m_current),
         m_single(o.m_single) {
 
-        static_assert(IsConst && !IsConstIt, "cannto construct iterator from const_iterator"); // optionnel, car la construction assigne des const à non-const
-    }
+		static_assert(IsConst && !IsConstIt, "cannot construct iterator from const_iterator"); // optionnel, car la construction assigne des const à non-const
+	}
 
     struct empty_t {};
     friend typename std::conditional<!IsConst, MultimapIterator<Key, Value, Compare, true>, empty_t>::type;
@@ -296,7 +296,7 @@ MultimapIterator<Key, Value, Compare, IsConst>::operator--() {
 
 	if(!m_current) { // --end()
 
-		m_current = m_source->tree.back();
+		m_current = m_source->m_tree.back();
 		m_single = m_current->data().back();
 	}
 	else {
