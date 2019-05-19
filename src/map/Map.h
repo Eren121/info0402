@@ -1,6 +1,10 @@
 #ifndef MAP_H
 #define MAP_H
 
+/**
+ * @file Implémentation de std::map non finie car le projet s'est orienté sur std::multimap
+ */
+
 #include <utility> // std::pair
 #include <stdexcept> // std::out_of_range
 #include <limits> // std::numeric_limits

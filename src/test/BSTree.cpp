@@ -2,6 +2,8 @@
 #include <iostream>
 #include "catch.hpp"
 
+/// Test des BSTree
+
 BSTree<int> buildBSTree() {
 
 	BSTree<int> bstree;

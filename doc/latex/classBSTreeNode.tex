@@ -1,0 +1,146 @@
+\hypertarget{classBSTreeNode}{}\section{B\+S\+Tree\+Node$<$ T, Node $>$ Class Template Reference}
+\label{classBSTreeNode}\index{B\+S\+Tree\+Node$<$ T, Node $>$@{B\+S\+Tree\+Node$<$ T, Node $>$}}
+
+
+{\ttfamily \#include $<$B\+S\+Tree.\+h$>$}
+
+
+
+Collaboration diagram for B\+S\+Tree\+Node$<$ T, Node $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=206pt]{classBSTreeNode__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a38185eb6c1f1e481ccf9c9be63c0d7be}\label{classBSTreeNode_a38185eb6c1f1e481ccf9c9be63c0d7be}} 
+std\+::size\+\_\+t {\bfseries size} () const
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a152a91576afe7e3da0326ae28bb582a7}\label{classBSTreeNode_a152a91576afe7e3da0326ae28bb582a7}} 
+bool \hyperlink{classBSTreeNode_a152a91576afe7e3da0326ae28bb582a7}{is\+\_\+root} () const
+\begin{DoxyCompactList}\small\item\em Retourne vrai si le noeud est la racine, faux sinon. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_aca5df2aae136860532a39e160269e266}\label{classBSTreeNode_aca5df2aae136860532a39e160269e266}} 
+bool \hyperlink{classBSTreeNode_aca5df2aae136860532a39e160269e266}{is\+\_\+leaf} () const
+\begin{DoxyCompactList}\small\item\em Retourne vrai si le noeud est une feuille, faux sinon. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a8a25ff9fcd33464ba3ef8b9ef9c09203}\label{classBSTreeNode_a8a25ff9fcd33464ba3ef8b9ef9c09203}} 
+bool \hyperlink{classBSTreeNode_a8a25ff9fcd33464ba3ef8b9ef9c09203}{has\+\_\+left} () const
+\begin{DoxyCompactList}\small\item\em Retourne vrai si le noeud a un fils gauche. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_aa73c6b24891bac61df942c99d2b689bd}\label{classBSTreeNode_aa73c6b24891bac61df942c99d2b689bd}} 
+bool \hyperlink{classBSTreeNode_aa73c6b24891bac61df942c99d2b689bd}{has\+\_\+right} () const
+\begin{DoxyCompactList}\small\item\em Retourne vrai si le noeud a un fils droit. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a74a9baf20cf5ae5bf40ca83a5a611db9}\label{classBSTreeNode_a74a9baf20cf5ae5bf40ca83a5a611db9}} 
+const T \& \hyperlink{classBSTreeNode_a74a9baf20cf5ae5bf40ca83a5a611db9}{data} () const
+\begin{DoxyCompactList}\small\item\em Récupère la donnée (constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_adab11a903f0e299e736a3fb29fb8dead}\label{classBSTreeNode_adab11a903f0e299e736a3fb29fb8dead}} 
+T \& \hyperlink{classBSTreeNode_adab11a903f0e299e736a3fb29fb8dead}{data} ()
+\begin{DoxyCompactList}\small\item\em Récupère la donnée (non-\/constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_aa1a36ab9699282b3b0b665951735a387}\label{classBSTreeNode_aa1a36ab9699282b3b0b665951735a387}} 
+const Node $\ast$ \hyperlink{classBSTreeNode_aa1a36ab9699282b3b0b665951735a387}{parent} () const
+\begin{DoxyCompactList}\small\item\em Récupère le parent du noeud courant (constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a331cbf0e1756db6a3f0ec0e4c5288aba}\label{classBSTreeNode_a331cbf0e1756db6a3f0ec0e4c5288aba}} 
+Node $\ast$ \hyperlink{classBSTreeNode_a331cbf0e1756db6a3f0ec0e4c5288aba}{parent} ()
+\begin{DoxyCompactList}\small\item\em Récupère le parent du noeud courant (non-\/constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a0167920e3e97c4f41900482c2c02145e}\label{classBSTreeNode_a0167920e3e97c4f41900482c2c02145e}} 
+const Node $\ast$ \hyperlink{classBSTreeNode_a0167920e3e97c4f41900482c2c02145e}{left} () const
+\begin{DoxyCompactList}\small\item\em Récupère le fils gauche (constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a4561562eb320ae7ab88f9edb7b872022}\label{classBSTreeNode_a4561562eb320ae7ab88f9edb7b872022}} 
+Node $\ast$ \hyperlink{classBSTreeNode_a4561562eb320ae7ab88f9edb7b872022}{left} ()
+\begin{DoxyCompactList}\small\item\em Récupère le fils gauche (non-\/constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a791628dcbe4d70541227882b42592d1f}\label{classBSTreeNode_a791628dcbe4d70541227882b42592d1f}} 
+const Node $\ast$ \hyperlink{classBSTreeNode_a791628dcbe4d70541227882b42592d1f}{right} () const
+\begin{DoxyCompactList}\small\item\em Récupère le fils droit (constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_aa4f11b0043d113545c1a407a844939ee}\label{classBSTreeNode_aa4f11b0043d113545c1a407a844939ee}} 
+Node $\ast$ \hyperlink{classBSTreeNode_aa4f11b0043d113545c1a407a844939ee}{right} ()
+\begin{DoxyCompactList}\small\item\em Récupère le fils droit (non-\/constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_aea220a44e4c4f9a835d03d75b6851a56}\label{classBSTreeNode_aea220a44e4c4f9a835d03d75b6851a56}} 
+std\+::size\+\_\+t \hyperlink{classBSTreeNode_aea220a44e4c4f9a835d03d75b6851a56}{height} () const
+\begin{DoxyCompactList}\small\item\em Hauteur du noeud. \end{DoxyCompactList}\item 
+Node $\ast$ \hyperlink{classBSTreeNode_aa2bc109220f6782ad1f9fbb80b7dca60}{max} ()
+\item 
+Node $\ast$ \hyperlink{classBSTreeNode_a02645620a3cb4ab4f9d15b1207422cb3}{min} ()
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a2a4500849e93739a886fa6dd011fff4b}\label{classBSTreeNode_a2a4500849e93739a886fa6dd011fff4b}} 
+Node $\ast$ \hyperlink{classBSTreeNode_a2a4500849e93739a886fa6dd011fff4b}{next} ()
+\begin{DoxyCompactList}\small\item\em Récupère le noeud suivant (ou N\+U\+LL si c\textquotesingle{}est le dernier noeud) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_ad9cb1ab6bc14396ce1ed8405fb996352}\label{classBSTreeNode_ad9cb1ab6bc14396ce1ed8405fb996352}} 
+const Node $\ast$ {\bfseries next} () const
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a6a51620ecd4f94569c128d3d2f7608cc}\label{classBSTreeNode_a6a51620ecd4f94569c128d3d2f7608cc}} 
+Node $\ast$ \hyperlink{classBSTreeNode_a6a51620ecd4f94569c128d3d2f7608cc}{prev} ()
+\begin{DoxyCompactList}\small\item\em Récupère le noeud précédent (ou N\+U\+LL si c\textquotesingle{}est le premier noeud) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a8fdc7c579693763ee554b2a7c3ff34a3}\label{classBSTreeNode_a8fdc7c579693763ee554b2a7c3ff34a3}} 
+const Node $\ast$ {\bfseries prev} () const
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a85987179fb53e998efa895d3b181916c}\label{classBSTreeNode_a85987179fb53e998efa895d3b181916c}} 
+{\footnotesize template$<$typename U $>$ }\\Node $\ast$ \hyperlink{classBSTreeNode_a85987179fb53e998efa895d3b181916c}{insert\+\_\+left} (U \&\&t)
+\begin{DoxyCompactList}\small\item\em Insère un noeud à gauche. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classBSTreeNode_a6048387f72db53ce0ed8567a570c468e}\label{classBSTreeNode_a6048387f72db53ce0ed8567a570c468e}} 
+{\footnotesize template$<$typename U $>$ }\\Node $\ast$ \hyperlink{classBSTreeNode_a6048387f72db53ce0ed8567a570c468e}{insert\+\_\+right} (U \&\&t)
+\begin{DoxyCompactList}\small\item\em Insère un noeud à droite. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_ac25c7c68f27e3372510d4ebf3caf920c}\label{classBSTreeNode_ac25c7c68f27e3372510d4ebf3caf920c}} 
+{\footnotesize template$<$typename U $>$ }\\{\bfseries B\+S\+Tree\+Node} (U \&\&t, Node $\ast$parent\+Node=nullptr)
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a8e95ffc728076e81c1bbccfeb47a26f7}\label{classBSTreeNode_a8e95ffc728076e81c1bbccfeb47a26f7}} 
+void {\bfseries deep\+Erase\+Children} ()
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a128a6509a2779f97a83b91cf3c9ed6b0}\label{classBSTreeNode_a128a6509a2779f97a83b91cf3c9ed6b0}} 
+void {\bfseries replace\+Child} (Node $\ast$old\+Child, Node $\ast$new\+Child)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a90e1d54d52717e3fe774178a05d46b85}\label{classBSTreeNode_a90e1d54d52717e3fe774178a05d46b85}} 
+T $\ast$ {\bfseries m\+\_\+data}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a44da72e439fe5ced0255f09bfd2d05b4}\label{classBSTreeNode_a44da72e439fe5ced0255f09bfd2d05b4}} 
+Node $\ast$ {\bfseries m\+\_\+parent}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a5fe5a7c75b5f4d5dc3f853d1c1b2e7e1}\label{classBSTreeNode_a5fe5a7c75b5f4d5dc3f853d1c1b2e7e1}} 
+Node $\ast$ {\bfseries m\+\_\+left}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a3e9c2232d64f5ba0a1e77782832ada3a}\label{classBSTreeNode_a3e9c2232d64f5ba0a1e77782832ada3a}} 
+Node $\ast$ {\bfseries m\+\_\+right}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a73f30f7d205b76caf0f18c05ea1ee795}\label{classBSTreeNode_a73f30f7d205b76caf0f18c05ea1ee795}} 
+class {\bfseries B\+S\+Tree$<$ T, Node $>$}
+\item 
+\mbox{\Hypertarget{classBSTreeNode_a1e8a7cc184833a959c0e8139756c22a7}\label{classBSTreeNode_a1e8a7cc184833a959c0e8139756c22a7}} 
+std\+::ostream \& {\bfseries operator} (std\+::ostream \&lhs, const \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, Node $>$ \&bstree)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T, typename Node$>$\newline
+class B\+S\+Tree\+Node$<$ T, Node $>$}
+
+\subsubsection*{Noeud binaire basique }
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBSTreeNode_aa2bc109220f6782ad1f9fbb80b7dca60}\label{classBSTreeNode_aa2bc109220f6782ad1f9fbb80b7dca60}} 
+\index{B\+S\+Tree\+Node@{B\+S\+Tree\+Node}!max@{max}}
+\index{max@{max}!B\+S\+Tree\+Node@{B\+S\+Tree\+Node}}
+\subsubsection{\texorpdfstring{max()}{max()}}
+{\footnotesize\ttfamily template$<$typename T, typename Node$>$ \\
+Node$\ast$ \hyperlink{classBSTreeNode}{B\+S\+Tree\+Node}$<$ T, Node $>$\+::max (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère le noeud fils le plus grand = le plus à droite Retourne lui-\/même s\textquotesingle{}il n\textquotesingle{}a pas de fils \mbox{\Hypertarget{classBSTreeNode_a02645620a3cb4ab4f9d15b1207422cb3}\label{classBSTreeNode_a02645620a3cb4ab4f9d15b1207422cb3}} 
+\index{B\+S\+Tree\+Node@{B\+S\+Tree\+Node}!min@{min}}
+\index{min@{min}!B\+S\+Tree\+Node@{B\+S\+Tree\+Node}}
+\subsubsection{\texorpdfstring{min()}{min()}}
+{\footnotesize\ttfamily template$<$typename T, typename Node$>$ \\
+Node$\ast$ \hyperlink{classBSTreeNode}{B\+S\+Tree\+Node}$<$ T, Node $>$\+::min (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère le noeud fils le plus petit = le plus à gauche Retourne lui-\/même s\textquotesingle{}il n\textquotesingle{}a pas de fils 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/multimap/B\+S\+Tree.\+h\end{DoxyCompactItemize}

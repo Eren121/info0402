@@ -1,0 +1,77 @@
+\hypertarget{classListNode}{}\section{List\+Node$<$ T $>$ Class Template Reference}
+\label{classListNode}\index{List\+Node$<$ T $>$@{List\+Node$<$ T $>$}}
+
+
+{\ttfamily \#include $<$List.\+h$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classListNode_acba79f1c160a1dfcded3abdba3f6ffac}\label{classListNode_acba79f1c160a1dfcded3abdba3f6ffac}} 
+bool \hyperlink{classListNode_acba79f1c160a1dfcded3abdba3f6ffac}{is\+\_\+last} () const
+\begin{DoxyCompactList}\small\item\em Retourne true si c\textquotesingle{}est le dernier élément de la liste, false sinon. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListNode_a6f0a7cc34d7a373588038ad0ccda4b46}\label{classListNode_a6f0a7cc34d7a373588038ad0ccda4b46}} 
+bool \hyperlink{classListNode_a6f0a7cc34d7a373588038ad0ccda4b46}{is\+\_\+first} () const
+\begin{DoxyCompactList}\small\item\em Retourne true si c\textquotesingle{}est le premier élément de la liste, false sinon. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListNode_ae9bdbf7357e574450501020e0202e478}\label{classListNode_ae9bdbf7357e574450501020e0202e478}} 
+const T \& \hyperlink{classListNode_ae9bdbf7357e574450501020e0202e478}{data} () const
+\begin{DoxyCompactList}\small\item\em Récupère la donnée (constant) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classListNode_af556127c386016cd5af6a1d687765050}\label{classListNode_af556127c386016cd5af6a1d687765050}} 
+T \& \hyperlink{classListNode_af556127c386016cd5af6a1d687765050}{data} ()
+\begin{DoxyCompactList}\small\item\em Récupère la donnée (non-\/constant) \end{DoxyCompactList}\item 
+const \hyperlink{classListNode}{List\+Node} $\ast$ \hyperlink{classListNode_a2c3087e44d5a831314487615359d73e3}{next} () const
+\item 
+\hyperlink{classListNode}{List\+Node} $\ast$ \hyperlink{classListNode_aed1d6545a0edaa21796290ea8977cb53}{next} ()
+\item 
+const \hyperlink{classListNode}{List\+Node} $\ast$ \hyperlink{classListNode_a2365b3baf31c7507a86c810f40c922a2}{prev} () const
+\item 
+\hyperlink{classListNode}{List\+Node} $\ast$ \hyperlink{classListNode_a6a80942f4de46fbe065062360e29fee6}{prev} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classListNode_adfa51a0eca1eba953f68ca3f65cdaa05}\label{classListNode_adfa51a0eca1eba953f68ca3f65cdaa05}} 
+class {\bfseries List$<$ T $>$}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+class List\+Node$<$ T $>$}
+
+Classe légère implémentant une liste doublement chaînée Ne contient pas les fonctionalités de la S\+TL et les itérateurs 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classListNode_a2c3087e44d5a831314487615359d73e3}\label{classListNode_a2c3087e44d5a831314487615359d73e3}} 
+\index{List\+Node@{List\+Node}!next@{next}}
+\index{next@{next}!List\+Node@{List\+Node}}
+\subsubsection{\texorpdfstring{next()}{next()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+const \hyperlink{classListNode}{List\+Node}$\ast$ \hyperlink{classListNode}{List\+Node}$<$ T $>$\+::next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère le prochain élément (constant) Ou N\+U\+LL si c\textquotesingle{}est le dernier élément \mbox{\Hypertarget{classListNode_aed1d6545a0edaa21796290ea8977cb53}\label{classListNode_aed1d6545a0edaa21796290ea8977cb53}} 
+\index{List\+Node@{List\+Node}!next@{next}}
+\index{next@{next}!List\+Node@{List\+Node}}
+\subsubsection{\texorpdfstring{next()}{next()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+\hyperlink{classListNode}{List\+Node}$\ast$ \hyperlink{classListNode}{List\+Node}$<$ T $>$\+::next (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère le prochain élément (non-\/constant) Ou N\+U\+LL si c\textquotesingle{}est le dernier élément \mbox{\Hypertarget{classListNode_a2365b3baf31c7507a86c810f40c922a2}\label{classListNode_a2365b3baf31c7507a86c810f40c922a2}} 
+\index{List\+Node@{List\+Node}!prev@{prev}}
+\index{prev@{prev}!List\+Node@{List\+Node}}
+\subsubsection{\texorpdfstring{prev()}{prev()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+const \hyperlink{classListNode}{List\+Node}$\ast$ \hyperlink{classListNode}{List\+Node}$<$ T $>$\+::prev (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère l\textquotesingle{}élément précédent (constant) Ou N\+U\+LL si c\textquotesingle{}est le dernier élément \mbox{\Hypertarget{classListNode_a6a80942f4de46fbe065062360e29fee6}\label{classListNode_a6a80942f4de46fbe065062360e29fee6}} 
+\index{List\+Node@{List\+Node}!prev@{prev}}
+\index{prev@{prev}!List\+Node@{List\+Node}}
+\subsubsection{\texorpdfstring{prev()}{prev()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class T$>$ \\
+\hyperlink{classListNode}{List\+Node}$\ast$ \hyperlink{classListNode}{List\+Node}$<$ T $>$\+::prev (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère l\textquotesingle{}élément précédent (non-\/constant) Ou N\+U\+LL si c\textquotesingle{}est le dernier élément 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/multimap/List.\+h\end{DoxyCompactItemize}

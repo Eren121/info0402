@@ -1,0 +1,133 @@
+\indexentry{impl@{impl}|hyperpage}{7}
+\indexentry{pair\+\_\+operators@{pair\+\_\+operators}|hyperpage}{7}
+\indexentry{traits@{traits}|hyperpage}{7}
+\indexentry{add\+\_\+const\+\_\+if$<$ Is\+Const, T $>$@{add\+\_\+const\+\_\+if$<$ Is\+Const, T $>$}|hyperpage}{9}
+\indexentry{add\+\_\+const\+\_\+if$<$ true, T $>$@{add\+\_\+const\+\_\+if$<$ true, T $>$}|hyperpage}{9}
+\indexentry{Assertion\+Error@{Assertion\+Error}|hyperpage}{9}
+\indexentry{Binary\+Node$<$ T $>$@{Binary\+Node$<$ T $>$}|hyperpage}{9}
+\indexentry{B\+S\+Tree$<$ T, N $>$@{B\+S\+Tree$<$ T, N $>$}|hyperpage}{9}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!Node@{Node}|hyperpage}{11}
+\indexentry{Node@{Node}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!````~B\+S\+Tree@{$\sim$\+B\+S\+Tree}|hyperpage}{11}
+\indexentry{````~B\+S\+Tree@{$\sim$\+B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!back@{back}|hyperpage}{11}
+\indexentry{back@{back}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{11}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!back@{back}|hyperpage}{12}
+\indexentry{back@{back}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!clear@{clear}|hyperpage}{12}
+\indexentry{clear@{clear}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!create\+\_\+root@{create\+\_\+root}|hyperpage}{12}
+\indexentry{create\+\_\+root@{create\+\_\+root}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!empty@{empty}|hyperpage}{12}
+\indexentry{empty@{empty}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!equals@{equals}|hyperpage}{12}
+\indexentry{equals@{equals}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!erase@{erase}|hyperpage}{12}
+\indexentry{erase@{erase}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!front@{front}|hyperpage}{12}
+\indexentry{front@{front}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!front@{front}|hyperpage}{12}
+\indexentry{front@{front}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!height@{height}|hyperpage}{12}
+\indexentry{height@{height}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{12}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator"!=@{operator"!=}|hyperpage}{13}
+\indexentry{operator"!=@{operator"!=}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator$\ast$@{operator$\ast$}|hyperpage}{13}
+\indexentry{operator$\ast$@{operator$\ast$}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator$\ast$@{operator$\ast$}|hyperpage}{13}
+\indexentry{operator$\ast$@{operator$\ast$}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator-\/$>$@{operator-\/$>$}|hyperpage}{13}
+\indexentry{operator-\/$>$@{operator-\/$>$}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator-\/$>$@{operator-\/$>$}|hyperpage}{13}
+\indexentry{operator-\/$>$@{operator-\/$>$}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator=@{operator=}|hyperpage}{13}
+\indexentry{operator=@{operator=}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator=@{operator=}|hyperpage}{13}
+\indexentry{operator=@{operator=}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator==@{operator==}|hyperpage}{13}
+\indexentry{operator==@{operator==}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!root@{root}|hyperpage}{13}
+\indexentry{root@{root}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!root@{root}|hyperpage}{13}
+\indexentry{root@{root}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!size@{size}|hyperpage}{13}
+\indexentry{size@{size}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{13}
+\indexentry{B\+S\+Tree@{B\+S\+Tree}!operator@{operator}|hyperpage}{14}
+\indexentry{operator@{operator}!B\+S\+Tree@{B\+S\+Tree}|hyperpage}{14}
+\indexentry{B\+S\+Tree\+Node$<$ T, Node $>$@{B\+S\+Tree\+Node$<$ T, Node $>$}|hyperpage}{14}
+\indexentry{B\+S\+Tree\+Node@{B\+S\+Tree\+Node}!max@{max}|hyperpage}{16}
+\indexentry{max@{max}!B\+S\+Tree\+Node@{B\+S\+Tree\+Node}|hyperpage}{16}
+\indexentry{B\+S\+Tree\+Node@{B\+S\+Tree\+Node}!min@{min}|hyperpage}{16}
+\indexentry{min@{min}!B\+S\+Tree\+Node@{B\+S\+Tree\+Node}|hyperpage}{16}
+\indexentry{Counter@{Counter}|hyperpage}{16}
+\indexentry{Custom\+Comparator$<$ Key $>$@{Custom\+Comparator$<$ Key $>$}|hyperpage}{16}
+\indexentry{Custom\+Type@{Custom\+Type}|hyperpage}{17}
+\indexentry{traits\+::is\+\_\+multimap$<$ T, V $>$@{traits\+::is\+\_\+multimap$<$ T, V $>$}|hyperpage}{17}
+\indexentry{traits\+::is\+\_\+multimap$<$ Multimap$<$ T, U, V $>$, W $>$@{traits\+::is\+\_\+multimap$<$ Multimap$<$ T, U, V $>$, W $>$}|hyperpage}{17}
+\indexentry{traits\+::is\+\_\+multimap$<$ std\+::multimap$<$ T, U, V $>$, W $>$@{traits\+::is\+\_\+multimap$<$ std\+::multimap$<$ T, U, V $>$, W $>$}|hyperpage}{17}
+\indexentry{List$<$ T $>$@{List$<$ T $>$}|hyperpage}{17}
+\indexentry{List\+Node$<$ T $>$@{List\+Node$<$ T $>$}|hyperpage}{18}
+\indexentry{List\+Node@{List\+Node}!next@{next}|hyperpage}{18}
+\indexentry{next@{next}!List\+Node@{List\+Node}|hyperpage}{18}
+\indexentry{List\+Node@{List\+Node}!next@{next}|hyperpage}{18}
+\indexentry{next@{next}!List\+Node@{List\+Node}|hyperpage}{18}
+\indexentry{List\+Node@{List\+Node}!prev@{prev}|hyperpage}{18}
+\indexentry{prev@{prev}!List\+Node@{List\+Node}|hyperpage}{18}
+\indexentry{List\+Node@{List\+Node}!prev@{prev}|hyperpage}{18}
+\indexentry{prev@{prev}!List\+Node@{List\+Node}|hyperpage}{18}
+\indexentry{Map$<$ Key, T $>$@{Map$<$ Key, T $>$}|hyperpage}{18}
+\indexentry{Map@{Map}!key\+\_\+type@{key\+\_\+type}|hyperpage}{19}
+\indexentry{key\+\_\+type@{key\+\_\+type}!Map@{Map}|hyperpage}{19}
+\indexentry{Map@{Map}!erase@{erase}|hyperpage}{19}
+\indexentry{erase@{erase}!Map@{Map}|hyperpage}{19}
+\indexentry{Map@{Map}!insert@{insert}|hyperpage}{19}
+\indexentry{insert@{insert}!Map@{Map}|hyperpage}{19}
+\indexentry{Map\+Iterator$<$ Key, T $>$@{Map\+Iterator$<$ Key, T $>$}|hyperpage}{19}
+\indexentry{Multimap$<$ Key, T, Compare $>$@{Multimap$<$ Key, T, Compare $>$}|hyperpage}{20}
+\indexentry{Multimap@{Multimap}!cbegin@{cbegin}|hyperpage}{22}
+\indexentry{cbegin@{cbegin}!Multimap@{Multimap}|hyperpage}{22}
+\indexentry{Multimap@{Multimap}!cend@{cend}|hyperpage}{22}
+\indexentry{cend@{cend}!Multimap@{Multimap}|hyperpage}{22}
+\indexentry{Multimap@{Multimap}!insert@{insert}|hyperpage}{23}
+\indexentry{insert@{insert}!Multimap@{Multimap}|hyperpage}{23}
+\indexentry{Multimap@{Multimap}!insert@{insert}|hyperpage}{23}
+\indexentry{insert@{insert}!Multimap@{Multimap}|hyperpage}{23}
+\indexentry{Multimap@{Multimap}!insert@{insert}|hyperpage}{23}
+\indexentry{insert@{insert}!Multimap@{Multimap}|hyperpage}{23}
+\indexentry{Multimap@{Multimap}!insert@{insert}|hyperpage}{23}
+\indexentry{insert@{insert}!Multimap@{Multimap}|hyperpage}{23}
+\indexentry{Multimap@{Multimap}!operator$<$$<$@{operator$<$$<$}|hyperpage}{23}
+\indexentry{operator$<$$<$@{operator$<$$<$}!Multimap@{Multimap}|hyperpage}{23}
+\indexentry{Multimap\+Iterator$<$ Key, Value, Compare, Is\+Const $>$@{Multimap\+Iterator$<$ Key, Value, Compare, Is\+Const $>$}|hyperpage}{23}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!key@{key}|hyperpage}{24}
+\indexentry{key@{key}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!operator-\/-\/@{operator-\/-\/}|hyperpage}{24}
+\indexentry{operator-\/-\/@{operator-\/-\/}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!operator-\/-\/@{operator-\/-\/}|hyperpage}{24}
+\indexentry{operator-\/-\/@{operator-\/-\/}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{Multimap\+Iterator@{Multimap\+Iterator}!operator==@{operator==}|hyperpage}{24}
+\indexentry{operator==@{operator==}!Multimap\+Iterator@{Multimap\+Iterator}|hyperpage}{24}
+\indexentry{rb\+\_\+iter@{rb\+\_\+iter}|hyperpage}{24}
+\indexentry{rb\+\_\+node@{rb\+\_\+node}|hyperpage}{26}
+\indexentry{rb\+\_\+tree@{rb\+\_\+tree}|hyperpage}{26}
+\indexentry{impl\+::\+Test\+Count$<$ I, bool $>$@{impl\+::\+Test\+Count$<$ I, bool $>$}|hyperpage}{26}
+\indexentry{impl\+::\+Test\+Count$<$ I, false $>$@{impl\+::\+Test\+Count$<$ I, false $>$}|hyperpage}{26}
+\indexentry{impl\+::\+Test\+Count$<$ I, true $>$@{impl\+::\+Test\+Count$<$ I, true $>$}|hyperpage}{26}
+\indexentry{impl\+::\+Test\+Count$<$ I, true $>$@{impl\+::\+Test\+Count$<$ I, true $>$}!do\+Next\+Test@{do\+Next\+Test}|hyperpage}{26}
+\indexentry{do\+Next\+Test@{do\+Next\+Test}!impl\+::\+Test\+Count$<$ I, true $>$@{impl\+::\+Test\+Count$<$ I, true $>$}|hyperpage}{26}
+\indexentry{Test\+Suite$<$ N $>$@{Test\+Suite$<$ N $>$}|hyperpage}{27}
+\indexentry{Test\+Suite@{Test\+Suite}!operator()@{operator()}|hyperpage}{27}
+\indexentry{operator()@{operator()}!Test\+Suite@{Test\+Suite}|hyperpage}{27}
+\indexentry{Test\+Suite$<$ 0 $>$@{Test\+Suite$<$ 0 $>$}|hyperpage}{27}
+\indexentry{Test\+Suite$<$ 1 $>$@{Test\+Suite$<$ 1 $>$}|hyperpage}{28}
+\indexentry{Multimap$<$ Key, T, Compare $>$\+::value\+\_\+compare@{Multimap$<$ Key, T, Compare $>$\+::value\+\_\+compare}|hyperpage}{28}

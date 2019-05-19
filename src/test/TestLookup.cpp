@@ -4,6 +4,55 @@
 
 /// Test des accesseurs
 
+TEMPLATE_PRODUCT_TEST_CASE("Recherche d'éléments",
+						   "[multimap][std::multimap][template][lookup]",
+						   (std::multimap, Multimap), ((int, int))) {
+
+	TestType map;
+	auto it1 = map.insert({0, 0});
+			   map.insert({0, 1});
+	auto it2 = map.insert({1, 0});
+			   map.insert({1, 1});
+			   map.insert({1, 2});
+
+	SECTION("La fonction find() doit chercher un élément") {
+
+		REQUIRE(map.find(0) == it1);
+		REQUIRE(map.find(1) == it2);
+		REQUIRE(map.find(2) == map.end());
+	}
+
+	SECTION("La fonction count() doit retourner le nombre d'éléments") {
+
+		REQUIRE(map.count(0) == 2);
+		REQUIRE(map.count(1) == 3);
+		REQUIRE(map.count(2) == 0);
+
+	}
+
+	SECTION("La fonction upper_bound() doit retourner l'élément supérieur le plus petit") {
+
+		REQUIRE(map.upper_bound(0) == it2);
+		REQUIRE(map.upper_bound(1) == map.end());
+	}
+}
+
+TEMPLATE_PRODUCT_TEST_CASE("La fonction contains() doit vérifier l'existence d'un élément",
+						   "[multimap][template][lookup]",
+						   (Multimap), ((int, int))) {
+
+	TestType map;
+	map.insert({0, 0});
+	map.insert({0, 1});
+	map.insert({1, 0});
+	map.insert({1, 1});
+	map.insert({1, 2});
+
+	REQUIRE(map.contains(0));
+	REQUIRE(map.contains(1));
+	REQUIRE(!map.contains(2));
+}
+
 TEMPLATE_PRODUCT_TEST_CASE("La fonction lower_bound() doit retourner la première clé qui n'est pas plus petite",
                            "[multimap][std::multimap][template][lookup]",
                            (std::multimap, Multimap), ((int, int))) {
@@ -55,4 +104,12 @@ TEMPLATE_PRODUCT_TEST_CASE("La fonction lower_bound() doit retourner la premièr
             REQUIRE(*it == std::pair<const int, int>(required));
         }
     }
+}
+
+TEMPLATE_PRODUCT_TEST_CASE("Test de l'affichage",
+						   "[multimap][lookup]",
+						   (Multimap), ((int, int))) {
+
+	TestType map{{0, 0}, {1, 1}, {0, 2}, {-1, 3}, {3, 5}, {-1, 6}};
+	std::cout << map;
 }

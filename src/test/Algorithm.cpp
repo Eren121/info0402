@@ -3,6 +3,8 @@
 #include <ctime>
 #include <iterator>
 
+/// Test des algorithmes
+
 std::multimap<int, int> initRandom(std::size_t size = 10000, int maxKey = 1000) {
 
 	std::multimap<int, int> m;

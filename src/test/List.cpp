@@ -2,6 +2,8 @@
 #include <iostream>
 #include "catch.hpp"
 
+/// Test des Listes
+
 typedef std::list<int> STLList;
 
 TEST_CASE("List") {

@@ -1,0 +1,284 @@
+\hypertarget{classMultimap}{}\section{Multimap$<$ Key, T, Compare $>$ Class Template Reference}
+\label{classMultimap}\index{Multimap$<$ Key, T, Compare $>$@{Multimap$<$ Key, T, Compare $>$}}
+
+
+{\ttfamily \#include $<$Multimap.\+h$>$}
+
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classMultimap_1_1value__compare}{value\+\_\+compare}
+\begin{DoxyCompactList}\small\item\em Classe qui compare les paires. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultimap_ae22db357048c65265607ed263469918d}\label{classMultimap_ae22db357048c65265607ed263469918d}} 
+typedef Key {\bfseries key\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMultimap_a05f3a4a83bf4fc44da7d88ea3ef49ed5}\label{classMultimap_a05f3a4a83bf4fc44da7d88ea3ef49ed5}} 
+typedef T {\bfseries mapped\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMultimap_a0ed55c312df37a00f0e73e9c1e8b6c5a}\label{classMultimap_a0ed55c312df37a00f0e73e9c1e8b6c5a}} 
+typedef std\+::pair$<$ const Key, T $>$ {\bfseries value\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMultimap_a0e34e37c96a3fac89b7f4356e009b68e}\label{classMultimap_a0e34e37c96a3fac89b7f4356e009b68e}} 
+typedef std\+::size\+\_\+t {\bfseries size\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMultimap_a26a14e64d590f53dc692a140e99c5def}\label{classMultimap_a26a14e64d590f53dc692a140e99c5def}} 
+typedef std\+::ptrdiff\+\_\+t {\bfseries difference\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMultimap_a0c878dfdc488ba3bc9bff27e4ef74f17}\label{classMultimap_a0c878dfdc488ba3bc9bff27e4ef74f17}} 
+typedef Compare {\bfseries key\+\_\+compare}
+\item 
+\mbox{\Hypertarget{classMultimap_a2896c71d81bb4299b7caba9df18ac617}\label{classMultimap_a2896c71d81bb4299b7caba9df18ac617}} 
+typedef std\+::allocator$<$ value\+\_\+type $>$ {\bfseries allocator\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMultimap_a1d37960f96bedba53634646633eb7943}\label{classMultimap_a1d37960f96bedba53634646633eb7943}} 
+typedef T \& {\bfseries reference}
+\item 
+\mbox{\Hypertarget{classMultimap_a315588177f9e7a0298b43c2accbdc090}\label{classMultimap_a315588177f9e7a0298b43c2accbdc090}} 
+typedef const T \& {\bfseries const\+\_\+reference}
+\item 
+\mbox{\Hypertarget{classMultimap_ae3dae15312101b0b6e43e5830261d297}\label{classMultimap_ae3dae15312101b0b6e43e5830261d297}} 
+typedef T $\ast$ {\bfseries pointer}
+\item 
+\mbox{\Hypertarget{classMultimap_a9a04e5deacadfdab82e96fb85fcc2624}\label{classMultimap_a9a04e5deacadfdab82e96fb85fcc2624}} 
+typedef const T $\ast$ {\bfseries const\+\_\+pointer}
+\item 
+\mbox{\Hypertarget{classMultimap_a1411bc48d807b5d76f464c2b3b336cd5}\label{classMultimap_a1411bc48d807b5d76f464c2b3b336cd5}} 
+typedef \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, T, Compare, false $>$ {\bfseries iterator}
+\item 
+\mbox{\Hypertarget{classMultimap_a66040479cb2f5724f3ee62565c95d099}\label{classMultimap_a66040479cb2f5724f3ee62565c95d099}} 
+typedef \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, T, Compare, true $>$ {\bfseries const\+\_\+iterator}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultimap_acf143964f64ab59e58833b0e677f709e}\label{classMultimap_acf143964f64ab59e58833b0e677f709e}} 
+\hyperlink{classMultimap_acf143964f64ab59e58833b0e677f709e}{Multimap} ()
+\begin{DoxyCompactList}\small\item\em Constructeur par défaut, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_ad56590d8375c5b731bf6844d0d16822d}\label{classMultimap_ad56590d8375c5b731bf6844d0d16822d}} 
+\hyperlink{classMultimap_ad56590d8375c5b731bf6844d0d16822d}{Multimap} (const Compare \&comp)
+\begin{DoxyCompactList}\small\item\em Constructeur par comparateur, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a9dd081d1a48c837b33e267e2e96aa816}\label{classMultimap_a9dd081d1a48c837b33e267e2e96aa816}} 
+{\footnotesize template$<$typename Input\+It $>$ }\\\hyperlink{classMultimap_a9dd081d1a48c837b33e267e2e96aa816}{Multimap} (Input\+It first, Input\+It last, const Compare \&comp=Compare())
+\begin{DoxyCompactList}\small\item\em Constructeur par intervalle d\textquotesingle{}itérateurs, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a905d5cd2b3538dd923ff5102a75f6aab}\label{classMultimap_a905d5cd2b3538dd923ff5102a75f6aab}} 
+\hyperlink{classMultimap_a905d5cd2b3538dd923ff5102a75f6aab}{Multimap} (const \hyperlink{classMultimap}{Multimap} \&other)
+\begin{DoxyCompactList}\small\item\em Constructeur par copie, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_aa3f51fa1d077ccbfa1c748ebf80157c2}\label{classMultimap_aa3f51fa1d077ccbfa1c748ebf80157c2}} 
+\hyperlink{classMultimap_aa3f51fa1d077ccbfa1c748ebf80157c2}{Multimap} (\hyperlink{classMultimap}{Multimap} \&\&other)
+\begin{DoxyCompactList}\small\item\em Constructeur par déplacement, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a2bb5eb1ee2f11f05f951d6b0677ea3d7}\label{classMultimap_a2bb5eb1ee2f11f05f951d6b0677ea3d7}} 
+\hyperlink{classMultimap_a2bb5eb1ee2f11f05f951d6b0677ea3d7}{Multimap} (std\+::initializer\+\_\+list$<$ value\+\_\+type $>$ init, const Compare \&comp=Compare())
+\begin{DoxyCompactList}\small\item\em Constructeur par liste d\textquotesingle{}initialisation, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a99e84047761c033582cc928287fdb3be}\label{classMultimap_a99e84047761c033582cc928287fdb3be}} 
+\hyperlink{classMultimap_a99e84047761c033582cc928287fdb3be}{Multimap} (const stl\+\_\+type \&other)
+\begin{DoxyCompactList}\small\item\em Constructeur par copie de std\+::multimap. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_af0f32de8dd8717d521570941dbaf2edb}\label{classMultimap_af0f32de8dd8717d521570941dbaf2edb}} 
+\hyperlink{classMultimap_af0f32de8dd8717d521570941dbaf2edb}{Multimap} (stl\+\_\+type \&\&other)
+\begin{DoxyCompactList}\small\item\em Constructeur par déplacement de std\+::multimap. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a3927ca00ca8f9363c3c73353c124348a}\label{classMultimap_a3927ca00ca8f9363c3c73353c124348a}} 
+\hyperlink{classMultimap_a3927ca00ca8f9363c3c73353c124348a}{$\sim$\+Multimap} ()=default
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a7624e69dbffb0df3e8f5010440060912}\label{classMultimap_a7624e69dbffb0df3e8f5010440060912}} 
+\hyperlink{classMultimap}{Multimap} \& \hyperlink{classMultimap_a7624e69dbffb0df3e8f5010440060912}{operator=} (const \hyperlink{classMultimap}{Multimap} \&other)
+\begin{DoxyCompactList}\small\item\em Constructeur par copie, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a313be5fe73cd69bbcf2b2c029d8fbc4a}\label{classMultimap_a313be5fe73cd69bbcf2b2c029d8fbc4a}} 
+\hyperlink{classMultimap}{Multimap} \& \hyperlink{classMultimap_a313be5fe73cd69bbcf2b2c029d8fbc4a}{operator=} (\hyperlink{classMultimap}{Multimap} \&\&other)
+\begin{DoxyCompactList}\small\item\em Assignation par déplacement. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_af4b74462f9b465dc21807083367f623b}\label{classMultimap_af4b74462f9b465dc21807083367f623b}} 
+\hyperlink{classMultimap}{Multimap} \& \hyperlink{classMultimap_af4b74462f9b465dc21807083367f623b}{operator=} (std\+::initializer\+\_\+list$<$ value\+\_\+type $>$ list)
+\begin{DoxyCompactList}\small\item\em Assignation par liste d\textquotesingle{}initialisation, testé dans Test\+Constructor.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a1f0ece045c7938df1f583eb76928b32a}\label{classMultimap_a1f0ece045c7938df1f583eb76928b32a}} 
+\hyperlink{classMultimap}{Multimap} \& \hyperlink{classMultimap_a1f0ece045c7938df1f583eb76928b32a}{operator=} (const std\+::map$<$ Key, T, Compare $>$ \&other)
+\begin{DoxyCompactList}\small\item\em Assignation par copie de std\+::multimap. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a339929d8a0ef5a1a2ec4f082e2e456b6}\label{classMultimap_a339929d8a0ef5a1a2ec4f082e2e456b6}} 
+\hyperlink{classMultimap}{Multimap} \& \hyperlink{classMultimap_a339929d8a0ef5a1a2ec4f082e2e456b6}{operator=} (std\+::map$<$ Key, T, Compare $>$ \&\&other)
+\begin{DoxyCompactList}\small\item\em Assignation par déplacement de std\+::multimap. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a9c10ccfcca7dd81119454f0f1f9e7b06}\label{classMultimap_a9c10ccfcca7dd81119454f0f1f9e7b06}} 
+allocator\+\_\+type \hyperlink{classMultimap_a9c10ccfcca7dd81119454f0f1f9e7b06}{get\+\_\+allocator} () const
+\begin{DoxyCompactList}\small\item\em Récupérer l\textquotesingle{}allocateur. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a4dd20f4e80f4a06be0c0fb693dd6f422}\label{classMultimap_a4dd20f4e80f4a06be0c0fb693dd6f422}} 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_a4dd20f4e80f4a06be0c0fb693dd6f422}{begin} ()
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Iterator.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_aa5e3a708e644da57ac887e1acddec409}\label{classMultimap_aa5e3a708e644da57ac887e1acddec409}} 
+\hyperlink{classMultimapIterator}{const\+\_\+iterator} \hyperlink{classMultimap_aa5e3a708e644da57ac887e1acddec409}{begin} () const
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Iterator.\+cpp. \end{DoxyCompactList}\item 
+\hyperlink{classMultimapIterator}{const\+\_\+iterator} \hyperlink{classMultimap_a216f03259a422977ea001d281a810248}{cbegin} () const
+\item 
+\mbox{\Hypertarget{classMultimap_a9951e49f57fe1c3984d78543eb2d9041}\label{classMultimap_a9951e49f57fe1c3984d78543eb2d9041}} 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_a9951e49f57fe1c3984d78543eb2d9041}{end} ()
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Iterator.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_aee637556495f8eacebf27e95e4b9bbf6}\label{classMultimap_aee637556495f8eacebf27e95e4b9bbf6}} 
+\hyperlink{classMultimapIterator}{const\+\_\+iterator} \hyperlink{classMultimap_aee637556495f8eacebf27e95e4b9bbf6}{end} () const
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Iterator.\+cpp. \end{DoxyCompactList}\item 
+\hyperlink{classMultimapIterator}{const\+\_\+iterator} \hyperlink{classMultimap_a7e162ec76d003b3f888c8859a9b6ca03}{cend} () const
+\item 
+\mbox{\Hypertarget{classMultimap_a50846e3c6ae86f987ab0cba0509f204e}\label{classMultimap_a50846e3c6ae86f987ab0cba0509f204e}} 
+bool \hyperlink{classMultimap_a50846e3c6ae86f987ab0cba0509f204e}{empty} () const
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Lookup.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a159de5dca46aeb29f074c6414af7bb3a}\label{classMultimap_a159de5dca46aeb29f074c6414af7bb3a}} 
+size\+\_\+type \hyperlink{classMultimap_a159de5dca46aeb29f074c6414af7bb3a}{size} () const
+\begin{DoxyCompactList}\small\item\em Testé dans diverses méthodes l\textquotesingle{}utilisant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a9c0f70d780a722bee16bbb246fb62d8b}\label{classMultimap_a9c0f70d780a722bee16bbb246fb62d8b}} 
+size\+\_\+type \hyperlink{classMultimap_a9c0f70d780a722bee16bbb246fb62d8b}{max\+\_\+size} () const
+\begin{DoxyCompactList}\small\item\em Taille maximale théorique de l\textquotesingle{}arbre. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a6ca5068eecc98e16fbf0627db87e3742}\label{classMultimap_a6ca5068eecc98e16fbf0627db87e3742}} 
+void \hyperlink{classMultimap_a6ca5068eecc98e16fbf0627db87e3742}{clear} ()
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Modifier.\+cpp. \end{DoxyCompactList}\item 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_a0a507d3094aaa271c3f5932c9acef378}{insert} (\hyperlink{classMultimapIterator}{iterator} position, const value\+\_\+type \&val)
+\item 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_aef5529b0f81f2262e6a9de27a5e47389}{insert} (value\+\_\+type \&\&pair)
+\item 
+{\footnotesize template$<$typename Input\+It $>$ }\\void \hyperlink{classMultimap_a62ba469ffdf46652eaa8ac007c590031}{insert} (Input\+It first, Input\+It last)
+\item 
+{\footnotesize template$<$typename U $>$ }\\\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_ad4cd112230c4781aa25f66d78f858dd6}{insert} (U \&\&pair)
+\item 
+\mbox{\Hypertarget{classMultimap_af134f60e6bcb55a66618d45216c1eef9}\label{classMultimap_af134f60e6bcb55a66618d45216c1eef9}} 
+size\+\_\+type \hyperlink{classMultimap_af134f60e6bcb55a66618d45216c1eef9}{erase} (const key\+\_\+type \&key)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Modifier.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a96fdc3f12cbd0af9188dbe556fe0022e}\label{classMultimap_a96fdc3f12cbd0af9188dbe556fe0022e}} 
+void \hyperlink{classMultimap_a96fdc3f12cbd0af9188dbe556fe0022e}{erase} (\hyperlink{classMultimapIterator}{iterator} first, \hyperlink{classMultimapIterator}{iterator} last)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Modifier.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a9e9a35856b2ec08ffe2e05c9e97033e9}\label{classMultimap_a9e9a35856b2ec08ffe2e05c9e97033e9}} 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_a9e9a35856b2ec08ffe2e05c9e97033e9}{erase} (\hyperlink{classMultimapIterator}{iterator} position)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Modifier.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_aacaf7aaeab79c30b3a19b85a10a56f7c}\label{classMultimap_aacaf7aaeab79c30b3a19b85a10a56f7c}} 
+void \hyperlink{classMultimap_aacaf7aaeab79c30b3a19b85a10a56f7c}{swap} (\hyperlink{classMultimap}{Multimap} \&other)
+\begin{DoxyCompactList}\small\item\em Algorithme swap spécialisé pour les multimap. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a2feb4082ad4884bc49e68bb4815769db}\label{classMultimap_a2feb4082ad4884bc49e68bb4815769db}} 
+size\+\_\+type \hyperlink{classMultimap_a2feb4082ad4884bc49e68bb4815769db}{count} (const key\+\_\+type \&key)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Lookup.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a111dfc88089590ec1f94de7e6e3d2715}\label{classMultimap_a111dfc88089590ec1f94de7e6e3d2715}} 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_a111dfc88089590ec1f94de7e6e3d2715}{find} (const key\+\_\+type \&key)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Lookup.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a0fa9b709bbb25ef657d7ff8f70402203}\label{classMultimap_a0fa9b709bbb25ef657d7ff8f70402203}} 
+bool \hyperlink{classMultimap_a0fa9b709bbb25ef657d7ff8f70402203}{contains} (const Key \&key)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Lookup.\+cpp (C++20) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a7402d5ca0eead6166d93e8fa154bdeee}\label{classMultimap_a7402d5ca0eead6166d93e8fa154bdeee}} 
+std\+::pair$<$ \hyperlink{classMultimapIterator}{iterator}, \hyperlink{classMultimapIterator}{iterator} $>$ {\bfseries equal\+\_\+range} (const Key \&key)
+\item 
+\mbox{\Hypertarget{classMultimap_a987440eb1d580fc0d8231857e27517b4}\label{classMultimap_a987440eb1d580fc0d8231857e27517b4}} 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_a987440eb1d580fc0d8231857e27517b4}{lower\+\_\+bound} (const key\+\_\+type \&key)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Lookup.\+cpp. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_a5cef442af3427edbe14da2668e2c59cd}\label{classMultimap_a5cef442af3427edbe14da2668e2c59cd}} 
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap_a5cef442af3427edbe14da2668e2c59cd}{upper\+\_\+bound} (const key\+\_\+type \&key)
+\begin{DoxyCompactList}\small\item\em Testé dans Test\+Lookup.\+cpp (C++20) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_ae49e443fd752bd5954b50f1b8fbaa5c4}\label{classMultimap_ae49e443fd752bd5954b50f1b8fbaa5c4}} 
+key\+\_\+compare {\bfseries key\+\_\+comp} () const
+\item 
+\mbox{\Hypertarget{classMultimap_a4d832c78ba715b043a078e56dc376aea}\label{classMultimap_a4d832c78ba715b043a078e56dc376aea}} 
+\hyperlink{classMultimap_1_1value__compare}{value\+\_\+compare} {\bfseries value\+\_\+comp} () const
+\item 
+\mbox{\Hypertarget{classMultimap_ad912308e6c19b562697ab713b0ccdd33}\label{classMultimap_ad912308e6c19b562697ab713b0ccdd33}} 
+bool {\bfseries equals} (const std\+::initializer\+\_\+list$<$ value\+\_\+type $>$ \&il) const
+\item 
+\mbox{\Hypertarget{classMultimap_a90017019b311b34d667a7b0962fe1d13}\label{classMultimap_a90017019b311b34d667a7b0962fe1d13}} 
+{\footnotesize template$<$typename Input\+It $>$ }\\bool \hyperlink{classMultimap_a90017019b311b34d667a7b0962fe1d13}{equals} (Input\+It first, Input\+It last) const
+\begin{DoxyCompactList}\small\item\em Comparaison à un intervalle d\textquotesingle{}itérateurs Retourne vrai si les contenus sont strictement indentiques. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultimap_a2f1ded72848f333473e2e5d74f510474}\label{classMultimap_a2f1ded72848f333473e2e5d74f510474}} 
+friend \hyperlink{classMultimap_a2f1ded72848f333473e2e5d74f510474}{Multimap\+Iterator$<$ Key, T, Compare, false $>$}
+\begin{DoxyCompactList}\small\item\em Itérateur non constant. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimap_afbda4125c5317ddde9caff060b3d82d6}\label{classMultimap_afbda4125c5317ddde9caff060b3d82d6}} 
+friend \hyperlink{classMultimap_afbda4125c5317ddde9caff060b3d82d6}{Multimap\+Iterator$<$ Key, T, Compare, true $>$}
+\begin{DoxyCompactList}\small\item\em Itérateur constant. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultimap_a6a1747a11110a47ddccb947d8727c1db}\label{classMultimap_a6a1747a11110a47ddccb947d8727c1db}} 
+bool {\bfseries operator==} (const \hyperlink{classMultimap}{Multimap} \&lhs, const \hyperlink{classMultimap}{Multimap} \&rhs)
+\item 
+\mbox{\Hypertarget{classMultimap_aa727e58dd28602ada5511260bc380d92}\label{classMultimap_aa727e58dd28602ada5511260bc380d92}} 
+bool {\bfseries operator==} (const \hyperlink{classMultimap}{Multimap} \&lhs, const stl\+\_\+type \&rhs)
+\item 
+\mbox{\Hypertarget{classMultimap_aca3fa84add2579de08ecae95debb4d4d}\label{classMultimap_aca3fa84add2579de08ecae95debb4d4d}} 
+bool {\bfseries operator==} (const stl\+\_\+type \&lhs, const \hyperlink{classMultimap}{Multimap} \&rhs)
+\item 
+\mbox{\Hypertarget{classMultimap_aa11fe172d670ef1bbb20888e437bed4b}\label{classMultimap_aa11fe172d670ef1bbb20888e437bed4b}} 
+bool {\bfseries operator!=} (const \hyperlink{classMultimap}{Multimap} \&lhs, const \hyperlink{classMultimap}{Multimap} \&rhs)
+\item 
+\mbox{\Hypertarget{classMultimap_ae4bcd97f54c81f8947d18451137c1bfe}\label{classMultimap_ae4bcd97f54c81f8947d18451137c1bfe}} 
+bool {\bfseries operator!=} (const \hyperlink{classMultimap}{Multimap} \&lhs, const stl\+\_\+type \&rhs)
+\item 
+\mbox{\Hypertarget{classMultimap_a977585e743d4f074d345ed129b0e0853}\label{classMultimap_a977585e743d4f074d345ed129b0e0853}} 
+bool {\bfseries operator!=} (const stl\+\_\+type \&lhs, const \hyperlink{classMultimap}{Multimap} \&rhs)
+\item 
+std\+::ostream \& \hyperlink{classMultimap_a3a9cc0a79670c0bf02221d1cde83e1e0}{operator$<$$<$} (std\+::ostream \&lhs, const \hyperlink{classMultimap}{Multimap} \&rhs)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Key, class T, class Compare$>$\newline
+class Multimap$<$ Key, T, Compare $>$}
+
+Ordre des déclarations (alias/prototypes) Selon \href{https://en.cppreference.com/w/cpp/container/multimap}{\tt https\+://en.\+cppreference.\+com/w/cpp/container/multimap} Trié par surcharge, dans l\textquotesingle{}ordre aussi, mis à part structure interne 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMultimap_a216f03259a422977ea001d281a810248}\label{classMultimap_a216f03259a422977ea001d281a810248}} 
+\index{Multimap@{Multimap}!cbegin@{cbegin}}
+\index{cbegin@{cbegin}!Multimap@{Multimap}}
+\subsubsection{\texorpdfstring{cbegin()}{cbegin()}}
+{\footnotesize\ttfamily template$<$class Key , class T , class Compare $>$ \\
+\hyperlink{classMultimapIterator}{const\+\_\+iterator} \hyperlink{classMultimap}{Multimap}$<$ Key, T, Compare $>$\+::cbegin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Itérateur de début constant Testé dans Test\+Iterator.\+cpp \mbox{\Hypertarget{classMultimap_a7e162ec76d003b3f888c8859a9b6ca03}\label{classMultimap_a7e162ec76d003b3f888c8859a9b6ca03}} 
+\index{Multimap@{Multimap}!cend@{cend}}
+\index{cend@{cend}!Multimap@{Multimap}}
+\subsubsection{\texorpdfstring{cend()}{cend()}}
+{\footnotesize\ttfamily template$<$class Key , class T , class Compare $>$ \\
+\hyperlink{classMultimapIterator}{const\+\_\+iterator} \hyperlink{classMultimap}{Multimap}$<$ Key, T, Compare $>$\+::cend (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Itérateur de past-\/the-\/end constant Testé dans Test\+Iterator.\+cpp \mbox{\Hypertarget{classMultimap_a0a507d3094aaa271c3f5932c9acef378}\label{classMultimap_a0a507d3094aaa271c3f5932c9acef378}} 
+\index{Multimap@{Multimap}!insert@{insert}}
+\index{insert@{insert}!Multimap@{Multimap}}
+\subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily template$<$class Key , class T , class Compare $>$ \\
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap}{Multimap}$<$ Key, T, Compare $>$\+::insert (\begin{DoxyParamCaption}\item[{\hyperlink{classMultimapIterator}{iterator}}]{position,  }\item[{const value\+\_\+type \&}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Insertion en conaissant déjà la position de l\textquotesingle{}élément Testé dans Test\+Modifier.\+cpp \mbox{\Hypertarget{classMultimap_aef5529b0f81f2262e6a9de27a5e47389}\label{classMultimap_aef5529b0f81f2262e6a9de27a5e47389}} 
+\index{Multimap@{Multimap}!insert@{insert}}
+\index{insert@{insert}!Multimap@{Multimap}}
+\subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily template$<$class Key , class T , class Compare $>$ \\
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap}{Multimap}$<$ Key, T, Compare $>$\+::insert (\begin{DoxyParamCaption}\item[{value\+\_\+type \&\&}]{pair }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Surcharge par rapport à la fonction template pour permettre l\textquotesingle{}appel par liste d\textquotesingle{}initialisation Testé dans Test\+Modifier.\+cpp \mbox{\Hypertarget{classMultimap_a62ba469ffdf46652eaa8ac007c590031}\label{classMultimap_a62ba469ffdf46652eaa8ac007c590031}} 
+\index{Multimap@{Multimap}!insert@{insert}}
+\index{insert@{insert}!Multimap@{Multimap}}
+\subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily template$<$class Key , class T , class Compare $>$ \\
+template$<$typename Input\+It $>$ \\
+void \hyperlink{classMultimap}{Multimap}$<$ Key, T, Compare $>$\+::insert (\begin{DoxyParamCaption}\item[{Input\+It}]{first,  }\item[{Input\+It}]{last }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Insertion par intervaleur d\textquotesingle{}itérateurs Testé dans Test\+Modifier.\+cpp \mbox{\Hypertarget{classMultimap_ad4cd112230c4781aa25f66d78f858dd6}\label{classMultimap_ad4cd112230c4781aa25f66d78f858dd6}} 
+\index{Multimap@{Multimap}!insert@{insert}}
+\index{insert@{insert}!Multimap@{Multimap}}
+\subsubsection{\texorpdfstring{insert()}{insert()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily template$<$class Key , class T , class Compare $>$ \\
+template$<$typename U $>$ \\
+\hyperlink{classMultimapIterator}{iterator} \hyperlink{classMultimap}{Multimap}$<$ Key, T, Compare $>$\+::insert (\begin{DoxyParamCaption}\item[{U \&\&}]{pair }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+\begin{DoxyParams}{Parameters}
+{\em pair} & Référence universelle Testé dans Test\+Modifier.\+cpp \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classMultimap_a3a9cc0a79670c0bf02221d1cde83e1e0}\label{classMultimap_a3a9cc0a79670c0bf02221d1cde83e1e0}} 
+\index{Multimap@{Multimap}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!Multimap@{Multimap}}
+\subsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily template$<$class Key , class T , class Compare $>$ \\
+std\+::ostream\& operator$<$$<$ (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{lhs,  }\item[{const \hyperlink{classMultimap}{Multimap}$<$ Key, T, Compare $>$ \&}]{rhs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+\subsubsection*{Fonctions non membres utiles }
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/multimap/Multimap.\+h\end{DoxyCompactItemize}

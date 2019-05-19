@@ -1,0 +1,51 @@
+\hypertarget{structTestSuite}{}\section{Test\+Suite$<$ N $>$ Struct Template Reference}
+\label{structTestSuite}\index{Test\+Suite$<$ N $>$@{Test\+Suite$<$ N $>$}}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structTestSuite_a0bc1f544eed95074c61943848b66ba11}\label{structTestSuite_a0bc1f544eed95074c61943848b66ba11}} 
+enum \{ {\bfseries empty\+Test} = 1
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename multimap\+\_\+t $>$ }\\multimap\+\_\+t \hyperlink{structTestSuite_a791fd382a8eb4d1f4f8d75369d3125dd}{operator()} ()=delete
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$int N$>$\newline
+struct Test\+Suite$<$ N $>$}
+
+Foncteur qui permet d\textquotesingle{}effectuer une suite d\textquotesingle{}opération sur une multimap. 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em N} & Indice de la suite d\textquotesingle{}opération à tester. L\textquotesingle{}ensemble des suites d\textquotesingle{}opérations \hyperlink{structTestSuite}{Test\+Suite}{\itshape  ou I appartient à \mbox{[}0;n\mbox{]} sera testé (consécutive) Où \{n\} est un entier positif, Et où chaque classe \hyperlink{structTestSuite}{Test\+Suite}{\itshape  est spécialisée et comporte un operator(). }}\\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structTestSuite_a791fd382a8eb4d1f4f8d75369d3125dd}\label{structTestSuite_a791fd382a8eb4d1f4f8d75369d3125dd}} 
+\index{Test\+Suite@{Test\+Suite}!operator()@{operator()}}
+\index{operator()@{operator()}!Test\+Suite@{Test\+Suite}}
+\subsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily template$<$int N$>$ \\
+template$<$typename multimap\+\_\+t $>$ \\
+multimap\+\_\+t \hyperlink{structTestSuite}{Test\+Suite}$<$ N $>$\+::operator() (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+Générer la multimap de test. Pour la structure générique, on considère que le test n\textquotesingle{}existe pas, Il faut surcharger la classe pour en définir un ce qui est détecté par S\+F\+I\+N\+AE si le membre empty\+Test existe.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em multimap\+\_\+t} & un type générique de \hyperlink{classMultimap}{Multimap} \\
+\hline
+\end{DoxyTemplParams}
+\begin{DoxyReturn}{Returns}
+La multimap généré à l\textquotesingle{}issu de l\textquotesingle{}algorithme. 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/test/Equivalence.\+cpp\end{DoxyCompactItemize}

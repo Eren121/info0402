@@ -24,7 +24,8 @@ set(SOURCES
     src/test/TestValueCompare.cpp
     src/test/TestConstructor.cpp
     src/test/TestIterator.cpp
-    src/test/TestModifier.cpp
+	src/test/TestModifier.cpp
+	src/test/TestMemory.cpp
     src/catch.cpp
     src/main.cpp)
 

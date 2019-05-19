@@ -1,0 +1,98 @@
+\hypertarget{classMapIterator}{}\section{Map\+Iterator$<$ Key, T $>$ Class Template Reference}
+\label{classMapIterator}\index{Map\+Iterator$<$ Key, T $>$@{Map\+Iterator$<$ Key, T $>$}}
+
+
+{\ttfamily \#include $<$Map.\+h$>$}
+
+
+
+Collaboration diagram for Map\+Iterator$<$ Key, T $>$\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{classMapIterator__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapIterator_a0e4864213515d9eac874cdfcedca6471}\label{classMapIterator_a0e4864213515d9eac874cdfcedca6471}} 
+typedef \hyperlink{classMap}{Map}$<$ Key, T $>$ {\bfseries container\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMapIterator_af7fd1f23ad34734d4a40a1ff0175c2b8}\label{classMapIterator_af7fd1f23ad34734d4a40a1ff0175c2b8}} 
+typedef std\+::input\+\_\+iterator\+\_\+tag {\bfseries iterator\+\_\+category}
+\item 
+\mbox{\Hypertarget{classMapIterator_a64f514ba6181c3210b2712848d1e4659}\label{classMapIterator_a64f514ba6181c3210b2712848d1e4659}} 
+typedef ptrdiff\+\_\+t {\bfseries difference\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMapIterator_af9d26e048bb4713c0d748d06c000a84d}\label{classMapIterator_af9d26e048bb4713c0d748d06c000a84d}} 
+typedef T $\ast$ {\bfseries pointer}
+\item 
+\mbox{\Hypertarget{classMapIterator_a45e98fa2e2cccd8f228a8367d5615f51}\label{classMapIterator_a45e98fa2e2cccd8f228a8367d5615f51}} 
+typedef T \& {\bfseries reference}
+\item 
+\mbox{\Hypertarget{classMapIterator_a14cdbf4a06035dee846e299ba371b6b2}\label{classMapIterator_a14cdbf4a06035dee846e299ba371b6b2}} 
+typedef container\+\_\+type\+::mapped\+\_\+type {\bfseries mapped\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMapIterator_a1994b9d365b07113c9ab428dd8d99d08}\label{classMapIterator_a1994b9d365b07113c9ab428dd8d99d08}} 
+typedef \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{container\+\_\+type\+::key\+\_\+type} {\bfseries key\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMapIterator_aa8c36b9be77994e93a7988f1f0c4edf8}\label{classMapIterator_aa8c36b9be77994e93a7988f1f0c4edf8}} 
+typedef container\+\_\+type\+::value\+\_\+type {\bfseries value\+\_\+type}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapIterator_a4a597df0199f1efc959b087be5a3c0a1}\label{classMapIterator_a4a597df0199f1efc959b087be5a3c0a1}} 
+{\bfseries Map\+Iterator} (\hyperlink{classMap}{container\+\_\+type} \&map, \hyperlink{structrb__iter}{rb\+\_\+iter} $\ast$ptr)
+\item 
+\mbox{\Hypertarget{classMapIterator_a43fcc4ceaf1341a460fe10f0f8c1970e}\label{classMapIterator_a43fcc4ceaf1341a460fe10f0f8c1970e}} 
+{\bfseries Map\+Iterator} (\hyperlink{classMap}{container\+\_\+type} \&map, const decltype(begin)\&)
+\item 
+\mbox{\Hypertarget{classMapIterator_a6d34d33e264c28ea94b63bc0fcb2d630}\label{classMapIterator_a6d34d33e264c28ea94b63bc0fcb2d630}} 
+{\bfseries Map\+Iterator} (\hyperlink{classMap}{container\+\_\+type} \&map, const decltype(end)\&)
+\item 
+\mbox{\Hypertarget{classMapIterator_a5861ef9d22090c35f7c3a0287c701afd}\label{classMapIterator_a5861ef9d22090c35f7c3a0287c701afd}} 
+{\bfseries Map\+Iterator} (const \hyperlink{classMapIterator}{Map\+Iterator} \&copy)
+\item 
+\mbox{\Hypertarget{classMapIterator_a5315a6bb774cd431a6dbe41be56828e6}\label{classMapIterator_a5315a6bb774cd431a6dbe41be56828e6}} 
+\hyperlink{classMapIterator}{Map\+Iterator} \& {\bfseries operator=} (const \hyperlink{classMapIterator}{Map\+Iterator} \&copy)
+\item 
+\mbox{\Hypertarget{classMapIterator_adf98d3f682253cb4b8e64a1cdc24d7d1}\label{classMapIterator_adf98d3f682253cb4b8e64a1cdc24d7d1}} 
+bool {\bfseries operator!=} (const \hyperlink{classMapIterator}{Map\+Iterator} \&other) const
+\item 
+\mbox{\Hypertarget{classMapIterator_a1c266e0517a5791e791b327d40f5ce99}\label{classMapIterator_a1c266e0517a5791e791b327d40f5ce99}} 
+bool {\bfseries operator==} (const \hyperlink{classMapIterator}{Map\+Iterator} \&other) const
+\item 
+\mbox{\Hypertarget{classMapIterator_a5d56804c2f1d6132b5668a4e5ee699c5}\label{classMapIterator_a5d56804c2f1d6132b5668a4e5ee699c5}} 
+\hyperlink{classMapIterator}{Map\+Iterator} \& {\bfseries operator++} ()
+\item 
+\mbox{\Hypertarget{classMapIterator_a3584d6f39ef2b74ceda095cb18e9e614}\label{classMapIterator_a3584d6f39ef2b74ceda095cb18e9e614}} 
+\hyperlink{classMapIterator}{Map\+Iterator} \& {\bfseries operator-\/-\/} ()
+\item 
+\mbox{\Hypertarget{classMapIterator_a5325635088a46c712a6e91026a252906}\label{classMapIterator_a5325635088a46c712a6e91026a252906}} 
+value\+\_\+type \& {\bfseries operator$\ast$} ()
+\item 
+\mbox{\Hypertarget{classMapIterator_a6ad9a230f77f15bfd6ade75e5b95bfb0}\label{classMapIterator_a6ad9a230f77f15bfd6ade75e5b95bfb0}} 
+value\+\_\+type $\ast$ {\bfseries operator-\/$>$} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMapIterator_a4ce43a10c73bb98307d40f6afcbf101c}\label{classMapIterator_a4ce43a10c73bb98307d40f6afcbf101c}} 
+static constexpr begin\+\_\+t {\bfseries begin} = \{\}
+\item 
+\mbox{\Hypertarget{classMapIterator_a00c4e49846b05c748ed93575610c79b0}\label{classMapIterator_a00c4e49846b05c748ed93575610c79b0}} 
+static constexpr end\+\_\+t {\bfseries end} = \{\}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Key, typename T$>$\newline
+class Map\+Iterator$<$ Key, T $>$}
+
+Class \hyperlink{classMapIterator}{Map\+Iterator} 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/map/Map.\+h\end{DoxyCompactItemize}

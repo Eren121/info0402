@@ -1,0 +1,156 @@
+\hypertarget{classMultimapIterator}{}\section{Multimap\+Iterator$<$ Key, Value, Compare, Is\+Const $>$ Class Template Reference}
+\label{classMultimapIterator}\index{Multimap\+Iterator$<$ Key, Value, Compare, Is\+Const $>$@{Multimap\+Iterator$<$ Key, Value, Compare, Is\+Const $>$}}
+
+
+Itérateur.  
+
+
+
+
+{\ttfamily \#include $<$Multimap\+Iterator.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a899266d0ec292bcb0cc369e5ee421434}\label{classMultimapIterator_a899266d0ec292bcb0cc369e5ee421434}} 
+using {\bfseries difference\+\_\+type} = std\+::ptrdiff\+\_\+t
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a3cdb3b8fcf5c7148a895559ed69f353f}\label{classMultimapIterator_a3cdb3b8fcf5c7148a895559ed69f353f}} 
+using {\bfseries iterator\+\_\+category} = std\+::bidirectional\+\_\+iterator\+\_\+tag
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a9c0233078690a6541aea151e6df0b3d7}\label{classMultimapIterator_a9c0233078690a6541aea151e6df0b3d7}} 
+using {\bfseries value\+\_\+type} = Pair
+\item 
+\mbox{\Hypertarget{classMultimapIterator_aaafa1d93e40c7a18504a95661938515f}\label{classMultimapIterator_aaafa1d93e40c7a18504a95661938515f}} 
+using {\bfseries pointer} = Pair $\ast$
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a4c5da38f2cdfa8a27f7db2da46cfa2fa}\label{classMultimapIterator_a4c5da38f2cdfa8a27f7db2da46cfa2fa}} 
+using {\bfseries reference} = Pair \&
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classMultimapIterator_ac8fed38e75dedfa911756c5d619e9b4a}{Multimap\+Iterator} ()
+\begin{DoxyCompactList}\small\item\em Constructeurs -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/------. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimapIterator_a52231305c8f71648ce98993273899874}\label{classMultimapIterator_a52231305c8f71648ce98993273899874}} 
+\hyperlink{classMultimapIterator_a52231305c8f71648ce98993273899874}{Multimap\+Iterator} (Container \&m)
+\begin{DoxyCompactList}\small\item\em Itérateur de fin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimapIterator_a03504a7b1b57e6e5216b63561510d6fe}\label{classMultimapIterator_a03504a7b1b57e6e5216b63561510d6fe}} 
+{\bfseries Multimap\+Iterator} (Container \&m, Node \&node, Single\+Node \&s)
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a79df350144602525d2ecd5701a69c5be}\label{classMultimapIterator_a79df350144602525d2ecd5701a69c5be}} 
+{\bfseries Multimap\+Iterator} (Container \&m, Node \&node, Position pos=F\+R\+O\+NT)
+\item 
+\mbox{\Hypertarget{classMultimapIterator_addb81cae98d05bb35e628eaa0bccb539}\label{classMultimapIterator_addb81cae98d05bb35e628eaa0bccb539}} 
+\hyperlink{classMultimapIterator_addb81cae98d05bb35e628eaa0bccb539}{Multimap\+Iterator} (const \hyperlink{classMultimapIterator}{Multimap\+Iterator} \&o)
+\begin{DoxyCompactList}\small\item\em Constructeur par copie. \end{DoxyCompactList}\item 
+{\footnotesize template$<$bool Is\+Const\+It$>$ }\\\hyperlink{classMultimapIterator_a97311a11001e54f21fd81c22f310eb3c}{Multimap\+Iterator} (const \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const\+It $>$ \&o)
+\item 
+const Key \& \hyperlink{classMultimapIterator_a016fca3267d16d48b57964ee39d9efae}{key} () const
+\begin{DoxyCompactList}\small\item\em Accesseurs -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/------. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimapIterator_a564b7e18dcbb0f5c27b0b0a7a4e38f8b}\label{classMultimapIterator_a564b7e18dcbb0f5c27b0b0a7a4e38f8b}} 
+value\+\_\+type \& \hyperlink{classMultimapIterator_a564b7e18dcbb0f5c27b0b0a7a4e38f8b}{operator$\ast$} () const
+\begin{DoxyCompactList}\small\item\em Récupère la paire \{clé, valeur\}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimapIterator_a1f71fdba1777563641dd148031e069d0}\label{classMultimapIterator_a1f71fdba1777563641dd148031e069d0}} 
+value\+\_\+type $\ast$ {\bfseries operator-\/$>$} () const
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a54ebc650ff944f37210e7755e2cdf9fa}\label{classMultimapIterator_a54ebc650ff944f37210e7755e2cdf9fa}} 
+\hyperlink{classMultimapIterator}{Multimap\+Iterator} \& \hyperlink{classMultimapIterator_a54ebc650ff944f37210e7755e2cdf9fa}{operator++} ()
+\begin{DoxyCompactList}\small\item\em Prochain élément (préfixe) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimapIterator_ae012d5b9a2df03f80da41b665752a9a8}\label{classMultimapIterator_ae012d5b9a2df03f80da41b665752a9a8}} 
+\hyperlink{classMultimapIterator}{Multimap\+Iterator} \hyperlink{classMultimapIterator_ae012d5b9a2df03f80da41b665752a9a8}{operator++} (int)
+\begin{DoxyCompactList}\small\item\em Prochain élément (postfixe) \end{DoxyCompactList}\item 
+\hyperlink{classMultimapIterator}{Multimap\+Iterator} \& \hyperlink{classMultimapIterator_a70a34f78b77e58c3137066f3515628fd}{operator-\/-\/} ()
+\item 
+\hyperlink{classMultimapIterator}{Multimap\+Iterator} \hyperlink{classMultimapIterator_acda65b98718a6dea2194f69dbdbcf5ee}{operator-\/-\/} (int)
+\item 
+\mbox{\Hypertarget{classMultimapIterator_af337db177c534cb9b9ffed2f43880e6a}\label{classMultimapIterator_af337db177c534cb9b9ffed2f43880e6a}} 
+\hyperlink{classMultimapIterator}{Multimap\+Iterator} \& \hyperlink{classMultimapIterator_af337db177c534cb9b9ffed2f43880e6a}{operator=} (const \hyperlink{classMultimapIterator}{Multimap\+Iterator} \&o)
+\begin{DoxyCompactList}\small\item\em Assignation par copie. \end{DoxyCompactList}\item 
+{\footnotesize template$<$bool Is\+Const\+It$>$ }\\bool \hyperlink{classMultimapIterator_ad8ae7f78f86f880a611c9bc4939ec98b}{operator==} (const \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const\+It $>$ \&rhs) const
+\begin{DoxyCompactList}\small\item\em Opérateurs -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/------. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMultimapIterator_a22772d2fe41f4cd132c2a882372473e3}\label{classMultimapIterator_a22772d2fe41f4cd132c2a882372473e3}} 
+{\footnotesize template$<$bool Is\+Const\+It$>$ }\\bool {\bfseries operator!=} (const \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const\+It $>$ \&rhs) const
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a6285b24f1f2750aac18f3ca3f8e1ff46}\label{classMultimapIterator_a6285b24f1f2750aac18f3ca3f8e1ff46}} 
+class {\bfseries Multimap$<$ Key, Value, Compare $>$}
+\item 
+\mbox{\Hypertarget{classMultimapIterator_a55b0482e033ddf2d5827503cf697da34}\label{classMultimapIterator_a55b0482e033ddf2d5827503cf697da34}} 
+class {\bfseries Multimap\+Iterator$<$ Key, Value, Compare, !\+Is\+Const $>$}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$class Key, class Value, class Compare, bool Is\+Const$>$\newline
+class Multimap\+Iterator$<$ Key, Value, Compare, Is\+Const $>$}
+
+Itérateur. 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMultimapIterator_ac8fed38e75dedfa911756c5d619e9b4a}\label{classMultimapIterator_ac8fed38e75dedfa911756c5d619e9b4a}} 
+\index{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}}
+\index{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}}
+\subsubsection{\texorpdfstring{Multimap\+Iterator()}{MultimapIterator()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Key , class Value , class Compare , bool Is\+Const$>$ \\
+\hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$\+::\hyperlink{classMultimapIterator}{Multimap\+Iterator} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructeurs -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/------. 
+
+Construit un itérateur invalide dont la seule action valide est de l\textquotesingle{}assigner à un autre itérateur \mbox{\Hypertarget{classMultimapIterator_a97311a11001e54f21fd81c22f310eb3c}\label{classMultimapIterator_a97311a11001e54f21fd81c22f310eb3c}} 
+\index{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}}
+\index{Multimap\+Iterator@{Multimap\+Iterator}!Multimap\+Iterator@{Multimap\+Iterator}}
+\subsubsection{\texorpdfstring{Multimap\+Iterator()}{MultimapIterator()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare, bool Is\+Const$>$ \\
+template$<$bool Is\+Const\+It$>$ \\
+\hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$\+::\hyperlink{classMultimapIterator}{Multimap\+Iterator} (\begin{DoxyParamCaption}\item[{const \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const\+It $>$ \&}]{o }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Permet la construction de const à partir de non-\/const Le constructeur par copie est préféré si Is\+Const = Is\+Const\+It 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMultimapIterator_a016fca3267d16d48b57964ee39d9efae}\label{classMultimapIterator_a016fca3267d16d48b57964ee39d9efae}} 
+\index{Multimap\+Iterator@{Multimap\+Iterator}!key@{key}}
+\index{key@{key}!Multimap\+Iterator@{Multimap\+Iterator}}
+\subsubsection{\texorpdfstring{key()}{key()}}
+{\footnotesize\ttfamily template$<$class Key , class Value , class Compare , bool Is\+Const$>$ \\
+const Key \& \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$\+::key (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Accesseurs -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/------. 
+
+Récupère la clé \mbox{\Hypertarget{classMultimapIterator_a70a34f78b77e58c3137066f3515628fd}\label{classMultimapIterator_a70a34f78b77e58c3137066f3515628fd}} 
+\index{Multimap\+Iterator@{Multimap\+Iterator}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!Multimap\+Iterator@{Multimap\+Iterator}}
+\subsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$class Key , class Value , class Compare , bool Is\+Const$>$ \\
+\hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$ \& \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$\+::operator-\/-\/ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Element précédent (préfixe) Si le conteneur est vide, comportement indéfini Si c\textquotesingle{}est le premier élément, comportement indéfini \mbox{\Hypertarget{classMultimapIterator_acda65b98718a6dea2194f69dbdbcf5ee}\label{classMultimapIterator_acda65b98718a6dea2194f69dbdbcf5ee}} 
+\index{Multimap\+Iterator@{Multimap\+Iterator}!operator-\/-\/@{operator-\/-\/}}
+\index{operator-\/-\/@{operator-\/-\/}!Multimap\+Iterator@{Multimap\+Iterator}}
+\subsubsection{\texorpdfstring{operator-\/-\/()}{operator--()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$class Key , class Value , class Compare , bool Is\+Const$>$ \\
+\hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$ \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$\+::operator-\/-\/ (\begin{DoxyParamCaption}\item[{int}]{ }\end{DoxyParamCaption})}
+
+Elément précédent (postfixe) Si le conteneur est vide, comportement indéfini Si c\textquotesingle{}est le premier élément, comportement indéfini \mbox{\Hypertarget{classMultimapIterator_ad8ae7f78f86f880a611c9bc4939ec98b}\label{classMultimapIterator_ad8ae7f78f86f880a611c9bc4939ec98b}} 
+\index{Multimap\+Iterator@{Multimap\+Iterator}!operator==@{operator==}}
+\index{operator==@{operator==}!Multimap\+Iterator@{Multimap\+Iterator}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$class Key, class Value, class Compare, bool Is\+Const$>$ \\
+template$<$bool Is\+Const\+It$>$ \\
+bool \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const $>$\+::operator== (\begin{DoxyParamCaption}\item[{const \hyperlink{classMultimapIterator}{Multimap\+Iterator}$<$ Key, Value, Compare, Is\+Const\+It $>$ \&}]{rhs }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Opérateurs -\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/------. 
+
+Egalité Deux itérateurs sont égaux s\textquotesingle{}ils pointent vers le même élément de la même multimap Dans le cas de l\textquotesingle{}itérateur de fin, il faut que se soit l\textquotesingle{}itérateur de fin des même conteneur 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/multimap/Multimap\+Iterator.\+h\end{DoxyCompactItemize}

@@ -1,0 +1,140 @@
+\hypertarget{classMap}{}\section{Map$<$ Key, T $>$ Class Template Reference}
+\label{classMap}\index{Map$<$ Key, T $>$@{Map$<$ Key, T $>$}}
+
+
+{\ttfamily \#include $<$Map.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+typedef Key \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMap_a67af90a93788106a4bccb7bdb25b4043}\label{classMap_a67af90a93788106a4bccb7bdb25b4043}} 
+typedef T {\bfseries mapped\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMap_aac88b3259dbb03265913dac381f5e1d1}\label{classMap_aac88b3259dbb03265913dac381f5e1d1}} 
+typedef std\+::pair$<$ const Key, T $>$ {\bfseries value\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMap_a92a41f8b7d75190387ba5f65288e4c64}\label{classMap_a92a41f8b7d75190387ba5f65288e4c64}} 
+typedef std\+::size\+\_\+t {\bfseries size\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMap_a2fffa438b772dcf7f9db4d0384679742}\label{classMap_a2fffa438b772dcf7f9db4d0384679742}} 
+typedef std\+::ptrdiff\+\_\+t {\bfseries difference\+\_\+type}
+\item 
+\mbox{\Hypertarget{classMap_af61f1c5b574090f135a59b3e1d024c06}\label{classMap_af61f1c5b574090f135a59b3e1d024c06}} 
+typedef T \& {\bfseries reference}
+\item 
+\mbox{\Hypertarget{classMap_a6fff6ed0e54b268611c65a108d85a773}\label{classMap_a6fff6ed0e54b268611c65a108d85a773}} 
+typedef const T \& {\bfseries const\+\_\+reference}
+\item 
+\mbox{\Hypertarget{classMap_ab90bca9d06d6b3739239a448e38b4d72}\label{classMap_ab90bca9d06d6b3739239a448e38b4d72}} 
+typedef T $\ast$ {\bfseries pointer}
+\item 
+\mbox{\Hypertarget{classMap_a64f8defdb22a1919b59b3930f562b48c}\label{classMap_a64f8defdb22a1919b59b3930f562b48c}} 
+typedef const T $\ast$ {\bfseries const\+\_\+pointer}
+\item 
+\mbox{\Hypertarget{classMap_a33941ca37977f3ff447f1917abadb24e}\label{classMap_a33941ca37977f3ff447f1917abadb24e}} 
+typedef \hyperlink{classMapIterator}{Map\+Iterator}$<$ Key, T $>$ {\bfseries iterator}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMap_a49c4ffcfa9ba5bd31de35b53c221f7e5}\label{classMap_a49c4ffcfa9ba5bd31de35b53c221f7e5}} 
+\hyperlink{classMap_a49c4ffcfa9ba5bd31de35b53c221f7e5}{Map} ()
+\begin{DoxyCompactList}\small\item\em Constructeurs. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMap_a46dd58359ab2daf8a9a1716887fa4117}\label{classMap_a46dd58359ab2daf8a9a1716887fa4117}} 
+\hyperlink{classMap_a46dd58359ab2daf8a9a1716887fa4117}{$\sim$\+Map} ()
+\begin{DoxyCompactList}\small\item\em Destructeur. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMap_a1c02b23ab8409b9a58e435bde918ee0c}\label{classMap_a1c02b23ab8409b9a58e435bde918ee0c}} 
+mapped\+\_\+type \& \hyperlink{classMap_a1c02b23ab8409b9a58e435bde918ee0c}{at} (const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&key) noexcept(false)
+\begin{DoxyCompactList}\small\item\em $\ast$$\ast$$\ast$operator= \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classMap_a307e9f53295d762c9779164bb1c63ff5}\label{classMap_a307e9f53295d762c9779164bb1c63ff5}} 
+mapped\+\_\+type \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&key)
+\item 
+\mbox{\Hypertarget{classMap_acddad9ed9807a59b7ecc293232432345}\label{classMap_acddad9ed9807a59b7ecc293232432345}} 
+\hyperlink{classMapIterator}{iterator} {\bfseries begin} ()
+\item 
+\mbox{\Hypertarget{classMap_a7757badfe22cfd0353b9be3ca0657bb9}\label{classMap_a7757badfe22cfd0353b9be3ca0657bb9}} 
+\hyperlink{classMapIterator}{iterator} {\bfseries end} ()
+\item 
+\mbox{\Hypertarget{classMap_adc19ca31d3af23f59500f19896f98e0d}\label{classMap_adc19ca31d3af23f59500f19896f98e0d}} 
+bool {\bfseries empty} () const
+\item 
+\mbox{\Hypertarget{classMap_ac09327f6b20e2cf6494db20b15a74553}\label{classMap_ac09327f6b20e2cf6494db20b15a74553}} 
+size\+\_\+type {\bfseries size} () const
+\item 
+\mbox{\Hypertarget{classMap_ad2df9271f8e95e5df3d76ee2fe3cdadf}\label{classMap_ad2df9271f8e95e5df3d76ee2fe3cdadf}} 
+size\+\_\+type {\bfseries max\+\_\+size} () const
+\item 
+\mbox{\Hypertarget{classMap_abaa97410af844e201b6cf3fead17cebf}\label{classMap_abaa97410af844e201b6cf3fead17cebf}} 
+void {\bfseries clear} () noexcept
+\item 
+\hyperlink{classMapIterator}{iterator} \hyperlink{classMap_a7ee01410e4c4ed9e8e678cc3b714f59f}{insert} (\hyperlink{classMapIterator}{iterator} hint, const value\+\_\+type \&value)
+\item 
+\mbox{\Hypertarget{classMap_a7c9c035cedcd27121db450b2720ea75d}\label{classMap_a7c9c035cedcd27121db450b2720ea75d}} 
+std\+::pair$<$ \hyperlink{classMapIterator}{iterator}, bool $>$ {\bfseries insert} (const value\+\_\+type \&val)
+\item 
+\mbox{\Hypertarget{classMap_a1a0b9c80e402040b8c14b7bddecba54a}\label{classMap_a1a0b9c80e402040b8c14b7bddecba54a}} 
+std\+::pair$<$ \hyperlink{classMapIterator}{iterator}, bool $>$ {\bfseries insert} (value\+\_\+type \&\&val, int)
+\item 
+size\+\_\+type \hyperlink{classMap_a87d125f634066766b87aae4092692453}{erase} (const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&key)
+\item 
+\mbox{\Hypertarget{classMap_a91cb676813d064b93bb6dd4476e3eb3e}\label{classMap_a91cb676813d064b93bb6dd4476e3eb3e}} 
+size\+\_\+type {\bfseries count} (const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&key)
+\item 
+\mbox{\Hypertarget{classMap_a4792661a13f3716bb12fc5be1235cde2}\label{classMap_a4792661a13f3716bb12fc5be1235cde2}} 
+\hyperlink{classMapIterator}{iterator} {\bfseries find} (const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&key)
+\item 
+\mbox{\Hypertarget{classMap_aa7ffb3495d9dc40110f77006230b32ed}\label{classMap_aa7ffb3495d9dc40110f77006230b32ed}} 
+\hyperlink{classMapIterator}{iterator} {\bfseries lower\+\_\+bound} (const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&key)
+\item 
+\mbox{\Hypertarget{classMap_acd736fa422a1f5be31b8bb8190949d27}\label{classMap_acd736fa422a1f5be31b8bb8190949d27}} 
+\hyperlink{classMapIterator}{iterator} {\bfseries upper\+\_\+bound} (const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&key)
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMap_ab0161446224830e3b2e9a36310acb4ae}\label{classMap_ab0161446224830e3b2e9a36310acb4ae}} 
+class {\bfseries Map\+Iterator$<$ Key, T $>$}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename Key, typename T$>$\newline
+class Map$<$ Key, T $>$}
+
+Classe \hyperlink{classMap}{Map} 
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classMap_a430e42d1c6a02e95eb3a34626e313441}\label{classMap_a430e42d1c6a02e95eb3a34626e313441}} 
+\index{Map@{Map}!key\+\_\+type@{key\+\_\+type}}
+\index{key\+\_\+type@{key\+\_\+type}!Map@{Map}}
+\subsubsection{\texorpdfstring{key\+\_\+type}{key\_type}}
+{\footnotesize\ttfamily template$<$typename Key , typename T $>$ \\
+typedef Key \hyperlink{classMap}{Map}$<$ Key, T $>$\+::\hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type}}
+
+Ordre des déclarations (alias/prototypes) selon \href{https://fr.cppreference.com/w/cpp/container/map}{\tt https\+://fr.\+cppreference.\+com/w/cpp/container/map} Trié par surcharge, dans l\textquotesingle{}ordre aussi 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classMap_a87d125f634066766b87aae4092692453}\label{classMap_a87d125f634066766b87aae4092692453}} 
+\index{Map@{Map}!erase@{erase}}
+\index{erase@{erase}!Map@{Map}}
+\subsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily template$<$typename Key , typename T $>$ \\
+size\+\_\+type \hyperlink{classMap}{Map}$<$ Key, T $>$\+::erase (\begin{DoxyParamCaption}\item[{const \hyperlink{classMap_a430e42d1c6a02e95eb3a34626e313441}{key\+\_\+type} \&}]{key }\end{DoxyParamCaption})}
+
+Supprime un élément de la \hyperlink{classMap}{Map}, retourne le nombre d\textquotesingle{}éléments supprimés (en l\textquotesingle{}occurence, zéro ou un) \begin{DoxyReturn}{Returns}
+1 si l\textquotesingle{}élément a été trouvé et supprimé 0 si l\textquotesingle{}élément n\textquotesingle{}a pas été trouvé 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMap_a7ee01410e4c4ed9e8e678cc3b714f59f}\label{classMap_a7ee01410e4c4ed9e8e678cc3b714f59f}} 
+\index{Map@{Map}!insert@{insert}}
+\index{insert@{insert}!Map@{Map}}
+\subsubsection{\texorpdfstring{insert()}{insert()}}
+{\footnotesize\ttfamily template$<$typename Key , typename T $>$ \\
+\hyperlink{classMapIterator}{iterator} \hyperlink{classMap}{Map}$<$ Key, T $>$\+::insert (\begin{DoxyParamCaption}\item[{\hyperlink{classMapIterator}{iterator}}]{hint,  }\item[{const value\+\_\+type \&}]{value }\end{DoxyParamCaption})}
+
+hint\+: ou serait l\textquotesingle{}élément dans la map Suggère donc d\textquotesingle{}insérer juste avant hint. Si la valeur n\textquotesingle{}est pas dans le bon ordre, recherche la bonne place de value sans utiliser hint. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/map/Map.\+h\end{DoxyCompactItemize}

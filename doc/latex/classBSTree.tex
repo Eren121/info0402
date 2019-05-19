@@ -1,0 +1,353 @@
+\hypertarget{classBSTree}{}\section{B\+S\+Tree$<$ T, N $>$ Class Template Reference}
+\label{classBSTree}\index{B\+S\+Tree$<$ T, N $>$@{B\+S\+Tree$<$ T, N $>$}}
+
+
+Arbre contenant des noeuds génériques.  
+
+
+
+
+{\ttfamily \#include $<$B\+S\+Tree.\+h$>$}
+
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+using \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} = N
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classBSTree_a4bdc6f7fed9c195675c2f8b0ebe6fc26}{B\+S\+Tree} ()
+\item 
+\hyperlink{classBSTree_a9e4b4529c80eea07260e73a0e2d4b448}{B\+S\+Tree} (const \hyperlink{classBSTree}{B\+S\+Tree} \&)=delete
+\item 
+\hyperlink{classBSTree_a3cc07ee6021bdf3094b2e69cb235eb49}{B\+S\+Tree} (\hyperlink{classBSTree}{B\+S\+Tree} \&\&o)
+\item 
+\hyperlink{classBSTree_a54457f700c5237425ebb3006b4306cb2}{$\sim$\+B\+S\+Tree} ()
+\item 
+\hyperlink{classBSTree}{B\+S\+Tree} \& \hyperlink{classBSTree_ac28ab11cb87c12f7338d0f5e1194fb5f}{operator=} (const \hyperlink{classBSTree}{B\+S\+Tree} \&)=delete
+\item 
+\hyperlink{classBSTree}{B\+S\+Tree} \& \hyperlink{classBSTree_a78c19a61f102ec3999ed62076651b9cb}{operator=} (\hyperlink{classBSTree}{B\+S\+Tree} \&\&o)
+\item 
+std\+::size\+\_\+t \hyperlink{classBSTree_a5a5453ddeb293754f7a5faf7a11ad066}{size} () const
+\item 
+bool \hyperlink{classBSTree_a4962f6576d06c47a12a94045b5c1efa8}{empty} () const
+\item 
+std\+::size\+\_\+t \hyperlink{classBSTree_ad8e76b92cb078260a0e16db55b0ddf00}{height} () const
+\item 
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} \& \hyperlink{classBSTree_a079e116466f53f9716387b5ac494f35e}{operator$\ast$} ()
+\item 
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} \& \hyperlink{classBSTree_a59915c35b54e0cef2260759c1392d006}{operator$\ast$} () const
+\item 
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_af16e2ebbb7e4b77039cd4733d0933311}{operator-\/$>$} ()
+\item 
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_a365c9985b08cb919c11dd91cdc3ef6ac}{operator-\/$>$} () const
+\item 
+{\footnotesize template$<$typename U $>$ }\\\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$$\ast$ \hyperlink{classBSTree_ab708b6687e1e241e3b101b5a7d1cff01}{create\+\_\+root} (U \&\&value)
+\item 
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_a0f3f60e54daa831cb783a922a7e0344c}{root} () const
+\item 
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_aed02cf07356874a6978850a8cf4802aa}{root} ()
+\item 
+void \hyperlink{classBSTree_a52894175798373289d7e1c779d8ab5f9}{erase} (\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$node)
+\item 
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_ad43333217921c01d7ea8af358c6b22af}{front} ()
+\item 
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_a015c11f386bc9f0e8b6ae9351de8daa3}{front} () const
+\item 
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_ae157e3cd6ea405927b214c51578cd999}{back} ()
+\item 
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$ \hyperlink{classBSTree_a4089d2fe1ca3ebe90ac7e951dbb50430}{back} () const
+\item 
+bool \hyperlink{classBSTree_a1228a7a210c99d7986eb74542e189c1f}{equals} (const std\+::initializer\+\_\+list$<$ T $>$ \&initl) const
+\item 
+bool \hyperlink{classBSTree_aae9d32f9035b1d0aa35a39bf9f196399}{operator!=} (const std\+::initializer\+\_\+list$<$ T $>$ \&initl) const
+\item 
+bool \hyperlink{classBSTree_a2d4d615e05b62cd917517b0b98150662}{operator==} (const std\+::initializer\+\_\+list$<$ T $>$ \&initl) const
+\item 
+void \hyperlink{classBSTree_a092be8c378a3f8f5acbd9dfec52d2e87}{clear} ()
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+std\+::ostream \& \hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator} (std\+::ostream \&lhs, const \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $>$ \&bstree)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T, typename N$>$\newline
+class B\+S\+Tree$<$ T, N $>$}
+
+Arbre contenant des noeuds génériques. 
+
+Arbre binaire 
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & type stocké \\
+\hline
+{\em N} & type du noeud \\
+\hline
+\end{DoxyTemplParams}
+
+
+\subsection{Member Typedef Documentation}
+\mbox{\Hypertarget{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}\label{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!Node@{Node}}
+\index{Node@{Node}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{Node}{Node}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+using \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} =  N}
+
+Type du noeud 
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBSTree_a4bdc6f7fed9c195675c2f8b0ebe6fc26}\label{classBSTree_a4bdc6f7fed9c195675c2f8b0ebe6fc26}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}}
+\index{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{B\+S\+Tree()}{BSTree()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree}{B\+S\+Tree} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructeur par défaut Créer un arbre vide \mbox{\Hypertarget{classBSTree_a9e4b4529c80eea07260e73a0e2d4b448}\label{classBSTree_a9e4b4529c80eea07260e73a0e2d4b448}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}}
+\index{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{B\+S\+Tree()}{BSTree()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree}{B\+S\+Tree} (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+Constructeur par copie \mbox{\Hypertarget{classBSTree_a3cc07ee6021bdf3094b2e69cb235eb49}\label{classBSTree_a3cc07ee6021bdf3094b2e69cb235eb49}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}}
+\index{B\+S\+Tree@{B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{B\+S\+Tree()}{BSTree()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree}{B\+S\+Tree} (\begin{DoxyParamCaption}\item[{\hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$ \&\&}]{o }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructeur par déplacement \mbox{\Hypertarget{classBSTree_a54457f700c5237425ebb3006b4306cb2}\label{classBSTree_a54457f700c5237425ebb3006b4306cb2}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!````~B\+S\+Tree@{$\sim$\+B\+S\+Tree}}
+\index{````~B\+S\+Tree@{$\sim$\+B\+S\+Tree}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{$\sim$\+B\+S\+Tree()}{~BSTree()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::$\sim$\hyperlink{classBSTree}{B\+S\+Tree} (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Destructeur 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classBSTree_ae157e3cd6ea405927b214c51578cd999}\label{classBSTree_ae157e3cd6ea405927b214c51578cd999}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!back@{back}}
+\index{back@{back}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{back()}{back()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupérer l\textquotesingle{}élément le plus grand de l\textquotesingle{}arbre (non constant) L\textquotesingle{}arbre ne doit pas être vide \mbox{\Hypertarget{classBSTree_a4089d2fe1ca3ebe90ac7e951dbb50430}\label{classBSTree_a4089d2fe1ca3ebe90ac7e951dbb50430}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!back@{back}}
+\index{back@{back}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{back()}{back()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::back (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupérer l\textquotesingle{}élément le plus petit de l\textquotesingle{}arbre (constant) L\textquotesingle{}arbre ne doit pas être vide \mbox{\Hypertarget{classBSTree_a092be8c378a3f8f5acbd9dfec52d2e87}\label{classBSTree_a092be8c378a3f8f5acbd9dfec52d2e87}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!clear@{clear}}
+\index{clear@{clear}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+void \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Vider entièrement l\textquotesingle{}arbre. Si l\textquotesingle{}arbre était déjà vide, ne fait rien. \mbox{\Hypertarget{classBSTree_ab708b6687e1e241e3b101b5a7d1cff01}\label{classBSTree_ab708b6687e1e241e3b101b5a7d1cff01}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!create\+\_\+root@{create\+\_\+root}}
+\index{create\+\_\+root@{create\+\_\+root}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{create\+\_\+root()}{create\_root()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+template$<$typename U $>$ \\
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::create\+\_\+root (\begin{DoxyParamCaption}\item[{U \&\&}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Créer une racine par référence universelle (copie ou déplacement). L\textquotesingle{}arbre doit être vide. 
+\begin{DoxyParams}{Parameters}
+{\em value} & La valeur de la racine \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classBSTree_a4962f6576d06c47a12a94045b5c1efa8}\label{classBSTree_a4962f6576d06c47a12a94045b5c1efa8}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!empty@{empty}}
+\index{empty@{empty}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+bool \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Tester si l\textquotesingle{}arbre est vide (c\textquotesingle{}est-\/à-\/dire s\textquotesingle{}il contient 0 noeuds).
+
+\begin{DoxyReturn}{Returns}
+true si l\textquotesingle{}arbre est vide, false sinon 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSTree_a1228a7a210c99d7986eb74542e189c1f}\label{classBSTree_a1228a7a210c99d7986eb74542e189c1f}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!equals@{equals}}
+\index{equals@{equals}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+bool \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::equals (\begin{DoxyParamCaption}\item[{const std\+::initializer\+\_\+list$<$ T $>$ \&}]{initl }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Comparaison avec une liste d\textquotesingle{}initialisation. Fournit une méthode \hyperlink{classBSTree_a1228a7a210c99d7986eb74542e189c1f}{equals()} car on ne peut pas comparer directement une liste d\textquotesingle{}initialisation littérale avec l\textquotesingle{}opérateur ==.
+
+
+\begin{DoxyParams}{Parameters}
+{\em initl} & la liste d\textquotesingle{}initialisation à comparer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si la liste d\textquotesingle{}initialisation correspond à l\textquotesingle{}arbre dans l\textquotesingle{}ordre infixe, false sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSTree_a52894175798373289d7e1c779d8ab5f9}\label{classBSTree_a52894175798373289d7e1c779d8ab5f9}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!erase@{erase}}
+\index{erase@{erase}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{erase()}{erase()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+void \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::erase (\begin{DoxyParamCaption}\item[{\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $\ast$}]{node }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Supprime un noeud de l\textquotesingle{}arbre L\textquotesingle{}arbre ne doit pas être vide
+
+
+\begin{DoxyParams}{Parameters}
+{\em node} & le noeud à supprimer \\
+\hline
+\end{DoxyParams}
+Insérer le noeud \mbox{\Hypertarget{classBSTree_ad43333217921c01d7ea8af358c6b22af}\label{classBSTree_ad43333217921c01d7ea8af358c6b22af}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!front@{front}}
+\index{front@{front}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{front()}{front()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupérer l\textquotesingle{}élément le plus petit de l\textquotesingle{}arbre (non constant) L\textquotesingle{}arbre ne doit pas être vide \mbox{\Hypertarget{classBSTree_a015c11f386bc9f0e8b6ae9351de8daa3}\label{classBSTree_a015c11f386bc9f0e8b6ae9351de8daa3}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!front@{front}}
+\index{front@{front}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{front()}{front()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::front (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupérer l\textquotesingle{}élément le plus petit de l\textquotesingle{}arbre (constant) L\textquotesingle{}arbre ne doit pas être vide \mbox{\Hypertarget{classBSTree_ad8e76b92cb078260a0e16db55b0ddf00}\label{classBSTree_ad8e76b92cb078260a0e16db55b0ddf00}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!height@{height}}
+\index{height@{height}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{height()}{height()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+std\+::size\+\_\+t \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::height (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère la hauteur de l\textquotesingle{}arbre (récursif)
+
+\begin{DoxyReturn}{Returns}
+la hauteur de l\textquotesingle{}arbre. 0 si l\textquotesingle{}arbre est vide 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSTree_aae9d32f9035b1d0aa35a39bf9f196399}\label{classBSTree_aae9d32f9035b1d0aa35a39bf9f196399}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+bool \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::operator!= (\begin{DoxyParamCaption}\item[{const std\+::initializer\+\_\+list$<$ T $>$ \&}]{initl }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Comparaison avec une liste d\textquotesingle{}initialisation
+
+
+\begin{DoxyParams}{Parameters}
+{\em initl} & la liste d\textquotesingle{}initialisation à comparer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+false si la liste d\textquotesingle{}initialisation correspond à l\textquotesingle{}arbre dans l\textquotesingle{}ordre infixe, true sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSTree_a079e116466f53f9716387b5ac494f35e}\label{classBSTree_a079e116466f53f9716387b5ac494f35e}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}\& \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator}$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupération des données (non constant) \mbox{\Hypertarget{classBSTree_a59915c35b54e0cef2260759c1392d006}\label{classBSTree_a59915c35b54e0cef2260759c1392d006}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator$\ast$()}{operator*()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}\& \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator}$\ast$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupération des données (constant) \mbox{\Hypertarget{classBSTree_af16e2ebbb7e4b77039cd4733d0933311}\label{classBSTree_af16e2ebbb7e4b77039cd4733d0933311}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator}-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupération des données pointées (non constant) \mbox{\Hypertarget{classBSTree_a365c9985b08cb919c11dd91cdc3ef6ac}\label{classBSTree_a365c9985b08cb919c11dd91cdc3ef6ac}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator-\/$>$@{operator-\/$>$}}
+\index{operator-\/$>$@{operator-\/$>$}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator-\/$>$()}{operator->()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator}-\/$>$ (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupération des données pointées (constant) \mbox{\Hypertarget{classBSTree_ac28ab11cb87c12f7338d0f5e1194fb5f}\label{classBSTree_ac28ab11cb87c12f7338d0f5e1194fb5f}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator=@{operator=}}
+\index{operator=@{operator=}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree}{B\+S\+Tree}\& \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator}= (\begin{DoxyParamCaption}\item[{const \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$ \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [delete]}}
+
+Assignation par copie \mbox{\Hypertarget{classBSTree_a78c19a61f102ec3999ed62076651b9cb}\label{classBSTree_a78c19a61f102ec3999ed62076651b9cb}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator=@{operator=}}
+\index{operator=@{operator=}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree}{B\+S\+Tree}\& \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator}= (\begin{DoxyParamCaption}\item[{\hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$ \&\&}]{o }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Assignation par déplacement \mbox{\Hypertarget{classBSTree_a2d4d615e05b62cd917517b0b98150662}\label{classBSTree_a2d4d615e05b62cd917517b0b98150662}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator==@{operator==}}
+\index{operator==@{operator==}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+bool \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::\hyperlink{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}{operator}== (\begin{DoxyParamCaption}\item[{const std\+::initializer\+\_\+list$<$ T $>$ \&}]{initl }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Comparaison avec une liste d\textquotesingle{}initialisation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em initl} & la liste d\textquotesingle{}initialisation à comparer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true si la liste d\textquotesingle{}initialisation correspond à l\textquotesingle{}arbre dans l\textquotesingle{}ordre infixe, false sinon. 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classBSTree_a0f3f60e54daa831cb783a922a7e0344c}\label{classBSTree_a0f3f60e54daa831cb783a922a7e0344c}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!root@{root}}
+\index{root@{root}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{root()}{root()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+const \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère la racine de l\textquotesingle{}arbre (constant) L\textquotesingle{}arbre ne doit pas être vide \mbox{\Hypertarget{classBSTree_aed02cf07356874a6978850a8cf4802aa}\label{classBSTree_aed02cf07356874a6978850a8cf4802aa}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!root@{root}}
+\index{root@{root}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{root()}{root()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+\hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node}$\ast$ \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::root (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère la racine de l\textquotesingle{}arbre (non constant) L\textquotesingle{}arbre ne doit pas être vide \mbox{\Hypertarget{classBSTree_a5a5453ddeb293754f7a5faf7a11ad066}\label{classBSTree_a5a5453ddeb293754f7a5faf7a11ad066}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!size@{size}}
+\index{size@{size}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+std\+::size\+\_\+t \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, N $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+Récupère la taille de l\textquotesingle{}arbre (récursif)
+
+\begin{DoxyReturn}{Returns}
+le nombre de noeuds de l\textquotesingle{}arbre 
+\end{DoxyReturn}
+
+
+\subsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}\label{classBSTree_a1e8a7cc184833a959c0e8139756c22a7}} 
+\index{B\+S\+Tree@{B\+S\+Tree}!operator@{operator}}
+\index{operator@{operator}!B\+S\+Tree@{B\+S\+Tree}}
+\subsubsection{\texorpdfstring{operator}{operator}}
+{\footnotesize\ttfamily template$<$typename T, typename N$>$ \\
+std\+::ostream\& operator (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{lhs,  }\item[{const \hyperlink{classBSTree}{B\+S\+Tree}$<$ T, \hyperlink{classBSTree_a9c1a06548b3ff425e1d906f17ce2c858}{Node} $>$ \&}]{bstree }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Affichage de l\textquotesingle{}arbre dans un flux (en infixé, ou sous forme d\textquotesingle{}arbre) 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/multimap/B\+S\+Tree.\+h\end{DoxyCompactItemize}

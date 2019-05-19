@@ -61,7 +61,7 @@ Counter::Counter(Counter&& other) : currentID(++nextID), trace(other.trace) {
 
 void Counter::printCount() {
 
-	std::cout << "\t\t" << Catch::getCurrentContext().getResultCapture()->getCurrentTestName() << std::endl;
+	std::cout << Catch::getCurrentContext().getResultCapture()->getCurrentTestName() << std::endl;
 	std::cout << balance << " Instances living" << std::endl;
 	std::cout << nextID << " Total instances created" << std::endl;
 	std::cout << constructions << " constructions\n";
